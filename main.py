@@ -3,14 +3,17 @@ import inputcode
 from daplayer import Player
 from sprite import sprites, Sprite
 from damap import TileKind, Map 
+from camera import create_screen
 
 pygame.init()
 
-pygame.display.set_caption("Oasis Finder")
-screen = pygame.display.set_mode((800,600))
+screen = create_screen(800, 600, "Oasis game")
+
+
+
 clear_color = (255, 239, 174) 
 running = True
-player = Player("images/player.png", 0,0)
+player = Player("images/player.png", 200,150)
 tile_kinds = [
     TileKind("sand", "images/sand.png", False),
     TileKind("cactus","images/Cacti.png", False)

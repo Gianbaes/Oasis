@@ -1,4 +1,5 @@
 import pygame
+from camera import camera
 
 class TileKind:
     def __init__(self, name, image, is_solid):
@@ -26,6 +27,6 @@ class Map:
     def draw(self, screen):
         for y, row in enumerate(self.tiles):
             for x, tile in enumerate(row):
-                location = (x * self.tile_size, y * self.tile_size)
+                location = (x * self.tile_size - camera.x, y * self.tile_size - camera.y)
                 image = self.tile_kinds[tile].image
                 screen.blit(image, location)
