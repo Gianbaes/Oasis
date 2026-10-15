@@ -1,47 +1,69 @@
-import pygame
-import inputcode
+from config import *
 from daplayer import Player
-from sprite import sprites, Sprite
-from damap import TileKind, Map 
-from camera import create_screen
+from sprites import *
+from pytmx.util_pygame import load_pygame
+from random import randint
 
-pygame.init()
+class Game:
+    def __init__(self):
+        #initilize
+        pygame.init()
+        self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+        pygame.display.set_caption("Oasis")
+        self.clock = pygame.time.Clock()
+        self.running = True
 
-screen = create_screen(800, 600, "Oasis game")
+        #note to self - the groups
+        self.the_sprites = pygame.sprite.Group()
+        self.Collision_SP = pygame.sprite.Group()
+
+        self.setup()
+
+        #note the sprite
+        self.player = Player((400,300), self.the_sprites, self.Collision_SP)
+        
+
+
+    
+    def setup(self):
+        tmx_map = load_pygame(join('data', 'maps', 'level-1.tmx'))
+
+        for x, y, image in tmx_map.get_layer_by_name('Background').tiles():
+            image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
+            Spriteg(
+                (x * TILE_SIZE, y * TILE_SIZE),
+                image,
+                self.the_sprites
+            )
+
+        for x, y, image in tmx_map.get_layer_by_name('Foreground').tiles():
+            image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
+            CollisionSP(
+                (x * TILE_SIZE, y * TILE_SIZE),
+                image,
+                (self.the_sprites, self.Collision_SP)
+            )
+
+
+    def run(self):
+        while self.running:
+            dt = self.clock.tick() / 1000
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+
+            self.the_sprites.update(dt) # updt sprite
+
+            self.display_surface.fill('Black')
+            self.the_sprites.draw(self.display_surface) #draw the sprite hehe
 
 
 
-clear_color = (255, 239, 174) 
-running = True
-player = Player("images/player.png", 200,150)
-tile_kinds = [
-    TileKind("sand", "images/sand.png", False),
-    TileKind("cactus","images/Cacti.png", False)
-]
-map = Map("mapa/start.map", tile_kinds, 32)
-Sprite("images/Pyramid.png", 7 * 32, 4*32)
-Sprite("images/Phynx.png",  200, 50)
-Sprite("images/Oasis.png", 400, 550)
+            pygame.display.update()
+        pygame.quit()
 
+#for running the loop
 
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.KEYDOWN:
-            inputcode.keys_down.add(event.key)
-        elif event.type == pygame.KEYUP:
-            inputcode.keys_down.remove(event.key)
-    #upd code
-    player.update()
-
-    #drawing
-    screen.fill(clear_color)
-    map.draw(screen)
-    for s in sprites:
-        s.draw(screen)
-    pygame.display.flip()
-
-    pygame.time.delay(15)
-
-pygame.quit()
+game = Game()
+game.run()
