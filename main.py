@@ -29,8 +29,14 @@ class Game:
     def setup(self): #maptile
         tmx_map = load_pygame(join('data', 'maps', 'level-1.tmx'))
 
+        for x, y, image in tmx_map.get_layer_by_name('Collision').tiles():
+                    image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
+                    CollisionSP(
+                        (x * TILE_SIZE, y * TILE_SIZE),
+                        image,
+                        (self.the_sprites, self.Collision_SP)
+                    )
         
-
         for x, y, image in tmx_map.get_layer_by_name('Background').tiles():
                     image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
                     Spriteg(
@@ -38,7 +44,13 @@ class Game:
                         image,
                         self.the_sprites
                     )
-
+        for x, y, image in tmx_map.get_layer_by_name('Oasis').tiles():
+                    image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
+                    Oasis(
+                        (x * TILE_SIZE, y * TILE_SIZE),
+                        image,
+                        self.the_sprites
+                    )
         for x, y, image in tmx_map.get_layer_by_name('Foreground').tiles():
                     image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
                     CollisionSP(
