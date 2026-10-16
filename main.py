@@ -3,6 +3,7 @@ from daplayer import Player
 from sprites import *
 from pytmx.util_pygame import load_pygame
 from random import randint
+from groups import TheSprites
 
 class Game:
     def __init__(self):
@@ -14,36 +15,38 @@ class Game:
         self.running = True
 
         #note to self - the groups
-        self.the_sprites = pygame.sprite.Group()
+        self.the_sprites = TheSprites()
         self.Collision_SP = pygame.sprite.Group()
 
         self.setup()
 
-        #note the sprite
+        #note the sprite of character
         self.player = Player((400,300), self.the_sprites, self.Collision_SP)
         
 
 
     
-    def setup(self):
+    def setup(self): #maptile
         tmx_map = load_pygame(join('data', 'maps', 'level-1.tmx'))
 
+        
+
         for x, y, image in tmx_map.get_layer_by_name('Background').tiles():
-            image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
-            Spriteg(
-                (x * TILE_SIZE, y * TILE_SIZE),
-                image,
-                self.the_sprites
-            )
+                    image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
+                    Spriteg(
+                        (x * TILE_SIZE, y * TILE_SIZE),
+                        image,
+                        self.the_sprites
+                    )
 
         for x, y, image in tmx_map.get_layer_by_name('Foreground').tiles():
-            image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
-            CollisionSP(
-                (x * TILE_SIZE, y * TILE_SIZE),
-                image,
-                (self.the_sprites, self.Collision_SP)
-            )
-
+                    image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
+                    CollisionSP(
+                        (x * TILE_SIZE, y * TILE_SIZE),
+                        image,
+                        (self.the_sprites, self.Collision_SP)
+                    )
+        
 
     def run(self):
         while self.running:
@@ -56,7 +59,7 @@ class Game:
             self.the_sprites.update(dt) # updt sprite
 
             self.display_surface.fill('Black')
-            self.the_sprites.draw(self.display_surface) #draw the sprite hehe
+            self.the_sprites.draw(self.player.rect.center) #draw the sprite hehe
 
 
 
