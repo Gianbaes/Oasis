@@ -1,7 +1,8 @@
 from config import *
 
+
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, Collision_SP, Oasis_SP):
+    def __init__(self, pos, groups, Collision_SP, oasis ):
         super().__init__(groups)
         self.image = pygame.image.load(join('images', 'Leftperson.png')).convert_alpha()
         self.rect = self.image.get_frect(center = pos)
@@ -11,8 +12,8 @@ class Player(pygame.sprite.Sprite):
         self.direction = pygame.Vector2()
         self.speed = 500
         self.Collision_SP = Collision_SP
-        self.Oasis = Oasis_SP
-
+        self.Oasis = oasis
+        self.winning = False
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -40,15 +41,15 @@ class Player(pygame.sprite.Sprite):
                     if self.direction.y < 0: self.hitbox_rect.top = sprite.rect.bottom
 
 
-    def Oasis_colli(self, direction): #collision logic
+    def Oasis_colli(self, direction): #oaisis logic
             for sprite in self.Oasis:
-                if sprite.rect.colliderect(self.hitbox_rect): #hit wall
+                if sprite.rect.inflate(-40, -40).colliderect(self.hitbox_rect): #hit wall
                     if direction == 'horizontal':
-                        if self.direction.x > 0: print('wow')
-                        if self.direction.x < 0: print('woww')
+                        if self.direction.x > 0: self.winning = True                        
+                        if self.direction.x < 0: self.winning = True
                     else:
-                        if self.direction.y > 0: print('win')
-                        if self.direction.y < 0: print('winn')
+                        if self.direction.y > 0: self.winning = True
+                        if self.direction.y < 0: self.winning = True
                     
     def update(self, dt):
         self.input()
