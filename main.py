@@ -3,7 +3,7 @@ from daplayer import Player
 from sprites import *
 from pytmx.util_pygame import load_pygame
 from random import randint
-from groups import TheSprites
+from groups import TheSprites, Oasiss
 
 class Game:
     def __init__(self):
@@ -17,11 +17,11 @@ class Game:
         #note to self - the groups
         self.the_sprites = TheSprites()
         self.Collision_SP = pygame.sprite.Group()
-
+        self.Oasis = Oasiss()
         self.setup()
 
         #note the sprite of character
-        self.player = Player((400,300), self.the_sprites, self.Collision_SP)
+        self.player = Player((400,300), self.the_sprites, self.Collision_SP, self.Oasis)
         
 
 
@@ -49,14 +49,14 @@ class Game:
                     Oasis(
                         (x * TILE_SIZE, y * TILE_SIZE),
                         image,
-                        self.the_sprites
+                        (self.the_sprites, self.Oasis)
                     )
         for x, y, image in tmx_map.get_layer_by_name('Foreground').tiles():
                     image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
                     CollisionSP(
-                        (x * TILE_SIZE, y * TILE_SIZE),
-                        image,
-                        (self.the_sprites, self.Collision_SP)
+                            (x * TILE_SIZE, y * TILE_SIZE),
+                            image,
+                            (self.the_sprites, self.Collision_SP)
                     )
         
 
@@ -70,7 +70,7 @@ class Game:
 
             self.the_sprites.update(dt) # updt sprite
 
-            self.display_surface.fill('Black')
+            self.display_surface.fill('Yellow')
             self.the_sprites.draw(self.player.rect.center) #draw the sprite hehe
 
 
