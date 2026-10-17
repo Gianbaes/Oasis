@@ -4,6 +4,7 @@ from sprites import *
 from pytmx.util_pygame import load_pygame
 from random import randint
 from groups import TheSprites, Oasiss
+import time
 
 
 class Game:
@@ -12,9 +13,11 @@ class Game:
         pygame.init()
         self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.display.set_caption("Oasis")
-        
+
         self.clock = pygame.time.Clock()
         self.running = True
+        self.wintime = None
+        self.restart_delay = 5000
 
         #note to self - the groups
         self.the_sprites = TheSprites()
@@ -24,8 +27,21 @@ class Game:
 
         #note the sprite of character
         self.player = Player((500,1200), self.the_sprites, self.Collision_SP, self.Oasis)
-        
-        
+
+    def victory(self):
+            WINdow = pygame.image.load(join('images', 'WINdow.png')).convert()
+            WINdow = pygame.transform.scale(WINdow, (1000, 500))
+
+            self.display_surface.blit( WINdow, (270,120))
+            pygame.display.update()
+
+            time.sleep(5)
+            self.wintime = None
+            pygame.quit()
+            game = Game()
+            game.run()
+
+
 
     
     def setup(self): #maptile
@@ -61,6 +77,8 @@ class Game:
                             image,
                             (self.the_sprites, self.Collision_SP)
                     )
+
+
     
     def run(self):
         while self.running:
@@ -74,23 +92,21 @@ class Game:
 
             bgimg = pygame.image.load(join('images', 'background.png')).convert()
             bgimg = pygame.transform.scale(bgimg, (WINDOW_WIDTH, WINDOW_HEIGHT))
-            WINdow = pygame.image.load(join('images', 'WINdow.png')).convert()
-            WINdow = pygame.transform.scale(WINdow, (1000, 500))
             
             
-
-
             self.display_surface.fill('Yellow')
             self.display_surface.blit(bgimg, (0,0))
             self.the_sprites.draw(self.player.rect.center) #draw the sprite hehe
 
             if self.player.winning:
-                   self.display_surface.blit( WINdow, (270,120))
+                self.victory()
 
+                  
             pygame.display.update()
-        pygame.quit()
 
-#for running the loop
 
+pygame.quit()
 game = Game()
 game.run()
+#for running the loop
+
