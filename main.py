@@ -22,11 +22,12 @@ class Game:
         #note to self - the groups
         self.the_sprites = TheSprites()
         self.Collision_SP = pygame.sprite.Group()
+        self.BigCollision_SP = pygame.sprite.Group()
         self.Oasis = Oasiss()
         self.setup()
 
         #note the sprite of character
-        self.player = Player((500,1200), self.the_sprites, self.Collision_SP, self.Oasis)
+        self.player = Player((500,1200), self.the_sprites, self.Collision_SP, self.BigCollision_SP, self.Oasis)
 
     def victory(self):
             WINdow = pygame.image.load(join('images', 'WINdow.png')).convert()
@@ -70,6 +71,15 @@ class Game:
                         image,
                         (self.the_sprites, self.Oasis)
                     )
+
+        for x, y, image in tmx_map.get_layer_by_name('Big obstacle').tiles():
+                            image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
+                            CollisionSP(
+                                    (x * TILE_SIZE, y * TILE_SIZE),
+                                    image,
+                                    (self.the_sprites, self.Collision_SP)
+                            )
+
         for x, y, image in tmx_map.get_layer_by_name('Foreground').tiles():
                     image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
                     CollisionSP(
