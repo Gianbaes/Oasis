@@ -24,6 +24,11 @@ Current Features :
 - animations
 
 #How to play
+ Requirement
+ -Python
+ -Pygame- ce
+ -pytmx
+
 You can copy this repository and execute 
 ```bash
 ./rungame.sh
