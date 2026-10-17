@@ -1,21 +1,22 @@
 # Oasis Searcher
 
-#Goal of the game : A world of dessert where you must find oasis before your hydration level turn 0 and die of thirst.
+# Goal of the game :
+ A world of dessert where you must find oasis before your hydration level turn 0 and die of thirst.
 
-#Game Rules 
+# Game Rules 
 -You have 60 s to find the oasis
 - Avoid obstacle
 - Use W,A,S,D to move
 
-Current Features :
+# Current Features :
 - map
--camera
--collision
--obstacle
--Thirst mechanics
--Oasis Mechanics (reach and find it to win)
+- camera
+- collision
+- obstacle
+- Thirst mechanics
+- Oasis Mechanics (reach and find it to win)
 
-#Planned Features for Next Update :
+# Planned Features for Next Update :
 - UI
 - more elements
 - level progression
@@ -23,11 +24,11 @@ Current Features :
 - enemies and more obstacle
 - animations
 
-#How to play
+# How to play
  Requirement
- -Python
- -Pygame- ce
- -pytmx
+ - Python
+ - Pygame- ce
+ - pytmx
 
 You can copy this repository and execute 
 ```bash
@@ -44,4 +45,4 @@ main.py
 You may also install the release
 
 
-NOTE : I am new in game dev and coding, so please do contact me if there are issues and problems
+# NOTE : I am new in game dev and coding, so please do contact me if there are issues and problems
