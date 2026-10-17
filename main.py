@@ -16,6 +16,10 @@ class Game:
 
         self.clock = pygame.time.Clock()
         self.running = True
+        
+        self.startcount = pygame.time.get_ticks()
+        self.endcount = 60000
+        self.dead = False
         self.wintime = None
         self.restart_delay = 5000
 
@@ -43,7 +47,20 @@ class Game:
             game.run()
 
 
+    def lose(self):
+            LOSEdow = pygame.image.load(join('images', 'LOSEdow.png')).convert()
+            LOSEdow = pygame.transform.scale(LOSEdow, (1000, 500))
 
+            self.display_surface.blit( LOSEdow, (270,120))
+            pygame.display.update()
+
+            time.sleep(5)
+            self.dead = False
+            pygame.quit()
+            game = Game()
+            game.run()
+           
+           
     
     def setup(self): #maptile
         
@@ -88,8 +105,7 @@ class Game:
                             (self.the_sprites, self.Collision_SP)
                     )
 
-
-    
+  
     def run(self):
         while self.running:
             dt = self.clock.tick() / 1000
@@ -102,14 +118,25 @@ class Game:
 
             bgimg = pygame.image.load(join('images', 'background.png')).convert()
             bgimg = pygame.transform.scale(bgimg, (WINDOW_WIDTH, WINDOW_HEIGHT))
-            
+
+            time_passed = pygame.time.get_ticks() - self.startcount
+            time_left = max(0,(self.endcount - time_passed) // 1000)
             
             self.display_surface.fill('Yellow')
             self.display_surface.blit(bgimg, (0,0))
             self.the_sprites.draw(self.player.rect.center) #draw the sprite hehe
 
+            font = pygame.font.Font(None, 50)
+            timer_countdown = font.render(f"Time left : {time_left}", True, "red")
+            self.display_surface.blit (timer_countdown,(700,0))
+
+
             if self.player.winning:
+
                 self.victory()
+
+            if time_left == 0 :
+                self.lose()
 
                   
             pygame.display.update()
