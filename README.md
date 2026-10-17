@@ -25,15 +25,15 @@ Current Features :
 
 #How to play
 You can copy this repository and execute 
-‘’bash
+```bash
 ./rungame.sh
-‘’
+```
 
 or execute
 
-‘’bash
+```bash
 main.py
-‘’
+```
 
 
 You may also install the release
