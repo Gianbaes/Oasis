@@ -12,7 +12,7 @@ class Game:
         #initilize
         pygame.init()
         self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-        pygame.display.set_caption("Oasis")
+        pygame.display.set_caption("Oasis_Searcher")
 
         self.clock = pygame.time.Clock()
         self.running = True
