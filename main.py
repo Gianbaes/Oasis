@@ -127,7 +127,7 @@ class Game:
             self.the_sprites.draw(self.player.rect.center) #draw the sprite hehe
 
             font = pygame.font.Font(None, 50)
-            timer_countdown = font.render(f"Time left : {time_left}", True, "red")
+            timer_countdown = font.render(f"Hydration level: {time_left}", True, "red")
             self.display_surface.blit (timer_countdown,(700,0))
 
 
