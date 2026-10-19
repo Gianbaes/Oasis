@@ -7,6 +7,7 @@ from groups import TheSprites, Oasiss
 import time
 
 
+
 class Game:
     def __init__(self):
         #initilize
@@ -37,7 +38,7 @@ class Game:
             WINdow = pygame.image.load(join('images', 'WINdow.png')).convert()
             WINdow = pygame.transform.scale(WINdow, (1000, 500))
 
-            self.display_surface.blit( WINdow, (270,120))
+            self.display_surface.blit( WINdow, (150,120))
             pygame.display.update()
 
             time.sleep(5)
@@ -51,7 +52,7 @@ class Game:
             LOSEdow = pygame.image.load(join('images', 'LOSEdow.png')).convert()
             LOSEdow = pygame.transform.scale(LOSEdow, (1000, 500))
 
-            self.display_surface.blit( LOSEdow, (270,120))
+            self.display_surface.blit( LOSEdow, (150,120))
             pygame.display.update()
 
             time.sleep(5)
