@@ -5,6 +5,8 @@ from pytmx.util_pygame import load_pygame
 from random import randint
 from groups import TheSprites, Oasiss
 import time
+from mainmenu import Main_Menu
+
 
 class Oasis_Game:
     def __init__(self):
@@ -35,14 +37,20 @@ class Oasis_Game:
     def victory(self):
             WINdow = pygame.image.load(join('images', 'WINdow.png')).convert()
             WINdow = pygame.transform.scale(WINdow, (1000, 500))
+            
 
             self.display_surface.blit( WINdow, (150,120))
             pygame.display.update()
 
             time.sleep(5)
+            
             self.wintime = None
             pygame.quit()
-            game = Game()
+
+            menu = Main_Menu()
+            menu.menurun()
+
+            game = Oasis_Game()
             game.run()
 
 
@@ -56,7 +64,7 @@ class Oasis_Game:
             time.sleep(5)
             self.dead = False
             pygame.quit()
-            game = Game()
+            game = Oasis_Game()
             game.run()
            
 
@@ -111,7 +119,7 @@ class Oasis_Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
-
+                
             self.the_sprites.update(dt) # updt sprite
 
             bgimg = pygame.image.load(join('images', 'background.png')).convert()
@@ -138,3 +146,6 @@ class Oasis_Game:
 
                   
             pygame.display.update()
+
+        pygame.quit()
+       

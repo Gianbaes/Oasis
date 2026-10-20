@@ -8,13 +8,16 @@ from random import randint
 from groups import TheSprites, Oasiss
 import time
 
-game = Oasis_Game()
 menu = Main_Menu()
 
 
 
 menu.menurun()
- 
+
+if menu.menurun():
+    game = Oasis_Game()
+    game.run()
+
 
 pygame.quit()
 
