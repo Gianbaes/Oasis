@@ -1,5 +1,4 @@
 from config import *
-import sys
 from os.path import join
 
 
@@ -10,17 +9,14 @@ class Main_Menu:
         pygame.display.set_caption("Oasis_Menu")
         self.display_surface.fill('Yellow')
        
-        
-        
-    
-
-        
+               
     def menurun(self):
 
         running = True
 
         while running:
             clicking = False
+            endgame = False
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -44,20 +40,37 @@ class Main_Menu:
                         WINDOW_HEIGHT//2)
             )
 
-            self.display_surface.blit(Menudow, (0,0))
-            self.display_surface.blit (start_text, start_rect)
-
-            mouse_alligned = start_rect.collidepoint((mouse_X, mouse_Y)) 
+            font = pygame.font.Font(None, 100)
+            quit_text = font.render(f"Quit", True, "red")
+            quit_rect = start_text.get_rect(
+                center = (WINDOW_WIDTH//2,
+                        (WINDOW_HEIGHT//2) + 100)
+            )
             
 
-            if mouse_alligned and clicking == True  :
+            self.display_surface.blit(Menudow, (0,0))
+            self.display_surface.blit (start_text, start_rect)
+            self.display_surface.blit (quit_text, quit_rect)
+
+            mouse_alligned_start = start_rect.collidepoint((mouse_X, mouse_Y)) 
+            mouse_alligned_quit = quit_rect.collidepoint((mouse_X, mouse_Y)) 
+                        
+            if mouse_alligned_start and clicking == True  :
                 return True
-                
+
+            if mouse_alligned_quit and clicking == True  :
+                endgame =  True
+
+
+            if endgame == True:
+                pygame.quit()
+                import sys ;sys.exit(1)
 
             pygame.display.update()
 
         pygame.quit()
-        sys.exit()
+        
+       
     
         
                         
