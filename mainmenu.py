@@ -27,23 +27,23 @@ class Main_Menu:
                         clicking = True
 
 
-            Menudow = pygame.image.load(join('images', 'mainmenu.png')).convert()
+            Menudow = pygame.image.load(join('images', 'menudow.png')).convert()
             Menudow = pygame.transform.scale(Menudow, (WINDOW_WIDTH, WINDOW_HEIGHT))
 
             mouse_X, mouse_Y = pygame.mouse.get_pos()
             
 
             font = pygame.font.Font(None, 100)
-            start_text = font.render(f"Start", True, "red")
+            start_text = font.render(f"Start", True, "Red")
             start_rect = start_text.get_rect(
-                center = (WINDOW_WIDTH//2,
+                center = (WINDOW_WIDTH//2 + 350,
                         WINDOW_HEIGHT//2)
             )
 
             font = pygame.font.Font(None, 100)
-            quit_text = font.render(f"Quit", True, "red")
+            quit_text = font.render(f"Quit", True, "Red")
             quit_rect = start_text.get_rect(
-                center = (WINDOW_WIDTH//2,
+                center = (WINDOW_WIDTH//2 + 350,
                         (WINDOW_HEIGHT//2) + 100)
             )
             
