@@ -55,6 +55,13 @@ you can run it through commands by using
 ```bash
 ./main
 ```
+dont forget to do 
+
+chmod +x main 
+
+to ensure bash access
+
+
 For Windows :
 coming soon (attempting to borrow laptop windows)
 
