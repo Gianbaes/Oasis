@@ -42,7 +42,19 @@ main.py
 ```
 
 
-You may also install the release
+You may also install the release 
+
+
+Only Linux is currently supported
+
+how :
+download main
+
+you can run it through commands by using
+
+```bash
+./main
+```
 
 
 # NOTE : I am new in game dev and coding, so please do contact me if there are issues and problems
