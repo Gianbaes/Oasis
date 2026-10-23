@@ -55,6 +55,7 @@ you can run it through commands by using
 ```bash
 ./main
 ```
-
+For Windows :
+coming soon (attempting to borrow laptop windows)
 
 # NOTE : I am new in game dev and coding, so please do contact me if there are issues and problems
