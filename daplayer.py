@@ -2,11 +2,32 @@ from config import *
 
 
 class Player(pygame.sprite.Sprite):
+
     def __init__(self, pos, groups, Collision_SP, BigCollision_SP, oasis ):
         super().__init__(groups)
-        self.image = pygame.image.load(join('images', 'Leftperson.png')).convert_alpha()
+
+
+        self.frames_left = [
+            pygame.image.load (join('images', 'animations', 'Leftperson0.png')).convert_alpha(),
+            pygame.image.load (join('images', 'animations', 'Leftperson1.png')).convert_alpha(),
+            pygame.image.load (join('images', 'animations', 'Leftperson2.png')).convert_alpha()
+            ]
+        self.frames_right = [
+            pygame.image.load (join('images', 'animations', 'Rightperson0.png')).convert_alpha(),
+            pygame.image.load (join('images', 'animations', 'Rightperson1.png')).convert_alpha(),
+            pygame.image.load (join('images', 'animations', 'Rightperson2.png')).convert_alpha()
+            ]
+
+
+        self.frame_index = 0
+        self.animation_speed = 8
+        self.facing = 'right'
+        self.image = self.frames_right[0]
+
+
         self.rect = self.image.get_frect(center = pos)
         self.hitbox_rect = self.rect.inflate(-20,-10)
+
 
     #moving variable
         self.direction = pygame.Vector2()
@@ -15,15 +36,18 @@ class Player(pygame.sprite.Sprite):
         self.Oasis = oasis
         self.BigCollision_SP = BigCollision_SP
         self.winning = False
+        self.Toleft = False
+    
+
+
 
     def input(self):
         keys = pygame.key.get_pressed()
 
-        
+        self.direction.x = int(keys[pygame.K_d]) - int(keys[pygame.K_a]) 
 
-
-        self.direction.x = int(keys[pygame.K_d]) - int(keys[pygame.K_a])
         self.direction.y = int(keys[pygame.K_s]) - int(keys[pygame.K_w])
+
         self.direction = self.direction.normalize() if self.direction else self.direction
 
     def move(self, dt):
@@ -65,7 +89,32 @@ class Player(pygame.sprite.Sprite):
                     else:
                         if self.direction.y > 0: self.winning = True
                         if self.direction.y < 0: self.winning = True
+
+
+    def animation(self, dt):
+
+                    if self.direction.x < 0: self.facing = 'left'
+                    elif self.direction.x > 0: self.facing = 'right'
+
+               
+                    if self.facing == 'left':
+                         frames = self.frames_left
+                    else:
+                         frames = self.frames_right
+
                     
+
+                    if self.direction:
+                         self.frame_index += self.animation_speed *dt 
+                         self.frame_index %= len(frames)
+                    else:
+                         self.frame_index = 0
+
+                    self.image = frames[int(self.frame_index)]
+                         
+
+
     def update(self, dt):
         self.input()
         self.move(dt)
+        self.animation(dt)
