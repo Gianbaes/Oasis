@@ -21,17 +21,20 @@ class Oasis_Game:
         self.wintime = False
         self.pause = False
         self.time_left = 60
-        self.restart_delay = 5000
+        self.currentlevel = 0
 
         #note to self - the groups
         self.the_sprites = TheSprites()
         self.Collision_SP = pygame.sprite.Group()
         self.BigCollision_SP = pygame.sprite.Group()
         self.Oasis = Oasiss()
-        self.setup()
+        
 
         #note the sprite of character
+        
+        
         self.player = Player((500,1200), self.the_sprites, self.Collision_SP, self.BigCollision_SP, self.Oasis)
+        self.setup()
 
     def victory(self):
             clicking = False
@@ -45,22 +48,45 @@ class Oasis_Game:
 
             mouse_X, mouse_Y = pygame.mouse.get_pos()
 
-            font = pygame.font.Font(None, 100)
+            font = pygame.font.Font(None, 70)
             retry_text = font.render(f"Return", True, "yellow")
             retry_rect = retry_text.get_rect(center =
                                              (650,550)
+                                        )
+
+            font = pygame.font.Font(None, 70)
+            next_text = font.render(f"Next", True, "yellow")
+            next_rect = next_text.get_rect(center =
+                                                (650,510)
                                         )
             
             self.display_surface.blit( WINdow, (150,120))
             
             self.display_surface.blit (retry_text, retry_rect)
+
+            self.display_surface.blit (next_text, next_rect)            
             
-            mouse_alligned = retry_rect.collidepoint((mouse_X, mouse_Y)) 
+            mouse_alligned_return = retry_rect.collidepoint((mouse_X, mouse_Y)) 
+            mouse_alligned_next = next_rect.collidepoint((mouse_X, mouse_Y))
                         
             self.wintime = True
             
+            if mouse_alligned_next and clicking == True  :
+                self.player.winning = False
+                self.wintime = False
+                self.currentlevel = self.currentlevel + 1
+                self.setup()
+                
 
-            if mouse_alligned and clicking == True  :
+                return
+                pygame.display.update()
+                
+                
+                
+                
+
+
+            if mouse_alligned_return and clicking == True  :
                 menu = Main_Menu()
                 menu.menurun()
                   
@@ -163,7 +189,33 @@ class Oasis_Game:
                 
     def setup(self): #maptile
         
-        tmx_map = load_pygame(join('data', 'maps', 'level-1.tmx'))
+        currentlevel = self.currentlevel
+
+
+        self.the_sprites.empty()
+        self.BigCollision_SP.empty()
+        self.Collision_SP.empty()
+        self.Oasis.empty()
+
+        spawnpoint = [
+              (500,120),
+              (500,120)
+        ]
+        
+        print (spawnpoint[currentlevel])
+
+        self.player.rect.topleft = spawnpoint[currentlevel]
+        
+        
+
+        levels =[ 
+            'level-1.tmx',
+            'level-2.tmx'              
+        ]
+
+        
+        
+        tmx_map = load_pygame(join('data', 'maps',levels[currentlevel]))
 
         for x, y, image in tmx_map.get_layer_by_name('Collision').tiles():
                     image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
@@ -204,6 +256,8 @@ class Oasis_Game:
                             (self.the_sprites, self.Collision_SP)
                     )
 
+        self.the_sprites.add(self.player)
+
     def run(self):
         while self.running:
             dt = self.clock.tick() / 1000
@@ -221,7 +275,7 @@ class Oasis_Game:
 
                 if self.wintime == False :
                     #time_passed = pygame.time.get_ticks() - self.startcount
-                    #self.time_left = max(0,(self.endcount - time_passed) // 1000)
+                    #self.time_left = max(0,(self.endcount - time_passed) // 1000) past code
                     self.time_left -= dt
                     self.time_left = max(0, self.time_left)
 

@@ -20,5 +20,5 @@ if menu.menurun():
 
 pygame.quit()
 
-#for running the loop
+#for running the loopdddd
 

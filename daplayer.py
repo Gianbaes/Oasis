@@ -39,7 +39,7 @@ class Player(pygame.sprite.Sprite):
         self.Toleft = False
     
 
-
+         
 
     def input(self):
         keys = pygame.key.get_pressed()
