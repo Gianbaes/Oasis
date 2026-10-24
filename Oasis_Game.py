@@ -33,7 +33,7 @@ class Oasis_Game:
         #note the sprite of character
         
         
-        self.player = Player((500,1200), self.the_sprites, self.Collision_SP, self.BigCollision_SP, self.Oasis)
+        
         self.setup()
 
     def victory(self):
@@ -43,7 +43,7 @@ class Oasis_Game:
                     if event.button == 1:
                         clicking = True
 
-            WINdow = pygame.image.load(join('images', 'WINdow.png')).convert()
+            WINdow = pygame.image.load(os.path.join(BASE_DIR, 'images', 'WINdow.png')).convert()
             WINdow = pygame.transform.scale(WINdow, (1000, 500))
 
             mouse_X, mouse_Y = pygame.mouse.get_pos()
@@ -106,7 +106,7 @@ class Oasis_Game:
                     if event.button == 1:
                         clicking = True
 
-        LOSEdow = pygame.image.load(join('images', 'LOSEdow.png')).convert()
+        LOSEdow = pygame.image.load(os.path.join(BASE_DIR, 'images', 'LOSEdow.png')).convert()
         LOSEdow = pygame.transform.scale(LOSEdow, (1000, 500))
 
         mouse_X, mouse_Y = pygame.mouse.get_pos()
@@ -198,16 +198,15 @@ class Oasis_Game:
         self.Oasis.empty()
 
         spawnpoint = [
-              (500,120),
-              (500,120)
+              (500,1020),
+              (300,1700)
         ]
         
         print (spawnpoint[currentlevel])
 
-        self.player.rect.topleft = spawnpoint[currentlevel]
+        playerlevel = spawnpoint[currentlevel]
         
         
-
         levels =[ 
             'level-1.tmx',
             'level-2.tmx'              
@@ -215,7 +214,7 @@ class Oasis_Game:
 
         
         
-        tmx_map = load_pygame(join('data', 'maps',levels[currentlevel]))
+        tmx_map = load_pygame(os.path.join(BASE_DIR, 'data', 'maps',levels[currentlevel]))
 
         for x, y, image in tmx_map.get_layer_by_name('Collision').tiles():
                     image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
@@ -256,6 +255,8 @@ class Oasis_Game:
                             (self.the_sprites, self.Collision_SP)
                     )
 
+        self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, self.Oasis)
+        
         self.the_sprites.add(self.player)
 
     def run(self):
@@ -280,7 +281,7 @@ class Oasis_Game:
                     self.time_left = max(0, self.time_left)
 
 
-            bgimg = pygame.image.load(join('images', 'background.png')).convert()
+            bgimg = pygame.image.load(os.path.join(BASE_DIR, 'images', 'background.png')).convert()
             bgimg = pygame.transform.scale(bgimg, (WINDOW_WIDTH, WINDOW_HEIGHT))
 
             

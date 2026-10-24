@@ -8,14 +8,14 @@ class Player(pygame.sprite.Sprite):
 
 
         self.frames_left = [
-            pygame.image.load (join('images', 'animations', 'Leftperson0.png')).convert_alpha(),
-            pygame.image.load (join('images', 'animations', 'Leftperson1.png')).convert_alpha(),
-            pygame.image.load (join('images', 'animations', 'Leftperson2.png')).convert_alpha()
+            pygame.image.load (os.path.join(BASE_DIR,'images', 'animations', 'Leftperson0.png')).convert_alpha(),
+            pygame.image.load (os.path.join(BASE_DIR,'images', 'animations', 'Leftperson1.png')).convert_alpha(),
+            pygame.image.load (os.path.join(BASE_DIR,'images', 'animations', 'Leftperson2.png')).convert_alpha()
             ]
         self.frames_right = [
-            pygame.image.load (join('images', 'animations', 'Rightperson0.png')).convert_alpha(),
-            pygame.image.load (join('images', 'animations', 'Rightperson1.png')).convert_alpha(),
-            pygame.image.load (join('images', 'animations', 'Rightperson2.png')).convert_alpha()
+            pygame.image.load (os.path.join(BASE_DIR,'images', 'animations', 'Rightperson0.png')).convert_alpha(),
+            pygame.image.load (os.path.join(BASE_DIR,'images', 'animations', 'Rightperson1.png')).convert_alpha(),
+            pygame.image.load (os.path.join(BASE_DIR,'images', 'animations', 'Rightperson2.png')).convert_alpha()
             ]
 
 

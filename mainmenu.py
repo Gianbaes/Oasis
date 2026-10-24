@@ -27,7 +27,7 @@ class Main_Menu:
                         clicking = True
 
 
-            Menudow = pygame.image.load(join('images', 'menudow.png')).convert()
+            Menudow = pygame.image.load(os.path.join(BASE_DIR,'images', 'menudow.png')).convert()
             Menudow = pygame.transform.scale(Menudow, (WINDOW_WIDTH, WINDOW_HEIGHT))
 
             mouse_X, mouse_Y = pygame.mouse.get_pos()
