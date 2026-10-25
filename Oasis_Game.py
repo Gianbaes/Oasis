@@ -48,44 +48,55 @@ class Oasis_Game:
             WINdow = pygame.transform.scale(WINdow, (1000, 500))
 
             mouse_X, mouse_Y = pygame.mouse.get_pos()
-
-            font = pygame.font.Font(None, 70)
-            retry_text = font.render(f"Return", True, "yellow")
-            retry_rect = retry_text.get_rect(center =
-                                             (650,550)
-                                        )
-
-            font = pygame.font.Font(None, 70)
-            next_text = font.render(f"Next", True, "yellow")
-            next_rect = next_text.get_rect(center =
-                                                (650,510)
-                                        )
             
             self.display_surface.blit( WINdow, (150,120))
-            
-            self.display_surface.blit (retry_text, retry_rect)
 
             if  self.currentlevel >= 1 :
                   maxlevel = True
 
-            if not maxlevel :
-                self.display_surface.blit (next_text, next_rect)            
+            if maxlevel == False :
+                font = pygame.font.Font(None, 70)
+                retry_text = font.render(f"Return", True, "yellow")
+                retry_rect = retry_text.get_rect(center =
+                                                    (650,550)
+                                            )
+    
+                font = pygame.font.Font(None, 70)
+                next_text = font.render(f"Next", True, "yellow")
+                next_rect = next_text.get_rect(center =
+                                                    (650,510)
+                                            )
+                
+                self.display_surface.blit (next_text, next_rect) 
+                self.display_surface.blit (retry_text, retry_rect)
+
+                mouse_alligned_next = next_rect.collidepoint((mouse_X, mouse_Y))
+
+                if mouse_alligned_next and clicking == True  :
+                        self.player.winning = False
+                        self.wintime = False
+                        self.currentlevel = self.currentlevel + 1
+                        self.setup()
+                                    
+                    
+                        return
+                        pygame.display.update()
+
+            else :
+
+                font = pygame.font.Font(None, 100)
+                retry_text = font.render(f"Return", True, "yellow")
+                retry_rect = retry_text.get_rect(center =
+                                                    (650,550)
+                                            )
+    
+                self.display_surface.blit (retry_text, retry_rect)         
             
             mouse_alligned_return = retry_rect.collidepoint((mouse_X, mouse_Y)) 
-            mouse_alligned_next = next_rect.collidepoint((mouse_X, mouse_Y))
                         
             self.wintime = True
             
-            if mouse_alligned_next and clicking == True  :
-                self.player.winning = False
-                self.wintime = False
-                self.currentlevel = self.currentlevel + 1
-                self.setup()
-                
-
-                return
-                pygame.display.update()
-
+           
             if mouse_alligned_return and clicking == True  :
                 menu = Main_Menu()
                 menu.menurun()
@@ -93,7 +104,6 @@ class Oasis_Game:
                 game = Oasis_Game()
                 game.run()
 
-                
                 pygame.quit()
 
             pygame.display.update()
@@ -199,7 +209,7 @@ class Oasis_Game:
 
         spawnpoint = [
               (500,1020),
-              (300,1700)
+              (300,1710)
         ]
         
         print (spawnpoint[currentlevel])
