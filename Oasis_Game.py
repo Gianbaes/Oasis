@@ -22,6 +22,7 @@ class Oasis_Game:
         self.pause = False
         self.time_left = 60
         self.currentlevel = 0
+        self.lastlevel = 2
 
         #note to self - the groups
         self.the_sprites = TheSprites()
@@ -51,14 +52,14 @@ class Oasis_Game:
             
             self.display_surface.blit( WINdow, (150,120))
 
-            if  self.currentlevel >= 1 :
+            if  self.currentlevel >= self.lastlevel :
                   maxlevel = True
 
             if maxlevel == False :
                 font = pygame.font.Font(None, 70)
                 retry_text = font.render(f"Return", True, "yellow")
                 retry_rect = retry_text.get_rect(center =
-                                                    (650,550)
+                                                    (650,560)
                                             )
     
                 font = pygame.font.Font(None, 70)
@@ -66,6 +67,7 @@ class Oasis_Game:
                 next_rect = next_text.get_rect(center =
                                                     (650,510)
                                             )
+                next_rect.inflate(700,520)
                 
                 self.display_surface.blit (next_text, next_rect) 
                 self.display_surface.blit (retry_text, retry_rect)
@@ -208,6 +210,7 @@ class Oasis_Game:
         self.Oasis.empty()
 
         spawnpoint = [
+              (100,1200),
               (500,1020),
               (300,1710)
         ]
@@ -218,6 +221,7 @@ class Oasis_Game:
         
         
         levels =[ 
+            'level-0.tmx',
             'level-1.tmx',
             'level-2.tmx'              
         ]
