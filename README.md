@@ -1,12 +1,14 @@
 # Oasis Searcher
-
+![alt text](images/menudow.png)
 # Goal of the game :
  A world of dessert where you must find oasis before your hydration level turn 0 and die of thirst.
 
 # Game Rules 
 -You have 60 s to find the oasis
+
 - Avoid obstacle
 - Use W,A,S,D to move
+-press space to pause
 
 # Current Features :
 - map
@@ -16,50 +18,57 @@
 - Thirst mechanics
 - Oasis Mechanics (reach and find it to win)
 
+version 2
+- menu system
+- Modified Assets
+- Animations
+- retry button
+- return button
+- Pause Menu
+- Timer Modifications
+- Level System 
+currently only 3 levels for now
+
+
 # Planned Features for Next Update :
-- UI
-- more elements
-- level progression
-- model variety
-- enemies and more obstacle
-- animations
+- Mini Oasis and wells (for repleneshing Thirst)
+- Great Oasis (will be the main goal)
+- Proper HUD
+- Save system
+- level Selection
+- Player Upgrades
+- End level rating with stars
 
 # How to play
- Requirement
- - Python
- - Pygame- ce
- - pytmx
-
-You can copy this repository and execute 
-```bash
-./rungame.sh
-```
-
-or execute
-
-```bash
-main.py
-```
-
-
-You may also install the release 
-
 
 Only Linux is currently supported
 
 how :
-download main
+download Oasis_Searcher
 
-you can run it through commands by using
+you can run it on your linux or run through commands by using
 
 ```bash
-./main
+./Oasis_Searcher
 ```
 dont forget to do 
 
 chmod +x main 
 
 to ensure bash access
+
+Alternatively You can download source.zip
+
+ Requirement
+ - Python
+ - Pygame- ce
+ - pytmx
+
+You can copy this repository and execute 
+
+```bash
+main.py
+```
 
 
 For Windows :
