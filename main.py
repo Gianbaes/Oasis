@@ -11,7 +11,6 @@ import time
 menu = Main_Menu()
 
 
-
 menu.menurun()   
 if menu.menurun():
     game = Oasis_Game()

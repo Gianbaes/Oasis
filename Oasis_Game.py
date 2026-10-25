@@ -38,6 +38,7 @@ class Oasis_Game:
 
     def victory(self):
             clicking = False
+            maxlevel = False
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
@@ -64,7 +65,11 @@ class Oasis_Game:
             
             self.display_surface.blit (retry_text, retry_rect)
 
-            self.display_surface.blit (next_text, next_rect)            
+            if  self.currentlevel >= 1 :
+                  maxlevel = True
+
+            if not maxlevel :
+                self.display_surface.blit (next_text, next_rect)            
             
             mouse_alligned_return = retry_rect.collidepoint((mouse_X, mouse_Y)) 
             mouse_alligned_next = next_rect.collidepoint((mouse_X, mouse_Y))
@@ -80,11 +85,6 @@ class Oasis_Game:
 
                 return
                 pygame.display.update()
-                
-                
-                
-                
-
 
             if mouse_alligned_return and clicking == True  :
                 menu = Main_Menu()
