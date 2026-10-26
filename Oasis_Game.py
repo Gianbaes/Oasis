@@ -20,7 +20,7 @@ class Oasis_Game:
         self.dead = False
         self.wintime = False
         self.pause = False
-        self.time_left = 60
+    
         self.currentlevel = 0
         self.lastlevel = 2
 
@@ -203,11 +203,19 @@ class Oasis_Game:
         
         currentlevel = self.currentlevel
 
-
         self.the_sprites.empty()
         self.BigCollision_SP.empty()
         self.Collision_SP.empty()
         self.Oasis.empty()
+
+
+        levelstime =[ 
+                    60,
+                    45,
+                    30              
+                ]
+
+        self.time_left  = levelstime[currentlevel]
 
         spawnpoint = [
               (100,1200),
@@ -215,7 +223,6 @@ class Oasis_Game:
               (300,1710)
         ]
         
-        print (spawnpoint[currentlevel])
 
         playerlevel = spawnpoint[currentlevel]
         
@@ -274,6 +281,13 @@ class Oasis_Game:
         self.the_sprites.add(self.player)
 
     def run(self):
+
+    
+
+            
+
+
+
         while self.running:
             dt = self.clock.tick() / 1000
 
@@ -289,8 +303,6 @@ class Oasis_Game:
                 self.the_sprites.update(dt) # updt sprite
 
                 if self.wintime == False :
-                    #time_passed = pygame.time.get_ticks() - self.startcount
-                    #self.time_left = max(0,(self.endcount - time_passed) // 1000) past code
                     self.time_left -= dt
                     self.time_left = max(0, self.time_left)
 
@@ -315,10 +327,10 @@ class Oasis_Game:
             timer_countdown = font.render(f"Hydration level: {int(self.time_left)}", True, colortime)
             
             font = pygame.font.Font(None, 30)
-            pausetext = font.render("Press SPACE to Pause", True, "White")
+            pausetext = font.render("Press SPACE to Pause", True, "Yellow")
 
             self.display_surface.blit(timer_countdown,(500,0))
-            self.display_surface.blit(pausetext,(0,700))
+            self.display_surface.blit(pausetext,(0,0))
 
             if self.player.winning:
 
