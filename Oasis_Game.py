@@ -124,21 +124,35 @@ class Oasis_Game:
         mouse_X, mouse_Y = pygame.mouse.get_pos()
 
         font = pygame.font.Font(None, 100)
+        return_text = font.render(f"Return", True, "Red")
+        return_rect = return_text.get_rect(center =
+                                        (650,570)
+                                    )
+
+        font = pygame.font.Font(None, 100)
         retry_text = font.render(f"Retry", True, "Red")
         retry_rect = retry_text.get_rect(center =
-                                        (650,550)
+                                        (650,510)
                                     )
             
         self.display_surface.blit( LOSEdow, (150,120))
-        
+
+        self.display_surface.blit (return_text, return_rect)
         self.display_surface.blit (retry_text, retry_rect)
         
-        mouse_alligned = retry_rect.collidepoint((mouse_X, mouse_Y)) 
+        mouse_alligned_retry = retry_rect.collidepoint((mouse_X, mouse_Y)) 
+        mouse_alligned_return = return_rect.collidepoint((mouse_X, mouse_Y))
+
                     
         self.wintime = True
-        
 
-        if mouse_alligned and clicking == True  :
+        if mouse_alligned_retry and clicking == True  :
+            self.wintime = False
+            self.setup()
+            
+            return
+
+        if mouse_alligned_return and clicking == True  :
             menu = Main_Menu()
             menu.menurun()
                 
@@ -282,12 +296,6 @@ class Oasis_Game:
 
     def run(self):
 
-    
-
-            
-
-
-
         while self.running:
             dt = self.clock.tick() / 1000
 
@@ -327,10 +335,10 @@ class Oasis_Game:
             timer_countdown = font.render(f"Hydration level: {int(self.time_left)}", True, colortime)
             
             font = pygame.font.Font(None, 30)
-            pausetext = font.render("Press SPACE to Pause", True, "Yellow")
+            pausetext = font.render("Press SPACE to Pause", True, "Blue")
 
             self.display_surface.blit(timer_countdown,(500,0))
-            self.display_surface.blit(pausetext,(0,0))
+            self.display_surface.blit(pausetext,(0,650))
 
             if self.player.winning:
 
