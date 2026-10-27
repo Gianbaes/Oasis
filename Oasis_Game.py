@@ -6,6 +6,7 @@ from random import randint
 from groups import TheSprites, Oasiss
 import time
 from mainmenu import Main_Menu
+from levelselection import Levelselection
 
 
 class Oasis_Game:
@@ -20,6 +21,7 @@ class Oasis_Game:
         self.dead = False
         self.wintime = False
         self.pause = False
+        
     
         self.currentlevel = 0
         self.lastlevel = 2
@@ -151,7 +153,7 @@ class Oasis_Game:
         self.wintime = True
 
         if mouse_alligned_retry and clicking == True  :
-            
+
             self.wintime = False                 
             self.setup()
             self.gamerunning = True
@@ -232,7 +234,7 @@ class Oasis_Game:
 
 
         levelstime =[ 
-                    6,
+                    60,
                     45,
                     30              
                 ]
