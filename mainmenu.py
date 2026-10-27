@@ -66,13 +66,13 @@ class Main_Menu:
             mouse_alligned_quit = quit_rect.collidepoint((mouse_X, mouse_Y)) 
                         
             if mouse_alligned_start and clicking == True  :
-                return True
+                return "start"
 
             if mouse_alligned_levels and clicking == True  :
-                level = Levelselection()
-                level.levelmenu()
+                return "levels"
 
             if mouse_alligned_quit and clicking == True  :
+                return "quit"
                 endgame =  True
 
 

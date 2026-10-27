@@ -1,5 +1,6 @@
 from config import *
 from os.path import join
+from Oasis_Game import Oasis_Game
 
 
 class Levelselection():
@@ -9,10 +10,13 @@ class Levelselection():
         pygame.display.set_caption("Oasis_Levels")
         self.display_surface.fill ((15, 25, 60))
         
+        
 
 
     def levelmenu(self):
         running = True
+
+        pygame.event.clear()
         
         while running:
             clicking = False
@@ -20,8 +24,10 @@ class Levelselection():
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.running = False
-                    return False
+                    #self.running = False
+                    #return False
+                    pygame.quit()
+                    sys.exit(1)
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         clicking = True
@@ -82,12 +88,11 @@ class Levelselection():
                         
            #ifs
             if mouse_alligned_lvl1 and clicking == True  :
-                return "0"
+                return 0
             if mouse_alligned_lvl2 and clicking == True  :
-                return"1"
+                return 1
             if mouse_alligned_lvl3 and clicking == True  :
-                return"2" 
-
+                return 2
             pygame.display.update()
 
         pygame.quit()

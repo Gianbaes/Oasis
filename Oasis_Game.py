@@ -5,12 +5,12 @@ from pytmx.util_pygame import load_pygame
 from random import randint
 from groups import TheSprites, Oasiss
 import time
-from mainmenu import Main_Menu
-from levelselection import Levelselection
+
+
 
 
 class Oasis_Game:
-    def __init__(self):
+    def __init__(self,currentlevel = 0 ):
         #initilize
         pygame.init()
         self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
@@ -21,9 +21,9 @@ class Oasis_Game:
         self.dead = False
         self.wintime = False
         self.pause = False
-        
+        self.currentlevel = currentlevel
     
-        self.currentlevel = 0
+        #self.currentlevel = 0
         self.lastlevel = 2
 
         #note to self - the groups
@@ -175,6 +175,7 @@ class Oasis_Game:
         pygame.display.update()
 
     def pausemenu(self):
+                from mainmenu import Main_Menu
                 
                 clicking = False
                 for event in pygame.event.get():
@@ -215,17 +216,12 @@ class Oasis_Game:
 
 
                 if mouse_alligned_return and clicking == True  :
-                    menu = Main_Menu()
-                    menu.menurun()
-                    
-                    game = Oasis_Game()
-                    game.run()
-
-                    pygame.quit()
+                    self.running = False
+                    return "menu"
                 
     def setup(self): #maptile
         
-        currentlevel = self.currentlevel
+        #currentlevel = self.currentlevel
 
         self.the_sprites.empty()
         self.BigCollision_SP.empty()
@@ -239,7 +235,7 @@ class Oasis_Game:
                     30              
                 ]
 
-        self.time_left  = levelstime[currentlevel]
+        self.time_left  = levelstime[self.currentlevel]
 
         spawnpoint = [
               (100,1200),
@@ -248,7 +244,7 @@ class Oasis_Game:
         ]
         
 
-        playerlevel = spawnpoint[currentlevel]
+        playerlevel = spawnpoint[self.currentlevel]
         
         
         levels =[ 
@@ -259,7 +255,7 @@ class Oasis_Game:
 
         
         
-        tmx_map = load_pygame(os.path.join(BASE_DIR, 'data', 'maps',levels[currentlevel]))
+        tmx_map = load_pygame(os.path.join(BASE_DIR, 'data', 'maps',levels[self.currentlevel]))
 
         for x, y, image in tmx_map.get_layer_by_name('Collision').tiles():
                     image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
@@ -322,9 +318,11 @@ class Oasis_Game:
             if not self.pause:
 
                 self.stopgame = False
+                self.gamerunning = True
 
             else:
                 self.stopgame = True
+                self.gamerunning = False
 
             if self.gamerunning == True:
                   
@@ -362,12 +360,14 @@ class Oasis_Game:
 
             if self.player.winning:
                 self.gamerunning = False
+                self.wintime = True
                 self.victory()
 
             
 
             if self.time_left == 0 :
                 self.gamerunning = False
+                self.wintime = True
                 self.lose()
 
 

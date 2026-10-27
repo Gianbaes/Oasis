@@ -9,19 +9,29 @@ from groups import TheSprites, Oasiss
 import time
 from levelselection import Levelselection
 
-menu = Main_Menu()
-levels = Levelselection()
 
-menu.menurun()  
-if menu.menurun():
-    game = Oasis_Game()
-    game.run()
+while True:
+    menu = Main_Menu()
 
-if levels.levelmenu() return "0" :
-    self.currentlevel + 0
+    
+    action = menu.menurun() 
 
+    if action == "start" :
+        game = Oasis_Game()
+        game.setup
+        game.run()
 
+    elif action == "levels" :
 
+        levelsmenu = Levelselection()
+        choosedlevel = levelsmenu.levelmenu()
+
+        if choosedlevel is not None :
+            game = Oasis_Game(choosedlevel)
+            game.setup()
+            game.run()
+    elif action == "quit" or action is None:
+        break
 
 pygame.quit()
 
