@@ -38,6 +38,7 @@ class Oasis_Game:
         self.setup()
 
     def victory(self):
+            
             clicking = False
             maxlevel = False
             for event in pygame.event.get():
@@ -79,6 +80,7 @@ class Oasis_Game:
                         self.wintime = False
                         self.currentlevel = self.currentlevel + 1
                         self.setup()
+                        self.gamerunning = True
                                     
                     
                         return
@@ -102,6 +104,7 @@ class Oasis_Game:
             if mouse_alligned_return and clicking == True  :
                 menu = Main_Menu()
                 menu.menurun()
+                self.gamerunning = True
                   
                 game = Oasis_Game()
                 game.run()
@@ -111,6 +114,7 @@ class Oasis_Game:
             pygame.display.update()
         
     def lose(self):
+        
 
         clicking = False
         for event in pygame.event.get():
@@ -147,14 +151,18 @@ class Oasis_Game:
         self.wintime = True
 
         if mouse_alligned_retry and clicking == True  :
-            self.wintime = False
+            
+            self.wintime = False                 
             self.setup()
+            self.gamerunning = True
             
             return
+            
 
         if mouse_alligned_return and clicking == True  :
             menu = Main_Menu()
             menu.menurun()
+            self.gamerunning = True
                 
             game = Oasis_Game()
             game.run()
@@ -224,7 +232,7 @@ class Oasis_Game:
 
 
         levelstime =[ 
-                    60,
+                    6,
                     45,
                     30              
                 ]
@@ -296,6 +304,9 @@ class Oasis_Game:
 
     def run(self):
 
+        self.gamerunning = True
+
+
         while self.running:
             dt = self.clock.tick() / 1000
 
@@ -307,6 +318,13 @@ class Oasis_Game:
                             self.pause = not self.pause
 
             if not self.pause:
+
+                self.stopgame = False
+
+            else:
+                self.stopgame = True
+
+            if self.gamerunning == True:
                   
                 self.the_sprites.update(dt) # updt sprite
 
@@ -318,12 +336,12 @@ class Oasis_Game:
             bgimg = pygame.image.load(os.path.join(BASE_DIR, 'images', 'background.png')).convert()
             bgimg = pygame.transform.scale(bgimg, (WINDOW_WIDTH, WINDOW_HEIGHT))
 
-            
-            
             self.display_surface.fill('Yellow')
-            self.display_surface.blit(bgimg, (0,0))
+            self.display_surface.blit(bgimg, (0,0)) 
             self.the_sprites.draw(self.player.rect.center) #draw the sprite hehe
 
+                
+                
 
             font = pygame.font.Font(None, 50)
             colortime = "blue"
@@ -341,13 +359,19 @@ class Oasis_Game:
             self.display_surface.blit(pausetext,(0,650))
 
             if self.player.winning:
-
+                self.gamerunning = False
                 self.victory()
 
             
 
             if self.time_left == 0 :
+                self.gamerunning = False
                 self.lose()
+
+
+          
+                
+
 
             if self.pause:
                   self.pausemenu()
