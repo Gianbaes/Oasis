@@ -41,7 +41,7 @@ class Main_Menu:
             )
 
             font = pygame.font.Font(None, 100)
-            levels_text = font.render(f"levels", True, "Red")
+            levels_text = font.render(f"Levels", True, "Red")
             levels_rect = levels_text.get_rect(
                 center = (WINDOW_WIDTH//2 + 350,
                         (WINDOW_HEIGHT//2) + 100 )
