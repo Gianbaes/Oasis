@@ -12,9 +12,10 @@ from levelselection import Levelselection
 
 while True:
     menu = Main_Menu()
-
-    
+  
+ 
     action = menu.menurun() 
+
 
     if action == "start" :
         game = Oasis_Game()
@@ -26,10 +27,15 @@ while True:
         levelsmenu = Levelselection()
         choosedlevel = levelsmenu.levelmenu()
 
-        if choosedlevel is not None :
+        if choosedlevel == "Back":
+            pass
+
+        elif choosedlevel is not None :
             game = Oasis_Game(choosedlevel)
             game.setup()
             game.run()
+
+    
     elif action == "quit" or action is None:
         break
 

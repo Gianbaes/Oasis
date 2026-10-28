@@ -33,29 +33,44 @@ class Main_Menu:
             mouse_X, mouse_Y = pygame.mouse.get_pos()
             
 
+            self.display_surface.blit(Menudow, (0,0))
+
             font = pygame.font.Font(None, 100)
-            start_text = font.render(f"Start", True, "Red")
+            start_text = font.render(f"Start", True, "Yellow")
             start_rect = start_text.get_rect(
                 center = (WINDOW_WIDTH//2 + 350,
                         WINDOW_HEIGHT//2)
             )
 
             font = pygame.font.Font(None, 100)
-            levels_text = font.render(f"Levels", True, "Red")
+            levels_text = font.render(f"Levels", True, "Yellow")
             levels_rect = levels_text.get_rect(
                 center = (WINDOW_WIDTH//2 + 350,
                         (WINDOW_HEIGHT//2) + 100 )
             )
 
             font = pygame.font.Font(None, 100)
-            quit_text = font.render(f"Quit", True, "Red")
+            quit_text = font.render(f"Quit", True, "Yellow")
             quit_rect = start_text.get_rect(
                 center = (WINDOW_WIDTH//2 + 350,
                         (WINDOW_HEIGHT//2) + 200)
             )
-            
 
-            self.display_surface.blit(Menudow, (0,0))
+            box_rect_lvl1 = start_rect.inflate(40,20)
+
+            box_rect_lvl2 = levels_rect.inflate(40,20)
+
+            box_rect_lvl3 = quit_rect.inflate(40,20)
+
+
+            #border
+            pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_lvl1, width=3, border_radius=15)
+
+            pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_lvl2, width=3, border_radius=15)
+
+            pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_lvl3, width=3, border_radius=15)
+
+
             self.display_surface.blit (start_text, start_rect)
             self.display_surface.blit (levels_text, levels_rect)
             self.display_surface.blit (quit_text, quit_rect)

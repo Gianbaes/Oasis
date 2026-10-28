@@ -23,7 +23,7 @@ class Player(pygame.sprite.Sprite):
         self.animation_speed = 8
         self.facing = 'right'
         self.image = self.frames_right[0]
-
+        
 
         self.rect = self.image.get_frect(center = pos)
         self.hitbox_rect = self.rect.inflate(-20,-10)
@@ -39,8 +39,6 @@ class Player(pygame.sprite.Sprite):
         self.Toleft = False
     
 
-         
-
     def input(self):
         keys = pygame.key.get_pressed()
 
@@ -49,6 +47,7 @@ class Player(pygame.sprite.Sprite):
         self.direction.y = int(keys[pygame.K_s]) - int(keys[pygame.K_w])
 
         self.direction = self.direction.normalize() if self.direction else self.direction
+
 
     def move(self, dt):
         self.hitbox_rect.x += self.direction.x * self.speed * dt
@@ -59,6 +58,7 @@ class Player(pygame.sprite.Sprite):
         self.Oasis_colli('vertical')
         self.rect.center = self.hitbox_rect.center
 
+
     def collision(self, direction): #collision logic
         for sprite in self.Collision_SP:
             if sprite.rect.colliderect(self.hitbox_rect): #hit wall
@@ -68,6 +68,7 @@ class Player(pygame.sprite.Sprite):
                 else:
                     if self.direction.y > 0: self.hitbox_rect.bottom = sprite.rect.top
                     if self.direction.y < 0: self.hitbox_rect.top = sprite.rect.bottom
+
 
     def Bigcollision(self, direction): #collision logic
             for sprite in self.BigCollision_SP:
@@ -112,7 +113,6 @@ class Player(pygame.sprite.Sprite):
 
                     self.image = frames[int(self.frame_index)]
                          
-
 
     def update(self, dt):
         self.input()

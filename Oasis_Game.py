@@ -229,13 +229,13 @@ class Oasis_Game:
         self.Oasis.empty()
 
 
-        levelstime =[ 
+        self.levelstime =[ 
                     60,
                     45,
                     30              
                 ]
 
-        self.time_left  = levelstime[self.currentlevel]
+        self.time_left  = self.levelstime[self.currentlevel]
 
         spawnpoint = [
               (100,1200),
@@ -253,7 +253,9 @@ class Oasis_Game:
             'level-2.tmx'              
         ]
 
-        
+        self.max_hydrduration = self.levelstime[self.currentlevel]
+        self.current_hydrduration = self.max_hydrduration
+        self.hydration_drainrate = 2
         
         tmx_map = load_pygame(os.path.join(BASE_DIR, 'data', 'maps',levels[self.currentlevel]))
 
@@ -303,7 +305,7 @@ class Oasis_Game:
     def run(self):
 
         self.gamerunning = True
-
+        
 
         while self.running:
             dt = self.clock.tick() / 1000
@@ -320,6 +322,8 @@ class Oasis_Game:
                 self.stopgame = False
                 self.gamerunning = True
 
+               
+
             else:
                 self.stopgame = True
                 self.gamerunning = False
@@ -331,6 +335,8 @@ class Oasis_Game:
                 if self.wintime == False :
                     self.time_left -= dt
                     self.time_left = max(0, self.time_left)
+                    self.current_hydrduration -=   dt
+                    self.current_hydrduration = max(0, self.time_left)
 
 
             bgimg = pygame.image.load(os.path.join(BASE_DIR, 'images', 'background.png')).convert()
@@ -343,8 +349,8 @@ class Oasis_Game:
                 
                 
 
-            font = pygame.font.Font(None, 50)
-            colortime = "blue"
+            font = pygame.font.Font(None, 40)
+            colortime = "white"
             if self.time_left <= 10 :
                 colortime = "Red"
             if self.time_left <= 30 and self.time_left > 10 :
@@ -355,8 +361,28 @@ class Oasis_Game:
             font = pygame.font.Font(None, 30)
             pausetext = font.render("Press SPACE to Pause", True, "Blue")
 
-            self.display_surface.blit(timer_countdown,(500,0))
             self.display_surface.blit(pausetext,(0,650))
+
+
+            # hydr bar
+            hydrbar_width =300
+            hydrbar_height = 30
+            fill_ratio = self.current_hydrduration / self.max_hydrduration
+            fill_width = int(hydrbar_width * fill_ratio)
+
+
+            hydrbar_bg_rect = pygame.Rect(500, 10, hydrbar_width, hydrbar_height)
+            pygame.draw.rect(self.display_surface, (50, 50, 50), hydrbar_bg_rect, border_radius = 4)
+
+            if fill_width > 0 :
+                  fill_rect = pygame.Rect(500,10, fill_width, hydrbar_height)
+                  pygame.draw.rect(self.display_surface, (0,191,255), fill_rect, border_radius = 4)
+
+            pygame.draw.rect(self.display_surface, (255, 255, 255), hydrbar_bg_rect, width=2, border_radius=4)
+
+
+            self.display_surface.blit(timer_countdown,(520, 13))
+
 
             if self.player.winning:
                 self.gamerunning = False
@@ -371,7 +397,11 @@ class Oasis_Game:
                 self.lose()
 
 
-          
+            if self.current_hydrduration <= 0 :
+                self.gamerunning = False
+                self.wintime = True
+                self.lose()
+
                 
 
 

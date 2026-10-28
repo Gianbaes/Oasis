@@ -9,8 +9,7 @@ class Levelselection():
         self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.display.set_caption("Oasis_Levels")
         self.display_surface.fill ((15, 25, 60))
-        
-        
+    
 
 
     def levelmenu(self):
@@ -52,6 +51,11 @@ class Levelselection():
             lvl3_rect = lvl3_text.get_rect(
                 center = (600,100 ))
 
+            font = pygame.font.Font(None, 50)
+            Back_text = font.render(f"Back", True, "White")
+            Back_rect = Back_text.get_rect(
+                center = (50,10 ))
+
 
             #borderrect
             box_rect_lvl1 = lvl1_rect.inflate(40,20)
@@ -77,6 +81,8 @@ class Levelselection():
             
             self.display_surface.blit (lvl3_text, lvl3_rect)
 
+            self.display_surface.blit (Back_text, Back_rect)
+
             
             #mouse
             mouse_alligned_lvl1 = lvl1_rect.collidepoint((mouse_X, mouse_Y)) 
@@ -84,6 +90,8 @@ class Levelselection():
             mouse_alligned_lvl2 = lvl2_rect.collidepoint((mouse_X, mouse_Y)) 
 
             mouse_alligned_lvl3 = lvl3_rect.collidepoint((mouse_X, mouse_Y)) 
+
+            mouse_alligned_Back = Back_rect.collidepoint((mouse_X, mouse_Y)) 
             
                         
            #ifs
@@ -93,6 +101,8 @@ class Levelselection():
                 return 1
             if mouse_alligned_lvl3 and clicking == True  :
                 return 2
+            if mouse_alligned_Back and clicking == True  :
+                return "Back"
             pygame.display.update()
 
         pygame.quit()
