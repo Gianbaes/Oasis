@@ -98,6 +98,7 @@ class Player(pygame.sprite.Sprite):
                         if self.direction.y > 0: self.winning = True
                         if self.direction.y < 0: self.winning = True
 
+
     def Well_colli(self, direction): #oaisis logic
             for sprite in self.Wells:
                 if sprite.rect.inflate(+10, +10).colliderect(self.hitbox_rect): #hit wall
@@ -107,6 +108,12 @@ class Player(pygame.sprite.Sprite):
                     else:
                         if self.direction.y > 0: self.Replenish = True
                         if self.direction.y < 0: self.Replenish = True
+
+                    kill_rect = sprite.rect.inflate (TILE_SIZE * 8, TILE_SIZE * 8)
+
+                    for sprite in self.Wells:
+                         if kill_rect.colliderect(sprite.rect): #note to self : parang ganto yan if killrect radius ay naghit or collide sa colliderect(self.hitbox) then sprite.kill
+                            sprite.kill()
 
 
     def animation(self, dt):

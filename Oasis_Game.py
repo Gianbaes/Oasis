@@ -21,6 +21,8 @@ class Oasis_Game:
         self.dead = False
         self.wintime = False
         self.pause = False
+        self.refilled = False
+        self.refilledtimer = 0
         self.currentlevel = currentlevel
     
         #self.currentlevel = 0
@@ -228,6 +230,7 @@ class Oasis_Game:
         self.BigCollision_SP.empty()
         self.Collision_SP.empty()
         self.Oasis.empty()
+        self.Wells.empty ()
 
 
         self.levelstime =[ 
@@ -402,11 +405,24 @@ class Oasis_Game:
                 self.victory()
 
             if self.player.Replenish:
-                  print("hehe")
-                  self.time_left = self.time_left + 5
-                    
-                  self.player.Replenish = False
+                  
+                self.time_left = min(self.max_hydrduration , self.time_left + 5)
+
+                self.player.Replenish = False
+
+                self.refilled = True
+                self.refilledtimer = .5
+
+            if self.refilled:
+                    font = pygame.font.Font(None, 50)
+                    refilltext = font.render("+5", True, "Blue")
+                    self.display_surface.blit(refilltext,((WINDOW_WIDTH // 2) - 25,(WINDOW_HEIGHT // 2) - 60))
             
+            
+            if self.refilled :
+                  self.refilledtimer -=  dt
+                  if self.refilledtimer <= 0:
+                        self.refilled = False
 
             if self.time_left == 0 :
                 self.gamerunning = False
@@ -418,8 +434,6 @@ class Oasis_Game:
                 self.gamerunning = False
                 self.wintime = True
                 self.lose()
-
-                
 
 
             if self.pause:
