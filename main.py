@@ -12,10 +12,8 @@ from levelselection import Levelselection
 
 while True:
     menu = Main_Menu()
-  
  
     action = menu.menurun() 
-
 
     if action == "start" :
         game = Oasis_Game()
