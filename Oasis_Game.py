@@ -3,7 +3,7 @@ from daplayer import Player
 from sprites import *
 from pytmx.util_pygame import load_pygame
 from random import randint
-from groups import TheSprites, Oasiss
+from groups import TheSprites, Oasiss, Wellss
 import time
 
 
@@ -31,6 +31,7 @@ class Oasis_Game:
         self.Collision_SP = pygame.sprite.Group()
         self.BigCollision_SP = pygame.sprite.Group()
         self.Oasis = Oasiss()
+        self.Wells = Wellss()
         
 
         #note the sprite of character
@@ -257,7 +258,6 @@ class Oasis_Game:
         ]
 
         self.max_hydrduration = self.levelstime[self.currentlevel]
-        self.current_hydrduration = self.max_hydrduration
         self.hydration_drainrate = 2
         
         tmx_map = load_pygame(os.path.join(BASE_DIR, 'data', 'maps',levels[self.currentlevel]))
@@ -289,10 +289,10 @@ class Oasis_Game:
 
             for x, y, image in tmx_map.get_layer_by_name('Wells').tiles():
                         image = pygame.transform.scale(image, (TILE_SIZE ,  TILE_SIZE ))
-                        CollisionSP(
+                        Wells(
                                 (x * TILE_SIZE , y * TILE_SIZE),
                                 image,
-                                (self.the_sprites, self.Collision_SP)
+                                (self.the_sprites, self.Wells, self.BigCollision_SP )
                         )
 
         for x, y, image in tmx_map.get_layer_by_name('Big obstacle').tiles():
@@ -311,7 +311,7 @@ class Oasis_Game:
                             (self.the_sprites, self.Collision_SP)
                     )
 
-        self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, self.Oasis)
+        self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, self.Oasis, self.Wells)
         
         self.the_sprites.add(self.player)
 
@@ -348,7 +348,6 @@ class Oasis_Game:
                 if self.wintime == False :
                     self.time_left -= dt
                     self.time_left = max(0, self.time_left)
-                    self.current_hydrduration -=   dt
                     self.current_hydrduration = max(0, self.time_left)
 
 
@@ -380,7 +379,7 @@ class Oasis_Game:
             # hydr bar
             hydrbar_width =300
             hydrbar_height = 30
-            fill_ratio = self.current_hydrduration / self.max_hydrduration
+            fill_ratio = self.time_left / self.max_hydrduration
             fill_width = int(hydrbar_width * fill_ratio)
 
 
@@ -402,6 +401,11 @@ class Oasis_Game:
                 self.wintime = True
                 self.victory()
 
+            if self.player.Replenish:
+                  print("hehe")
+                  self.time_left = self.time_left + 5
+                    
+                  self.player.Replenish = False
             
 
             if self.time_left == 0 :
