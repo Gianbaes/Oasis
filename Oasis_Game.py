@@ -24,7 +24,7 @@ class Oasis_Game:
         self.currentlevel = currentlevel
     
         #self.currentlevel = 0
-        self.lastlevel = 2
+        self.lastlevel = 3
 
         #note to self - the groups
         self.the_sprites = TheSprites()
@@ -232,7 +232,8 @@ class Oasis_Game:
         self.levelstime =[ 
                     60,
                     45,
-                    30              
+                    30,
+                    25              
                 ]
 
         self.time_left  = self.levelstime[self.currentlevel]
@@ -240,7 +241,8 @@ class Oasis_Game:
         spawnpoint = [
               (100,1200),
               (500,1020),
-              (300,1710)
+              (300,1710),
+              (2300,80)
         ]
         
 
@@ -250,7 +252,8 @@ class Oasis_Game:
         levels =[ 
             'level-0.tmx',
             'level-1.tmx',
-            'level-2.tmx'              
+            'level-2.tmx',
+            'level-3.tmx'             
         ]
 
         self.max_hydrduration = self.levelstime[self.currentlevel]
@@ -281,6 +284,16 @@ class Oasis_Game:
                         image,
                         (self.the_sprites, self.Oasis)
                     )
+
+        if self.currentlevel == 3 :
+
+            for x, y, image in tmx_map.get_layer_by_name('Wells').tiles():
+                        image = pygame.transform.scale(image, (TILE_SIZE ,  TILE_SIZE ))
+                        CollisionSP(
+                                (x * TILE_SIZE , y * TILE_SIZE),
+                                image,
+                                (self.the_sprites, self.Collision_SP)
+                        )
 
         for x, y, image in tmx_map.get_layer_by_name('Big obstacle').tiles():
                             image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
