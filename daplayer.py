@@ -31,7 +31,7 @@ class Player(pygame.sprite.Sprite):
 
     #moving variable
         self.direction = pygame.Vector2()
-        self.speed = 500
+        self.speed = 350
         self.Collision_SP = Collision_SP
         self.Oasis = oasis
         self.Wells = wells

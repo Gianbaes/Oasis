@@ -22,6 +22,7 @@ class Oasis_Game:
         self.wintime = False
         self.pause = False
         self.refilled = False
+        self.sprint = False
         self.refilledtimer = 0
         self.currentlevel = currentlevel
     
@@ -333,6 +334,17 @@ class Oasis_Game:
                       if event.key == pygame.K_SPACE:
                             self.pause = not self.pause
 
+            keyhold = pygame.key.get_pressed()
+            if keyhold[pygame.K_LSHIFT]:
+                self.sprint = True
+            elif keyhold[pygame.K_RSHIFT]:
+                self.sprint = True
+            else :
+                  self.sprint = False
+
+            
+            
+
             if not self.pause:
 
                 self.stopgame = False
@@ -374,12 +386,18 @@ class Oasis_Game:
             timer_countdown = font.render(f"Hydration level: {int(self.time_left)}", True, colortime)
             
             font = pygame.font.Font(None, 30)
-            pausetext = font.render("Press SPACE to Pause", True, "Blue")
+            pausetext = font.render("Press SPACE to Pause", True, "Yellow")
+            self.display_surface.blit(pausetext,(0,13))
 
-            self.display_surface.blit(pausetext,(0,650))
+            font = pygame.font.Font(None, 30)
+            pausetext = font.render("Press SHIFT to Sprint", True, "Yellow")
+
+            self.display_surface.blit(pausetext,(0,30))
 
 
-            # hydr bar
+
+
+            # hydr bar---------------------
             hydrbar_width =300
             hydrbar_height = 30
             fill_ratio = self.time_left / self.max_hydrduration
@@ -423,6 +441,16 @@ class Oasis_Game:
                   self.refilledtimer -=  dt
                   if self.refilledtimer <= 0:
                         self.refilled = False
+
+            if self.sprint == True :
+                  self.player.speed = 700
+                  self.time_left -= 2 * dt
+                  font = pygame.font.Font(None, 30)
+                  sprinttext = font.render("*sprinting*", True, "Red")
+                  self.display_surface.blit(sprinttext,((WINDOW_WIDTH // 2) - 45,(WINDOW_HEIGHT // 2) + 35))
+            else :
+                  self.player.speed = 350
+                  self.sprint = False
 
             if self.time_left == 0 :
                 self.gamerunning = False
