@@ -386,11 +386,11 @@ class Oasis_Game:
             timer_countdown = font.render(f"Hydration level: {int(self.time_left)}", True, colortime)
             
             font = pygame.font.Font(None, 30)
-            pausetext = font.render("Press SPACE to Pause", True, "Yellow")
+            pausetext = font.render("Press SPACE to Pause", True, "Blue")
             self.display_surface.blit(pausetext,(0,13))
 
             font = pygame.font.Font(None, 30)
-            pausetext = font.render("Press SHIFT to Sprint", True, "Yellow")
+            pausetext = font.render("Press SHIFT to Sprint", True, "Blue")
 
             self.display_surface.blit(pausetext,(0,30))
 
@@ -432,9 +432,9 @@ class Oasis_Game:
                 self.refilledtimer = .5
 
             if self.refilled:
-                    font = pygame.font.Font(None, 50)
+                    font = pygame.font.Font(None, 75)
                     refilltext = font.render("+5", True, "Blue")
-                    self.display_surface.blit(refilltext,((WINDOW_WIDTH // 2) - 25,(WINDOW_HEIGHT // 2) - 60))
+                    self.display_surface.blit(refilltext,(750, 23))
             
             
             if self.refilled :
