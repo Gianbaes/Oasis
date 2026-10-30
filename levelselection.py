@@ -105,8 +105,54 @@ class Levelselection():
             mouse_alligned_lvl4 = lvl4_rect.collidepoint((mouse_X, mouse_Y)) 
 
             mouse_alligned_Back = Back_rect.collidepoint((mouse_X, mouse_Y)) 
+
             
-                        
+            if mouse_alligned_lvl1 :
+                pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_lvl1, border_radius=15)
+                pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_lvl1, width=3, border_radius=15)
+                self.display_surface.blit (lvl1_text, lvl1_rect)
+            
+            elif mouse_alligned_lvl2 :
+                pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_lvl2, border_radius=15)
+                pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_lvl2, width=3, border_radius=15)
+                self.display_surface.blit (lvl2_text, lvl2_rect)
+          
+            elif mouse_alligned_lvl3 :
+                pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_lvl3, border_radius=15)
+                pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_lvl3, width=3, border_radius=15)
+                self.display_surface.blit (lvl3_text, lvl3_rect) 
+
+            elif mouse_alligned_lvl4 :
+                pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_lvl4, border_radius=15)
+                pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_lvl4, width=3, border_radius=15)
+                self.display_surface.blit (lvl4_text, lvl4_rect)  
+
+            else :
+                self.display_surface.fill ((15, 25, 60))
+        
+            pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_lvl1, width=3, border_radius=15)
+            
+            pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_lvl2, width=3, border_radius=15)
+
+            pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_lvl3, width=3, border_radius=15)
+
+            pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_lvl4, width=3, border_radius=15)
+            
+
+            #display
+            self.display_surface.blit (lvl1_text, lvl1_rect)
+
+            self.display_surface.blit (lvl2_text, lvl2_rect)
+            
+            self.display_surface.blit (lvl3_text, lvl3_rect)
+
+            self.display_surface.blit (lvl4_text, lvl4_rect)
+
+            self.display_surface.blit (Back_text, Back_rect)
+
+
+
+           
            #ifs
             if mouse_alligned_lvl1 and clicking == True  :
                 return 0

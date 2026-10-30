@@ -99,7 +99,7 @@ class Player(pygame.sprite.Sprite):
                         if self.direction.y < 0: self.winning = True
 
 
-    def Well_colli(self, direction): #oaisis logic
+    def Well_colli(self, direction): #wells logic
             for sprite in self.Wells:
                 if sprite.rect.inflate(+10, +10).colliderect(self.hitbox_rect): #hit wall
                     if direction == 'horizontal':
