@@ -3,7 +3,7 @@ from config import *
 
 class Player(pygame.sprite.Sprite):
 
-    def __init__(self, pos, groups, Collision_SP, BigCollision_SP, oasis , wells):
+    def __init__(self, pos, groups, Collision_SP, BigCollision_SP, oasis , wells, cactus):
         super().__init__(groups)
 
 
@@ -35,10 +35,12 @@ class Player(pygame.sprite.Sprite):
         self.Collision_SP = Collision_SP
         self.Oasis = oasis
         self.Wells = wells
+        self.Cactus = cactus
         self.BigCollision_SP = BigCollision_SP
 
         self.winning = False
         self.Replenish = False
+        self.Damaged = False
         self.Toleft = False
     
 
@@ -58,11 +60,13 @@ class Player(pygame.sprite.Sprite):
         self.Bigcollision('horizontal')
         self.Oasis_colli('horizontal')
         self.Well_colli('horizontal')
+        self.Cactus_colli('horizontal')
         self.hitbox_rect.y += self.direction.y* self.speed * dt
         self.collision('vertical')
         self.Bigcollision('vertical')
         self.Oasis_colli('vertical')
         self.Well_colli('vertical')
+        self.Cactus_colli('vertical')
         self.rect.center = self.hitbox_rect.center
 
 
@@ -114,6 +118,18 @@ class Player(pygame.sprite.Sprite):
                     for sprite in self.Wells:
                          if kill_rect.colliderect(sprite.rect): #note to self : parang ganto yan if killrect radius ay naghit or collide sa colliderect(self.hitbox) then sprite.kill
                             sprite.kill()
+
+
+    def Cactus_colli(self, direction):
+         for sprite in self.Cactus:
+
+              if sprite.rect.colliderect(self.hitbox_rect):
+                    if direction == 'horizontal' :
+                        if self.direction.x > 0: self.Damaged = True                        
+                        if self.direction.x < 0: self.Damaged = True
+                    else:
+                        if self.direction.y > 0: self.Damaged = True
+                        if self.direction.y < 0: self.Damaged = True
 
 
     def animation(self, dt):

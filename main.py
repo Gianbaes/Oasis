@@ -14,6 +14,7 @@ while True:
     menu = Main_Menu()
  
     action = menu.menurun() 
+    
 
     if action == "start" :
         game = Oasis_Game()
@@ -38,6 +39,7 @@ while True:
         break
 
 pygame.quit()
+
 
 #for running the loopdddd
 

@@ -3,7 +3,7 @@ from daplayer import Player
 from sprites import *
 from pytmx.util_pygame import load_pygame
 from random import randint
-from groups import TheSprites, Oasiss, Wellss
+from groups import TheSprites, Oasiss, Wellss, Cactuss
 import time
 
 
@@ -35,6 +35,7 @@ class Oasis_Game:
         self.BigCollision_SP = pygame.sprite.Group()
         self.Oasis = Oasiss()
         self.Wells = Wellss()
+        self.Cactus = Cactuss()
         
 
         #note the sprite of character
@@ -110,19 +111,13 @@ class Oasis_Game:
             
            
             if mouse_alligned_return and clicking == True  :
-                menu = Main_Menu()
-                menu.menurun()
-                self.gamerunning = True
-                  
-                game = Oasis_Game()
-                game.run()
-
-                pygame.quit()
+                self.running = False
+                return "menu"
 
             pygame.display.update()
         
     def lose(self):
-        
+        from mainmenu import Main_Menu        
 
         clicking = False
         for event in pygame.event.get():
@@ -168,15 +163,10 @@ class Oasis_Game:
             
 
         if mouse_alligned_return and clicking == True  :
-            menu = Main_Menu()
-            menu.menurun()
-            self.gamerunning = True
-                
-            game = Oasis_Game()
-            game.run()
-
-            
-            pygame.quit()
+           self.running = False
+           return "menu"
+           
+           
 
         pygame.display.update()
 
@@ -229,13 +219,14 @@ class Oasis_Game:
         
         #currentlevel = self.currentlevel
 
+#clearing every after level
         self.the_sprites.empty()
         self.BigCollision_SP.empty()
         self.Collision_SP.empty()
         self.Oasis.empty()
         self.Wells.empty ()
-
-
+        self.Cactus.empty()
+       
         self.levelstime =[ 
                     60,
                     45,
@@ -311,6 +302,14 @@ class Oasis_Game:
                             (self.the_sprites, self.Collision_SP)
                     )
 
+        for x, y, image in tmx_map.get_layer_by_name('Cactus').tiles():
+                    image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
+                    Cactus(
+                            (x * TILE_SIZE, y * TILE_SIZE),
+                            image,
+                            (self.the_sprites, self.Collision_SP, self.Cactus)
+                    )            
+
         if self.currentlevel >= 3 :
 
             for x, y, image in tmx_map.get_layer_by_name('Wells').tiles():
@@ -321,7 +320,8 @@ class Oasis_Game:
                                 (self.the_sprites, self.Wells, self.BigCollision_SP )
                         )
 
-        self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, self.Oasis, self.Wells)
+        self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, 
+                             self.Oasis, self.Wells, self.Cactus)
         
         self.the_sprites.add(self.player)
 
