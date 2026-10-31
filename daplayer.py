@@ -124,7 +124,7 @@ class Player(pygame.sprite.Sprite):
          self.Damaged = False
          for sprite in self.Cactus:
 
-              if sprite.rect.inflate(+40,+40).colliderect(self.hitbox_rect):
+              if sprite.rect.inflate(+20,+20).colliderect(self.hitbox_rect):
                    self.Damaged = True
 
                    break
