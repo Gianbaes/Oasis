@@ -11,14 +11,20 @@
 -press space to pause
 
 # Current Features :
+Overview 
 - map
 - camera
 - collision
 - obstacle
 - Thirst mechanics
 - Oasis Mechanics (reach and find it to win)
+- Well mechanics
+- cactus damage system
+- level selection
 
+Changelog :
 version 2
+week 1
 - menu system
 - Modified Assets
 - Animations
@@ -29,15 +35,71 @@ version 2
 - Level System 
 currently only 3 levels for now
 
+version 3 
+Week 2
+Major updates 
+- Level selection system
+- Level selection menu
+- Hydration bar synced with timer 
+- Proper hud
+- Replenishing mechanics for Hydration 
+- Wells for water
+-  Cactus damages
+- Sprint Mechanics (timer speeds up)
 
-# Planned Features for Next Update :
-- Mini Oasis and wells (for repleneshing Thirst)
-- Great Oasis (will be the main goal)
-- Proper HUD
-- Save system
-- level Selection
-- Player Upgrades
-- End level rating with stars
+Minor updates
+- Modified Retry system 
+- Retry at your current level 
+- Multiple Timer for each respective level 
+- Dead State implemented 
+- Improved main menu buttons 
+- Added back button to level
+- Updated oasis assets
+- Instruction to pause and sprint now on top 
+- 2 extra Levels
+
+
+
+# Coming Soon
+
+[v] mini oasis to refill thirst os wells
+[v] Has animation if dried
+[v] GREAT OASIS the main goal
+[v] Proper HUD
+[v] main menu improvement 
+(Button enlarging)
+[v] Sprint mechanics faster timer
+
+[  ]  improved level selection ui
+[  ] Save system
+[  ] Player Upgrade
+[  ] End of level rating
+[  ]  time taken
+[  ] gamemodes
+(Eternal)
+(Adventure mode, has a clue)
+[  ] boss fight level
+[  ]  enemies
+[  ] drops
+[  ] highest
+[  ] damage cactus
+[  ] More obstacles
+[  ] Different backgrounds 
+[  ] Water bottles
+
+[  ] Heat wave
+[  ] Mirage
+[  ] Insane level or similar to blue abd red ball game where they can replay the level at higher difficulty 
+[  ] Updated hud
+
+
+# Gameplay
+- wasd = movement
+- shift = sprinting
+- space = pause
+- if you touch wells you regain 5 levels of thirst
+- if you touch cactus you lose 3 levels of thirst continuosly
+
 
 # How to play
 
