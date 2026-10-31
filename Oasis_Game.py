@@ -27,7 +27,7 @@ class Oasis_Game:
         self.currentlevel = currentlevel
     
         #self.currentlevel = 0
-        self.lastlevel = 3
+        self.lastlevel = 4
 
         #note to self - the groups
         self.the_sprites = TheSprites()
@@ -44,7 +44,9 @@ class Oasis_Game:
         self.setup()
 
     def victory(self):
-            
+            from mainmenu import Main_Menu
+
+
             clicking = False
             maxlevel = False
             for event in pygame.event.get():
@@ -238,7 +240,8 @@ class Oasis_Game:
                     60,
                     45,
                     30,
-                    25              
+                    25,
+                    30             
                 ]
 
         self.time_left  = self.levelstime[self.currentlevel]
@@ -247,7 +250,8 @@ class Oasis_Game:
               (100,1200),
               (500,1020),
               (300,1710),
-              (2300,80)
+              (2300,80),
+              (100,100)
         ]
         
 
@@ -258,7 +262,8 @@ class Oasis_Game:
             'level-0.tmx',
             'level-1.tmx',
             'level-2.tmx',
-            'level-3.tmx'             
+            'level-3.tmx',
+            'level-4.tmx'            
         ]
 
         self.max_hydrduration = self.levelstime[self.currentlevel]
@@ -289,17 +294,8 @@ class Oasis_Game:
                         (self.the_sprites, self.Oasis)
                     )
 
-        if self.currentlevel == 3 :
-
-            for x, y, image in tmx_map.get_layer_by_name('Wells').tiles():
-                        image = pygame.transform.scale(image, (TILE_SIZE ,  TILE_SIZE ))
-                        Wells(
-                                (x * TILE_SIZE , y * TILE_SIZE),
-                                image,
-                                (self.the_sprites, self.Wells, self.BigCollision_SP )
-                        )
-
-        for x, y, image in tmx_map.get_layer_by_name('Big obstacle').tiles():
+        if self.currentlevel >= 1 :
+                for x, y, image in tmx_map.get_layer_by_name('Big obstacle').tiles():
                             image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
                             CollisionSP(
                                     (x * TILE_SIZE, y * TILE_SIZE),
@@ -314,6 +310,16 @@ class Oasis_Game:
                             image,
                             (self.the_sprites, self.Collision_SP)
                     )
+
+        if self.currentlevel >= 3 :
+
+            for x, y, image in tmx_map.get_layer_by_name('Wells').tiles():
+                        image = pygame.transform.scale(image, (TILE_SIZE ,  TILE_SIZE ))
+                        Wells(
+                                (x * TILE_SIZE , y * TILE_SIZE),
+                                image,
+                                (self.the_sprites, self.Wells, self.BigCollision_SP )
+                        )
 
         self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, self.Oasis, self.Wells)
         
