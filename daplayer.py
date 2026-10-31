@@ -121,16 +121,13 @@ class Player(pygame.sprite.Sprite):
 
 
     def Cactus_colli(self, direction):
+         self.Damaged = False
          for sprite in self.Cactus:
 
-              if sprite.rect.colliderect(self.hitbox_rect):
-                    if direction == 'horizontal' :
-                        if self.direction.x > 0: self.Damaged = True                        
-                        if self.direction.x < 0: self.Damaged = True
-                    else:
-                        if self.direction.y > 0: self.Damaged = True
-                        if self.direction.y < 0: self.Damaged = True
+              if sprite.rect.inflate(+40,+40).colliderect(self.hitbox_rect):
+                   self.Damaged = True
 
+                   break
 
     def animation(self, dt):
 

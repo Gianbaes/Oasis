@@ -22,6 +22,7 @@ class Oasis_Game:
         self.wintime = False
         self.pause = False
         self.refilled = False
+        self.damages = False
         self.sprint = False
         self.refilledtimer = 0
         self.currentlevel = currentlevel
@@ -429,17 +430,40 @@ class Oasis_Game:
 
                 self.refilled = True
                 self.refilledtimer = .5
-
             if self.refilled:
                     font = pygame.font.Font(None, 75)
                     refilltext = font.render("+5", True, "Blue")
                     self.display_surface.blit(refilltext,(750, 23))
-            
-            
             if self.refilled :
                   self.refilledtimer -=  dt
                   if self.refilledtimer <= 0:
                         self.refilled = False
+
+
+
+            if self.player.Damaged :
+
+                if not self.damages:
+                    self.time_left = min(self.max_hydrduration , self.time_left - 3)
+
+                    self.player.Damaged = False
+
+                    self.damages = True
+                    self.damagestimer = .5
+
+            if self.damages:
+
+                if int(self.damagestimer * 2) % 2 == 0:
+                    font = pygame.font.Font(None, 75)
+                    damagetext = font.render("-3", True, "Red")
+                    self.display_surface.blit(damagetext,(750, 23))
+          
+                self.damagestimer -=  dt
+                if self.damagestimer <= 0:
+                        self.damages = False
+
+
+
 
             if self.sprint == True :
                   self.player.speed = 700
