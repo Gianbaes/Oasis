@@ -165,7 +165,7 @@ class Oasis_Game:
         if mouse_alligned_return and clicking == True  :
            self.running = False
            return "menu"
-           
+
            
 
         pygame.display.update()
@@ -350,26 +350,23 @@ class Oasis_Game:
 
             
             
-
-            if not self.pause:
-
-                self.stopgame = False
-                self.gamerunning = True
-
-               
-
-            else:
-                self.stopgame = True
-                self.gamerunning = False
-
             if self.gamerunning == True:
-                  
                 self.the_sprites.update(dt) # updt sprite
 
                 if self.wintime == False :
                     self.time_left -= dt
                     self.time_left = max(0, self.time_left)
                     self.current_hydrduration = max(0, self.time_left)
+
+            if not self.pause:
+            
+                self.stopgame = False
+                self.gamerunning = True
+
+            else:
+                self.stopgame = True
+                self.gamerunning = False
+
 
 
             bgimg = pygame.image.load(os.path.join(BASE_DIR, 'images', 'background.png')).convert()
@@ -423,10 +420,6 @@ class Oasis_Game:
             self.display_surface.blit(timer_countdown,(520, 13))
 
 
-            if self.player.winning:
-                self.gamerunning = False
-                self.wintime = True
-                self.victory()
 
             if self.player.Replenish:
                   
@@ -458,6 +451,11 @@ class Oasis_Game:
                   self.player.speed = 350
                   self.sprint = False
 
+            if self.player.winning:
+                self.gamerunning = False
+                self.wintime = True
+                self.victory()
+
             if self.time_left == 0 :
                 self.gamerunning = False
                 self.wintime = True
@@ -472,7 +470,9 @@ class Oasis_Game:
 
             if self.pause:
                   self.pausemenu()
-                  
+ 
+           
+            
             pygame.display.update()
 
         pygame.quit()
