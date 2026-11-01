@@ -2,13 +2,15 @@
 ![alt text](images/menudow.png)
 # Goal of the game :
  A world of dessert where you must find oasis before your hydration level turn 0 and die of thirst.
+ Traverse through obstacles, use your pathfinding to avoid cacti and use wells cleverly to reflenish and manage your hydration.
 
 # Game Rules 
 -You have 60 s to find the oasis
 
 - Avoid obstacle
 - Use W,A,S,D to move
--press space to pause
+- press space to pause
+- press shift to run
 
 # Current Features :
 Overview 
