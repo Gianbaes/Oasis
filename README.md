@@ -105,11 +105,11 @@ download Oasis_Searcher
 you can run it on your linux or run through commands by using
 
 ```bash
-./Oasis_Searcher
+./Oasis_Searcer
 ```
 dont forget to do 
 
-chmod +x main 
+chmod +x Oasis_Searcer 
 
 to ensure bash access
 
