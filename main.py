@@ -8,7 +8,7 @@ from random import randint
 from groups import TheSprites, Oasiss
 import time
 from levelselection import Levelselection
-
+from HalloweenOasis import Halloween_Oasis
 
 while True:
     menu = Main_Menu()
@@ -20,6 +20,11 @@ while True:
         game = Oasis_Game()
         game.setup
         game.run()
+
+    elif action == "Hlw" :
+        hwl = Halloween_Oasis()
+        hwl.setup()
+        hwl.run()
 
     elif action == "levels" :
 
