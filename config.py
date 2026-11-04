@@ -9,4 +9,6 @@ WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
 TILE_SIZE = 42
 
+map_scale = 0.5
+
 BASE_DIR = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))

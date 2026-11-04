@@ -14,7 +14,7 @@ class Halloween_Oasis:
         #initilize
         pygame.init()
         self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-        pygame.display.set_caption("Oasis_Searcher")
+        pygame.display.set_caption("Oasis_Searcher_Halloween")
 
         self.clock = pygame.time.Clock()
         self.running = True
@@ -28,7 +28,7 @@ class Halloween_Oasis:
         self.currentlevel = currentlevel
     
         #self.currentlevel = 0
-        self.lastlevel = 4
+        self.lastlevel = 0
 
         #note to self - the groups
         self.the_sprites = TheSprites()
@@ -56,7 +56,7 @@ class Halloween_Oasis:
                     if event.button == 1:
                         clicking = True
 
-            WINdow = pygame.image.load(os.path.join(BASE_DIR, 'images', 'WINdow.png')).convert()
+            WINdow = pygame.image.load(os.path.join(BASE_DIR, 'data', 'maps', 'haloween', 'WINdowH.png')).convert()
             WINdow = pygame.transform.scale(WINdow, (1000, 500))
 
             mouse_X, mouse_Y = pygame.mouse.get_pos()
@@ -126,7 +126,7 @@ class Halloween_Oasis:
                     if event.button == 1:
                         clicking = True
 
-        LOSEdow = pygame.image.load(os.path.join(BASE_DIR, 'images', 'LOSEdow.png')).convert()
+        LOSEdow = pygame.image.load(os.path.join(BASE_DIR, 'data', 'maps', 'haloween', 'LOSEdowH.png' )).convert()
         LOSEdow = pygame.transform.scale(LOSEdow, (1000, 500))
 
         mouse_X, mouse_Y = pygame.mouse.get_pos()
@@ -229,21 +229,14 @@ class Halloween_Oasis:
         self.Cactus.empty()
        
         self.levelstime =[ 
-                    60,
-                    45,
-                    30,
-                    25,
-                    30             
+                    30
+                               
                 ]
 
         self.time_left  = self.levelstime[self.currentlevel]
 
         spawnpoint = [
-              (100,1200),
-              (500,1020),
-              (300,1710),
-              (2300,80),
-              (100,100)
+              (100,1800)
         ]
         
 
@@ -251,75 +244,59 @@ class Halloween_Oasis:
         
         
         levels =[ 
-            'level-0.tmx',
-            'level-1.tmx',
-            'level-2.tmx',
-            'level-3.tmx',
-            'level-4.tmx'            
-        ]
+            'halloween-1.tmx'
+        
+            ]
 
         self.max_hydrduration = self.levelstime[self.currentlevel]
         self.hydration_drainrate = 2
-        
-        tmx_map = load_pygame(os.path.join(BASE_DIR, 'data', 'maps',levels[self.currentlevel]))
 
-        for x, y, image in tmx_map.get_layer_by_name('Collision').tiles():
-                    image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
-                    CollisionSP(
-                        (x * TILE_SIZE, y * TILE_SIZE),
-                        image,
-                        (self.the_sprites, self.Collision_SP)
-                    )
+        scale_tiled = int(TILE_SIZE )
+        
+        tmx_map = load_pygame(os.path.join(BASE_DIR, 'data', 'maps', 'haloween', levels[self.currentlevel]))
+
         
         for x, y, image in tmx_map.get_layer_by_name('Background').tiles():
-                    image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
+                    image = pygame.transform.scale(image, (scale_tiled, scale_tiled))
                     Spriteg(
-                        (x * TILE_SIZE, y * TILE_SIZE),
+                        (x * scale_tiled, y * scale_tiled),
                         image,
                         self.the_sprites
                     )
         for x, y, image in tmx_map.get_layer_by_name('Oasis').tiles():
-                    image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
+                    image = pygame.transform.scale(image, (scale_tiled, scale_tiled))
                     Oasis(
-                        (x * TILE_SIZE, y * TILE_SIZE),
+                        (x * scale_tiled, y * scale_tiled),
                         image,
                         (self.the_sprites, self.Oasis)
                     )
 
         if self.currentlevel >= 1 :
                 for x, y, image in tmx_map.get_layer_by_name('Big obstacle').tiles():
-                            image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
+                            image = pygame.transform.scale(image, (scale_tiled, scale_tiled))
                             CollisionSP(
-                                    (x * TILE_SIZE, y * TILE_SIZE),
+                                    (x * scale_tiled, y * scale_tiled),
                                     image,
                                     (self.the_sprites, self.Collision_SP)
                             )
 
         for x, y, image in tmx_map.get_layer_by_name('Foreground').tiles():
-                    image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
+                    image = pygame.transform.scale(image, (scale_tiled, scale_tiled))
                     CollisionSP(
-                            (x * TILE_SIZE, y * TILE_SIZE),
+                            (x * scale_tiled, y * scale_tiled),
                             image,
                             (self.the_sprites, self.Collision_SP)
                     )
 
-        for x, y, image in tmx_map.get_layer_by_name('Cactus').tiles():
-                    image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
-                    Cactus(
-                            (x * TILE_SIZE, y * TILE_SIZE),
-                            image,
-                            (self.the_sprites, self.Collision_SP, self.Cactus)
-                    )            
-
-        if self.currentlevel >= 3 :
-
-            for x, y, image in tmx_map.get_layer_by_name('Wells').tiles():
-                        image = pygame.transform.scale(image, (TILE_SIZE ,  TILE_SIZE ))
-                        Wells(
-                                (x * TILE_SIZE , y * TILE_SIZE),
+        for x, y, image in tmx_map.get_layer_by_name('Trees').tiles():
+                            image = pygame.transform.scale(image, (scale_tiled, scale_tiled))
+                            CollisionSP(
+                                (x * scale_tiled, y * scale_tiled),
                                 image,
-                                (self.the_sprites, self.Wells, self.BigCollision_SP )
-                        )
+                                (self.the_sprites, self.Collision_SP)
+                            )
+                
+       
 
         self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, 
                              self.Oasis, self.Wells, self.Cactus)
@@ -370,7 +347,7 @@ class Halloween_Oasis:
 
 
 
-            bgimg = pygame.image.load(os.path.join(BASE_DIR, 'images', 'background.png')).convert()
+            bgimg = pygame.image.load(os.path.join(BASE_DIR, 'data', 'maps', 'haloween', 'bg.png')).convert()
             bgimg = pygame.transform.scale(bgimg, (WINDOW_WIDTH, WINDOW_HEIGHT))
 
             self.display_surface.fill('Yellow')
