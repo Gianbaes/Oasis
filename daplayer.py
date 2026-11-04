@@ -3,7 +3,7 @@ from config import *
 
 class Player(pygame.sprite.Sprite):
 
-    def __init__(self, pos, groups, Collision_SP, BigCollision_SP, oasis , wells, cactus):
+    def __init__(self, pos, groups, Collision_SP, BigCollision_SP, oasis , wells, cactus, Smallcollision, Chase):
         super().__init__(groups)
 
 
@@ -36,9 +36,12 @@ class Player(pygame.sprite.Sprite):
         self.Oasis = oasis
         self.Wells = wells
         self.Cactus = cactus
+        self.Smallcollision = Smallcollision
+        self.Chase = Chase
         self.BigCollision_SP = BigCollision_SP
 
         self.winning = False
+        self.chasePlayer = False
         self.Replenish = False
         self.Damaged = False
         self.Toleft = False
@@ -61,12 +64,14 @@ class Player(pygame.sprite.Sprite):
         self.Oasis_colli('horizontal')
         self.Well_colli('horizontal')
         self.Cactus_colli('horizontal')
+        self.Smallcollision_sp('horizontal')
         self.hitbox_rect.y += self.direction.y* self.speed * dt
         self.collision('vertical')
         self.Bigcollision('vertical')
         self.Oasis_colli('vertical')
         self.Well_colli('vertical')
         self.Cactus_colli('vertical')
+        self.Smallcollision_sp('vertical')
         self.rect.center = self.hitbox_rect.center
 
 
@@ -91,6 +96,28 @@ class Player(pygame.sprite.Sprite):
                         if self.direction.y > 0: self.hitbox_rect.bottom = sprite.rect.top
                         if self.direction.y < 0: self.hitbox_rect.top = sprite.rect.bottom
 
+
+    def Smallcollision_sp(self, direction): #collision logic
+            for sprite in self.Smallcollision:
+                if sprite.rect.colliderect(self.hitbox_rect): #hit wall
+                    if direction == 'horizontal':
+                        if self.direction.x > 0: self.hitbox_rect.right = sprite.rect.left
+                        if self.direction.x < 0: self.hitbox_rect.left = sprite.rect.right
+                        
+                    else:
+                        if self.direction.y > 0: self.hitbox_rect.bottom = sprite.rect.top
+                        if self.direction.y < 0: self.hitbox_rect.top = sprite.rect.bottom
+
+
+    def Chase_Trigger(self, direction): #collision logic
+            for sprite in self.BigCollision_SP:
+                if sprite.rect.inflate(-60, -60).colliderect(self.hitbox_rect): #hit wall
+                    if direction == 'horizontal':
+                        if self.direction.x > 0: chasePLayer = True
+                        if self.direction.x < 0: chasePlayer = True
+                    else:
+                        if self.direction.y > 0: chasePlayer = True
+                        if self.direction.y < 0: chasePlayer = True
 
     def Oasis_colli(self, direction): #oaisis logic
             for sprite in self.Oasis:
