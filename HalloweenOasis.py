@@ -34,7 +34,7 @@ class Halloween_Oasis:
         self.the_sprites = TheSprites()
         self.Collision_SP = pygame.sprite.Group()
         self.BigCollision_SP = pygame.sprite.Group()
-        self.Smallcollision = pygame.sprite.Group()
+        self.Smallcollision_SP = pygame.sprite.Group()
         self.Oasis = Oasiss()
         self.Wells = Wellss()
         self.Cactus = Cactuss()
@@ -226,10 +226,11 @@ class Halloween_Oasis:
         self.the_sprites.empty()
         self.BigCollision_SP.empty()
         self.Collision_SP.empty()
+        self.Smallcollision_SP.empty()
         self.Oasis.empty()
         self.Wells.empty ()
         self.Cactus.empty()
-        self.Smallcollision.empty()
+        
        
         self.levelstime =[ 
                     30,
@@ -295,13 +296,13 @@ class Halloween_Oasis:
                     SmallcollisionSP(
                         (x * scale_tiled, y * scale_tiled),
                         image,
-                        (self.the_sprites, self.Smallcollision)
+                        (self.the_sprites, self.Smallcollision_SP)
                     )
                         
        
 
         self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, 
-                             self.Oasis, self.Wells, self.Cactus, self.Chase, self.Smallcollision)
+                             self.Oasis, self.Wells, self.Cactus, self.Smallcollision_SP, self.Chase)
         
         self.the_sprites.add(self.player)
 

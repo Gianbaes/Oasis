@@ -3,7 +3,7 @@ from config import *
 
 class Player(pygame.sprite.Sprite):
 
-    def __init__(self, pos, groups, Collision_SP, BigCollision_SP, oasis , wells, cactus, Smallcollision, Chase):
+    def __init__(self, pos, groups, Collision_SP, BigCollision_SP, oasis , wells, cactus, Smallcollision_SP, Chase):
         super().__init__(groups)
 
 
@@ -36,7 +36,7 @@ class Player(pygame.sprite.Sprite):
         self.Oasis = oasis
         self.Wells = wells
         self.Cactus = cactus
-        self.Smallcollision = Smallcollision
+        self.Smallcollision_SP = Smallcollision_SP
         self.Chase = Chase
         self.BigCollision_SP = BigCollision_SP
 
@@ -64,14 +64,14 @@ class Player(pygame.sprite.Sprite):
         self.Oasis_colli('horizontal')
         self.Well_colli('horizontal')
         self.Cactus_colli('horizontal')
-        self.Smallcollision_sp('horizontal')
-        self.hitbox_rect.y += self.direction.y* self.speed * dt
+        self.Smallcollision('horizontal')
+        self.hitbox_rect.y += self.direction.y * self.speed * dt
         self.collision('vertical')
         self.Bigcollision('vertical')
         self.Oasis_colli('vertical')
         self.Well_colli('vertical')
         self.Cactus_colli('vertical')
-        self.Smallcollision_sp('vertical')
+        self.Smallcollision('vertical')
         self.rect.center = self.hitbox_rect.center
 
 
@@ -97,13 +97,13 @@ class Player(pygame.sprite.Sprite):
                         if self.direction.y < 0: self.hitbox_rect.top = sprite.rect.bottom
 
 
-    def Smallcollision_sp(self, direction): #collision logic
-            for sprite in self.Smallcollision:
-                if sprite.rect.colliderect(self.hitbox_rect): #hit wall
+    def Smallcollision(self, direction): #collision logic
+            for sprite in self.Smallcollision_SP:
+                if sprite.rect.inflate(-70, -80).colliderect(self.hitbox_rect): #hit wall
+                    print("hiii")
                     if direction == 'horizontal':
                         if self.direction.x > 0: self.hitbox_rect.right = sprite.rect.left
-                        if self.direction.x < 0: self.hitbox_rect.left = sprite.rect.right
-                        
+                        if self.direction.x < 0: self.hitbox_rect.left = sprite.rect.right   
                     else:
                         if self.direction.y > 0: self.hitbox_rect.bottom = sprite.rect.top
                         if self.direction.y < 0: self.hitbox_rect.top = sprite.rect.bottom
