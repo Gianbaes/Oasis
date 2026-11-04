@@ -217,7 +217,15 @@ class Halloween_Oasis:
                 if mouse_alligned_return and clicking == True  :
                     self.running = False
                     return "menu"
-                
+
+    def chaseSEQ(self):
+         beast = pygame.image.load(os.path.join(BASE_DIR, 'data', 'maps', 'haloween','beast.png'))
+
+         self.display_surface.blit(beast, (self.beast_x , self.beast_y))                  
+                               
+         
+               
+
     def setup(self): #maptile
         
         #currentlevel = self.currentlevel
@@ -298,7 +306,16 @@ class Halloween_Oasis:
                         image,
                         (self.the_sprites, self.Smallcollision_SP)
                     )
-                        
+        if self.currentlevel >= 1:
+            for x, y, image in tmx_map.get_layer_by_name('Beast_Spawner').tiles():
+                self.beast_x = x
+                self.beast_y = y
+                        image = pygame.transform.scale(image, (scale_tiled, scale_tiled))
+                        Chasee(
+                            (x * scale_tiled, y * scale_tiled),
+                            image,
+                            self.the_sprites, self.Chase
+                        )
        
 
         self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, 
@@ -420,7 +437,6 @@ class Halloween_Oasis:
                         self.refilled = False
 
 
-
             if self.player.Damaged :
 
                 if not self.damages:
@@ -459,6 +475,10 @@ class Halloween_Oasis:
                 self.gamerunning = False
                 self.wintime = True
                 self.victory()
+
+            if self.player.chasePlayer:
+                self.chaseSEQ  = True 
+                self.player.chasePlayer = False
 
             if self.time_left == 0 :
                 self.gamerunning = False
