@@ -234,8 +234,8 @@ class Halloween_Oasis:
        
         self.levelstime =[ 
                     30,
-                    30,
-                    25
+                    40,
+                    35
                                
                 ]
 
