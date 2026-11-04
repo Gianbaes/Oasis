@@ -100,7 +100,7 @@ class Player(pygame.sprite.Sprite):
     def Smallcollision(self, direction): #collision logic
             for sprite in self.Smallcollision_SP:
                 if sprite.rect.inflate(-70, -80).colliderect(self.hitbox_rect): #hit wall
-                    print("hiii")
+                    
                     if direction == 'horizontal':
                         if self.direction.x > 0: self.hitbox_rect.right = sprite.rect.left
                         if self.direction.x < 0: self.hitbox_rect.left = sprite.rect.right   
