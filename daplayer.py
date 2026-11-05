@@ -115,7 +115,7 @@ class Player(pygame.sprite.Sprite):
             for sprite in self.Chase:
                 if sprite.rect.inflate(-60, -60).colliderect(self.hitbox_rect): #hit wall
                     if direction == 'horizontal':
-                        if self.direction.x > 0: self.chasePLayer = True
+                        if self.direction.x > 0: self.chasePlayer = True
                         if self.direction.x < 0: self.chasePlayer = True
                     else:
                         if self.direction.y > 0: self.chasePlayer = True
