@@ -24,6 +24,9 @@ class Halloween_Oasis:
         self.refilled = False
         self.damages = False
         self.sprint = False
+        self.beastspawned = False
+        self.beast_x = 0
+        self.beast_y = 0
         self.refilledtimer = 0
         self.currentlevel = currentlevel
     
@@ -219,12 +222,17 @@ class Halloween_Oasis:
                     return "menu"
 
     def chaseSEQ(self):
-         beast = pygame.image.load(os.path.join(BASE_DIR, 'data', 'maps', 'haloween','beast.png'))
-
-         self.display_surface.blit(beast, (self.beast_x , self.beast_y))                  
-                               
          
-               
+         beast_img = pygame.image.load(os.path.join(BASE_DIR, 'data', 'maps', 'haloween','beast.png'))
+
+         if self.beastspawned :
+                Beast( (self.beast_x, self.beast_y),beast_img,
+                self.the_sprites
+                )  
+
+                
+                           
+                               
 
     def setup(self): #maptile
         
@@ -307,17 +315,17 @@ class Halloween_Oasis:
                         (self.the_sprites, self.Smallcollision_SP)
                     )
         if self.currentlevel >= 1:
-            for x, y, image in tmx_map.get_layer_by_name('Beast_Spawner').tiles():
-                self.beast_x = x
-                self.beast_y = y
-                        image = pygame.transform.scale(image, (scale_tiled, scale_tiled))
-                        Chasee(
-                            (x * scale_tiled, y * scale_tiled),
-                            image,
-                            self.the_sprites, self.Chase
-                        )
-       
+            for x, y, image in tmx_map.get_layer_by_name('Beast Trigger').tiles():
+                    self.beast_x = x * scale_tiled
+                    self.beast_y = y * scale_tiled
 
+                    image = pygame.transform.scale(image, (scale_tiled, scale_tiled))
+                    Chasee(
+                        (x * scale_tiled, y * scale_tiled),
+                        image,
+                        self.the_sprites, self.Chase
+                    )
+                
         self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, 
                              self.Oasis, self.Wells, self.Cactus, self.Smallcollision_SP, self.Chase)
         
@@ -477,8 +485,11 @@ class Halloween_Oasis:
                 self.victory()
 
             if self.player.chasePlayer:
-                self.chaseSEQ  = True 
-                self.player.chasePlayer = False
+                self.chaseSEQ()
+                self.beastspawned = True
+
+            if self.beastspawned:
+                 self.player.chasePlayer
 
             if self.time_left == 0 :
                 self.gamerunning = False

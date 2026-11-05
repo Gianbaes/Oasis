@@ -65,6 +65,7 @@ class Player(pygame.sprite.Sprite):
         self.Well_colli('horizontal')
         self.Cactus_colli('horizontal')
         self.Smallcollision('horizontal')
+        self.Chase_Trigger('horizontal')
         self.hitbox_rect.y += self.direction.y * self.speed * dt
         self.collision('vertical')
         self.Bigcollision('vertical')
@@ -72,6 +73,7 @@ class Player(pygame.sprite.Sprite):
         self.Well_colli('vertical')
         self.Cactus_colli('vertical')
         self.Smallcollision('vertical')
+        self.Chase_Trigger('vertical')
         self.rect.center = self.hitbox_rect.center
 
 
@@ -113,11 +115,11 @@ class Player(pygame.sprite.Sprite):
             for sprite in self.BigCollision_SP:
                 if sprite.rect.inflate(-60, -60).colliderect(self.hitbox_rect): #hit wall
                     if direction == 'horizontal':
-                        if self.direction.x > 0: chasePLayer = True
-                        if self.direction.x < 0: chasePlayer = True
+                        if self.direction.x > 0: self.chasePLayer = True
+                        if self.direction.x < 0: self.chasePlayer = True
                     else:
-                        if self.direction.y > 0: chasePlayer = True
-                        if self.direction.y < 0: chasePlayer = True
+                        if self.direction.y > 0: self.chasePlayer = True
+                        if self.direction.y < 0: self.chasePlayer = True
 
     def Oasis_colli(self, direction): #oaisis logic
             for sprite in self.Oasis:
