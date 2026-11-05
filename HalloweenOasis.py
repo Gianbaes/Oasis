@@ -222,14 +222,33 @@ class Halloween_Oasis:
                     return "menu"
 
     def chaseSEQ(self):
+         beastspeed = 2
+         target = pygame.math.Vector2(self.player.direction.x , self.player.direction.y)
+         beastpos = pygame.math.Vector2(self.beast_x, self.beast_y)
+         newbeastpos = pygame.math.Vector2(self.beast_x, self.beast_y)
+         min_d = 25
+         max_d = 100
+
+         distance = beastpos.distance_to(target)
+         direction = target - beastpos
          
-         beastimg = pygame.image.load(os.path.join(BASE_DIR, 'data', 'maps', 'haloween','beast.png')).convert_alpha()
-         beast_img = pygame.transform.scale (beastimg, (128,188))
 
          if self.beastspawned :
-                Beast( (self.beast_x, self.beast_y),beast_img,
+                beastimg = pygame.image.load(os.path.join(BASE_DIR, 'data', 'maps', 'haloween','beast.png')).convert_alpha()
+                beast_img = pygame.transform.scale (beastimg, (158,208))
+                
+                Beast( (newbeastpos.x, newbeastpos.y),beast_img,
                 self.the_sprites
                 )  
+
+                if distance > min_d :
+                    direction = (target - beastpos)/ distance 
+                    min_step = max(0, distance - max_d)
+                    max_step = distance - min_d
+
+                    step_dist = min(max_step, max(min_step, beastspeed))
+                    newbeastpos = beastpos + direction * step_dist 
+                return (newbeastpos.x, newbeastpos.y)
 
                 
                            

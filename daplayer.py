@@ -114,13 +114,18 @@ class Player(pygame.sprite.Sprite):
     def Chase_Trigger(self, direction): #collision logic
             for sprite in self.Chase:
                 if sprite.rect.inflate(-60, -60).colliderect(self.hitbox_rect): #hit wall
-                    print("beast")
                     if direction == 'horizontal':
                         if self.direction.x > 0: self.chasePLayer = True
                         if self.direction.x < 0: self.chasePlayer = True
                     else:
                         if self.direction.y > 0: self.chasePlayer = True
                         if self.direction.y < 0: self.chasePlayer = True
+
+                    kill_rect = sprite.rect.inflate (TILE_SIZE * 8, TILE_SIZE * 8)
+                    
+                    for sprite in self.Chase:
+                            if kill_rect.colliderect(sprite.rect): #note to self : parang ganto yan if killrect radius ay naghit or collide sa colliderect(self.hitbox) then sprite.kill
+                                sprite.kill()
 
     def Oasis_colli(self, direction): #oaisis logic
             for sprite in self.Oasis:
