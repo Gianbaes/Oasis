@@ -223,7 +223,8 @@ class Halloween_Oasis:
 
     def chaseSEQ(self):
          
-         beast_img = pygame.image.load(os.path.join(BASE_DIR, 'data', 'maps', 'haloween','beast.png'))
+         beastimg = pygame.image.load(os.path.join(BASE_DIR, 'data', 'maps', 'haloween','beast.png')).convert_alpha()
+         beast_img = pygame.transform.scale (beastimg, (128,188))
 
          if self.beastspawned :
                 Beast( (self.beast_x, self.beast_y),beast_img,
@@ -320,10 +321,10 @@ class Halloween_Oasis:
                     self.beast_y = y * scale_tiled
 
                     image = pygame.transform.scale(image, (scale_tiled, scale_tiled))
-                    Chasee(
+                    Chase(
                         (x * scale_tiled, y * scale_tiled),
                         image,
-                        self.the_sprites, self.Chase
+                        (self.the_sprites, self.Chase)
                     )
                 
         self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, 

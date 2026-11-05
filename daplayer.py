@@ -112,8 +112,9 @@ class Player(pygame.sprite.Sprite):
 
 
     def Chase_Trigger(self, direction): #collision logic
-            for sprite in self.BigCollision_SP:
+            for sprite in self.Chase:
                 if sprite.rect.inflate(-60, -60).colliderect(self.hitbox_rect): #hit wall
+                    print("beast")
                     if direction == 'horizontal':
                         if self.direction.x > 0: self.chasePLayer = True
                         if self.direction.x < 0: self.chasePlayer = True
