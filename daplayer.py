@@ -3,7 +3,8 @@ from config import *
 
 class Player(pygame.sprite.Sprite):
 
-    def __init__(self, pos, groups, Collision_SP, BigCollision_SP, oasis , wells, cactus, Smallcollision_SP, Chase):
+    def __init__(self, pos, groups, Collision_SP, BigCollision_SP, oasis ,
+                  wells, cactus, Smallcollision_SP, Chase, beast):
         super().__init__(groups)
 
 
@@ -37,7 +38,8 @@ class Player(pygame.sprite.Sprite):
         self.Wells = wells
         self.Cactus = cactus
         self.Smallcollision_SP = Smallcollision_SP
-        self.Chase = Chase
+        self.Chase = Chase #trigger for the beast spawned
+        self.Beast_SP = beast #beast trigger to determine if player died
         self.BigCollision_SP = BigCollision_SP
 
         self.winning = False
@@ -45,6 +47,7 @@ class Player(pygame.sprite.Sprite):
         self.Replenish = False
         self.Damaged = False
         self.Toleft = False
+        self.lose = False
     
 
     def input(self):
@@ -57,7 +60,7 @@ class Player(pygame.sprite.Sprite):
         self.direction = self.direction.normalize() if self.direction else self.direction
 
 
-    def move(self, dt):
+    def move(self, dt): #reminder when adding a new def, add here
         self.hitbox_rect.x += self.direction.x * self.speed * dt
         self.collision('horizontal')
         self.Bigcollision('horizontal')
@@ -66,6 +69,7 @@ class Player(pygame.sprite.Sprite):
         self.Cactus_colli('horizontal')
         self.Smallcollision('horizontal')
         self.Chase_Trigger('horizontal')
+        self.Beastkills('horizontal')
         self.hitbox_rect.y += self.direction.y * self.speed * dt
         self.collision('vertical')
         self.Bigcollision('vertical')
@@ -74,6 +78,7 @@ class Player(pygame.sprite.Sprite):
         self.Cactus_colli('vertical')
         self.Smallcollision('vertical')
         self.Chase_Trigger('vertical')
+        self.Beastkills('vertical')
         self.rect.center = self.hitbox_rect.center
 
 
@@ -99,7 +104,7 @@ class Player(pygame.sprite.Sprite):
                         if self.direction.y < 0: self.hitbox_rect.top = sprite.rect.bottom
 
 
-    def Smallcollision(self, direction): #collision logic
+    def Smallcollision(self, direction): #collision logic for halloween trees
             for sprite in self.Smallcollision_SP:
                 if sprite.rect.inflate(-70, -80).colliderect(self.hitbox_rect): #hit wall
                     
@@ -111,7 +116,7 @@ class Player(pygame.sprite.Sprite):
                         if self.direction.y < 0: self.hitbox_rect.top = sprite.rect.bottom
 
 
-    def Chase_Trigger(self, direction): #collision logic
+    def Chase_Trigger(self, direction): #collision logic for triggers 
             for sprite in self.Chase:
                 if sprite.rect.inflate(-60, -60).colliderect(self.hitbox_rect): #hit wall
                     if direction == 'horizontal':
@@ -126,6 +131,16 @@ class Player(pygame.sprite.Sprite):
                     for sprite in self.Chase:
                             if kill_rect.colliderect(sprite.rect): #note to self : parang ganto yan if killrect radius ay naghit or collide sa colliderect(self.hitbox) then sprite.kill
                                 sprite.kill()
+
+    def Beastkills(self, direction):
+            for sprite in self.Beast_SP:
+                if sprite.rect.inflate(+10, +10).colliderect(self.hitbox_rect): #hit wall
+                    if direction == 'horizontal':
+                        if self.direction.x > 0: self.lose = True                        
+                        if self.direction.x < 0: self.lose = True
+                    else:
+                        if self.direction.y > 0: self.lose = True
+                        if self.direction.y < 0: self.lose = True
 
     def Oasis_colli(self, direction): #oaisis logic
             for sprite in self.Oasis:
@@ -163,6 +178,7 @@ class Player(pygame.sprite.Sprite):
                    self.Damaged = True
 
                    break
+
 
     def animation(self, dt):
 

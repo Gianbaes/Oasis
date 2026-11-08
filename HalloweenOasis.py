@@ -3,7 +3,7 @@ from daplayer import Player
 from sprites import *
 from pytmx.util_pygame import load_pygame
 from random import randint
-from groups import TheSprites, Oasiss, Wellss, Cactuss, Chasee
+from groups import TheSprites, Oasiss, Wellss, Cactuss, Chasee, Beastt
 import time
 
 
@@ -25,6 +25,7 @@ class Halloween_Oasis:
         self.damages = False
         self.sprint = False
         self.beastspawned = False
+        
         self.beast = None
         self.beast_x = 0
         self.beast_y = 0
@@ -43,6 +44,7 @@ class Halloween_Oasis:
         self.Wells = Wellss()
         self.Cactus = Cactuss()
         self.Chase = Chasee ()
+        self.Beast_SP = Beastt()
         
 
         #note the sprite of character
@@ -222,44 +224,43 @@ class Halloween_Oasis:
                     self.running = False
                     return "menu"
 
-    def chaseSEQ(self):
-         beastspeed = 2
+    def chaseSEQ(self): #beast mechanics
+         beastspeed = 5
          
          
 
          if self.beastspawned :
 
                 if self.beast == None :
+                        
                         beastimg = pygame.image.load(os.path.join(BASE_DIR, 'data', 'maps', 'haloween','beast.png')).convert_alpha()
                         beast_img = pygame.transform.scale (beastimg, (158,208))
                         
                         self.beast = Beast( (self.beast_x, self.beast_y),beast_img,
-                        self.the_sprites
+                        (self.the_sprites, self.Beast_SP)
                         )  
+
+                        
 
                 target = pygame.math.Vector2(self.player.rect.center)
                 beastpos = pygame.math.Vector2(self.beast.rect.center)
                 newbeastpos = pygame.math.Vector2(self.beast.rect.center)
                 min_d = 25
-                max_d = 100
+               
     
                 distance = beastpos.distance_to(target)
-                
 
-                if distance > min_d :
-                        direction = (target - beastpos)/ distance 
-                        min_step = max(0, distance - max_d)
-                        max_step = distance - min_d
+                if not self.pause: 
 
-                        step_dist = min(max_step, max(min_step, beastspeed))
-                        newbeastpos = beastpos + direction * step_dist 
+                    if distance > min_d :
+                            direction = (target - beastpos)/ distance 
+        
+                            newbeastpos = beastpos + direction * beastspeed
 
-                        self.beast.rect.center = newbeastpos 
-
-                
-                           
-                               
-
+                            self.beast.rect.center = newbeastpos 
+                else:
+                     pass
+                             
     def setup(self): #maptile
         
         #currentlevel = self.currentlevel
@@ -343,7 +344,7 @@ class Halloween_Oasis:
                         (self.the_sprites, self.Smallcollision_SP)
                     )
         if self.currentlevel >= 1:
-            for x, y, image in tmx_map.get_layer_by_name('Beast Trigger').tiles():
+            for x, y, image in tmx_map.get_layer_by_name('Beast Trigger').tiles(): #trigger collisioncheck for beast
                     self.beast_x = x * scale_tiled
                     self.beast_y = y * scale_tiled
 
@@ -355,7 +356,7 @@ class Halloween_Oasis:
                     )
                 
         self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, 
-                             self.Oasis, self.Wells, self.Cactus, self.Smallcollision_SP, self.Chase)
+                             self.Oasis, self.Wells, self.Cactus, self.Smallcollision_SP, self.Chase, self.Beast_SP)
         
         self.the_sprites.add(self.player)
 
@@ -396,6 +397,7 @@ class Halloween_Oasis:
             
                 self.stopgame = False
                 self.gamerunning = True
+                
 
             else:
                 self.stopgame = True
@@ -512,17 +514,19 @@ class Halloween_Oasis:
                 self.wintime = True
                 self.victory()
 
-            if self.player.chasePlayer:
+            if self.player.chasePlayer: #leyman terms if collision true spawn beast
                 self.beastspawned = True
 
-            if self.beastspawned:
+            if self.beastspawned: #if there is beast do the chase seq
                  self.chaseSEQ()
 
             if self.time_left == 0 :
+                self.player.lose = True
+                
+            if self.player.lose :
                 self.gamerunning = False
                 self.wintime = True
                 self.lose()
-
 
             if self.current_hydrduration <= 0 :
                 self.gamerunning = False

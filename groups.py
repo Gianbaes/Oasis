@@ -33,3 +33,8 @@ class Chasee(pygame.sprite.Group):
         super().__init__()
         self.display_surface = pygame.display.get_surface()
 
+class Beastt(pygame.sprite.Group): # groups for beast (halloween)
+    def __init__(self):
+        super().__init__()
+        self.display_surface = pygame.display.get_surface()
+
