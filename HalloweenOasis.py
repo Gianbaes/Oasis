@@ -3,7 +3,7 @@ from daplayer import Player
 from sprites import *
 from pytmx.util_pygame import load_pygame
 from random import randint
-from groups import TheSprites, Oasiss, Wellss, Cactuss, Chasee, Beastt
+from groups import TheSprites, Oasiss, Wellss, Cactuss, Chasee, Beastt, FakeOasiss
 import time
 
 
@@ -45,6 +45,7 @@ class Halloween_Oasis:
         self.Cactus = Cactuss()
         self.Chase = Chasee ()
         self.Beast_SP = Beastt()
+        self.FakeOasis = FakeOasiss()
         
 
         #note the sprite of character
@@ -354,9 +355,18 @@ class Halloween_Oasis:
                         image,
                         (self.the_sprites, self.Chase)
                     )
+
+            for x, y, image in tmx_map.get_layer_by_name('Fake Oasis').tiles():
+                    image = pygame.transform.scale(image, (scale_tiled, scale_tiled))
+                    FakeOasis(
+                        (x * scale_tiled, y * scale_tiled),
+                        image,
+                        (self.the_sprites, self.FakeOasis)
+                    )
                 
         self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, 
-                             self.Oasis, self.Wells, self.Cactus, self.Smallcollision_SP, self.Chase, self.Beast_SP)
+                             self.Oasis, self.Wells, self.Cactus, self.Smallcollision_SP, 
+                             self.Chase, self.Beast_SP, self.FakeOasis)
         
         self.the_sprites.add(self.player)
 

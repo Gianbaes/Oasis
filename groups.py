@@ -38,3 +38,9 @@ class Beastt(pygame.sprite.Group): # groups for beast (halloween)
         super().__init__()
         self.display_surface = pygame.display.get_surface()
 
+class FakeOasiss(pygame.sprite.Group): #can also be used for mirages next update
+    def __init__(self):
+        super().__init__()
+        self.display_surface = pygame.display.get_surface()
+
+

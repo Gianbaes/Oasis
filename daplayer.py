@@ -5,7 +5,7 @@ from config import *
 class Player(pygame.sprite.Sprite):
 
     def __init__(self, pos, groups, Collision_SP, BigCollision_SP, oasis ,
-                  wells, cactus, Smallcollision_SP, Chase, beast):
+                  wells, cactus, Smallcollision_SP, Chase, beast, fakeoasis):
         super().__init__(groups)
 
 
@@ -42,6 +42,7 @@ class Player(pygame.sprite.Sprite):
         self.Chase = Chase #trigger for the beast spawned
         self.Beast_SP = beast #beast trigger to determine if player died
         self.BigCollision_SP = BigCollision_SP
+        self.FakeOasis = fakeoasis
 
         self.winning = False
         self.chasePlayer = False
@@ -73,6 +74,7 @@ class Player(pygame.sprite.Sprite):
         self.Smallcollision('horizontal')
         self.Chase_Trigger('horizontal')
         self.Beastkills('horizontal')
+        self.FakeOasis_colli('horizontal')
         self.hitbox_rect.y += self.direction.y * self.speed * dt
         self.collision('vertical')
         self.Bigcollision('vertical')
@@ -82,6 +84,7 @@ class Player(pygame.sprite.Sprite):
         self.Smallcollision('vertical')
         self.Chase_Trigger('vertical')
         self.Beastkills('vertical')
+        self.FakeOasis_colli('vertical')
         self.rect.center = self.hitbox_rect.center
 
 
@@ -118,6 +121,15 @@ class Player(pygame.sprite.Sprite):
                         if self.direction.y > 0: self.hitbox_rect.bottom = sprite.rect.top
                         if self.direction.y < 0: self.hitbox_rect.top = sprite.rect.bottom
 
+    def FakeOasis_colli(self, direction): #oaisis logic
+            for sprite in self.FakeOasis:
+                if sprite.rect.inflate(-80, -80).colliderect(self.hitbox_rect): #hit wall
+                    if direction == 'horizontal':
+                        if self.direction.x > 0: self.lose = True                        
+                        if self.direction.x < 0: self.lose = True
+                    else:
+                        if self.direction.y > 0: self.lose = True
+                        if self.direction.y < 0: self.lose = True
 
     def Chase_Trigger(self, direction): #collision logic for triggers 
             for sprite in self.Chase:
