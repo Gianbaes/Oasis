@@ -63,11 +63,10 @@ Minor updates
 - Instruction to pause and sprint now on top 
 - 2 extra Levels
 
-Halloween Update (dont read this unless you want to head in to the game unspoiled)
+HALLOWEEN UPDATE (dont read this unless you want to head in to the game unspoiled)
 Major updates :
--Halloween special level 
-(Added a gamemode for it)
--Beast mechanics 
+- Halloween special level (Added a gamemode for it)
+- Beast mechanics 
 - Chase sequence 
 - trigger for spawning it
 - beast targeting the player
@@ -141,7 +140,7 @@ Alternatively You can download source.zip
 
  Requirement
  - Python
- - Pygame- ce
+ - Pygame- ce (important use pygame_ce instead of pygame)
  - pytmx
 
 You can copy this repository and execute 
