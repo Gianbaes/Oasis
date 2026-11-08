@@ -17,9 +17,6 @@ class Halloween_Oasis:
         self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.display.set_caption("Oasis_Searcher_Halloween")
 
-        pygame.mixer.music.load(os.path.join(BASE_DIR,'data', 'music', 'halloween.wav'))
-        pygame.mixer.music.set_volume(0.5)
-        pygame.mixer.music.play(-1)
 
         self.clock = pygame.time.Clock()
         self.running = True
@@ -392,6 +389,12 @@ class Halloween_Oasis:
     def run(self):
 
         self.gamerunning = True
+
+        pygame.mixer.music.load(os.path.join(BASE_DIR,'data', 'music', 'halloween.wav'))
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play(loops = -1)
+        
+               
         
 
         while self.running:
@@ -404,6 +407,7 @@ class Halloween_Oasis:
                       if event.key == pygame.K_SPACE:
                             self.pause = not self.pause
 
+            
             keyhold = pygame.key.get_pressed()
             if keyhold[pygame.K_LSHIFT]:
                 self.sprint = True
