@@ -7,6 +7,9 @@
  Halloween Update
  Outside of the main game, find the secrets of the dark forest
 
+# Why I made this game
+There are plenty reasons but the most imporant in my opinion is the learnings I made and will make along the way. I am a begineer and this is a great experience for me to develop my passion for coding and problem solving. The reason why I did this game is I just generally think of it, oasis was on my mind that day and I say why not
+
 # Game Rules 
 -You have a limited time to find the oasis
 
