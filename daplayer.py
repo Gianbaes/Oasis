@@ -63,7 +63,6 @@ class Player(pygame.sprite.Sprite):
 
         self.direction = self.direction.normalize() if self.direction else self.direction
 
-
     def move(self, dt): #reminder when adding a new def, add here
         self.hitbox_rect.x += self.direction.x * self.speed * dt
         self.collision('horizontal')
@@ -87,7 +86,6 @@ class Player(pygame.sprite.Sprite):
         self.FakeOasis_colli('vertical')
         self.rect.center = self.hitbox_rect.center
 
-
     def collision(self, direction): #collision logic
         for sprite in self.Collision_SP:
             if sprite.rect.colliderect(self.hitbox_rect): #hit wall
@@ -98,7 +96,6 @@ class Player(pygame.sprite.Sprite):
                     if self.direction.y > 0: self.hitbox_rect.bottom = sprite.rect.top
                     if self.direction.y < 0: self.hitbox_rect.top = sprite.rect.bottom
 
-
     def Bigcollision(self, direction): #collision logic
             for sprite in self.BigCollision_SP:
                 if sprite.rect.colliderect(self.hitbox_rect): #hit wall
@@ -108,7 +105,6 @@ class Player(pygame.sprite.Sprite):
                     else:
                         if self.direction.y > 0: self.hitbox_rect.bottom = sprite.rect.top
                         if self.direction.y < 0: self.hitbox_rect.top = sprite.rect.bottom
-
 
     def Smallcollision(self, direction): #collision logic for halloween trees
             for sprite in self.Smallcollision_SP:
@@ -166,7 +162,6 @@ class Player(pygame.sprite.Sprite):
                         if self.direction.y > 0: self.winning = True
                         if self.direction.y < 0: self.winning = True
 
-
     def Well_colli(self, direction): #wells logic
             for sprite in self.Wells:
                 if sprite.rect.inflate(+10, +10).colliderect(self.hitbox_rect): #hit wall
@@ -183,7 +178,6 @@ class Player(pygame.sprite.Sprite):
                          if kill_rect.colliderect(sprite.rect): #note to self : parang ganto yan if killrect radius ay naghit or collide sa colliderect(self.hitbox) then sprite.kill
                             sprite.kill()
 
-
     def Cactus_colli(self, direction):
          self.Damaged = False
          for sprite in self.Cactus:
@@ -192,7 +186,6 @@ class Player(pygame.sprite.Sprite):
                    self.Damaged = True
 
                    break
-
 
     def animation(self, dt):
 
@@ -215,7 +208,6 @@ class Player(pygame.sprite.Sprite):
 
                     self.image = frames[int(self.frame_index)]
                          
-
     def update(self, dt):
         self.input()
         self.move(dt)

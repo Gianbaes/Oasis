@@ -3,7 +3,7 @@ from daplayer import Player
 from sprites import *
 from pytmx.util_pygame import load_pygame
 from random import randint
-from groups import TheSprites, Oasiss, Wellss, Cactuss, Chasee
+from groups import *
 import time
 
 
@@ -38,7 +38,9 @@ class Oasis_Game:
         self.Oasis = Oasiss()
         self.Wells = Wellss()
         self.Cactus = Cactuss()
-        self.Chase = Chasee()
+        self.Chase = Chasee ()
+        self.Beast_SP = Beastt()
+        self.FakeOasis = FakeOasiss()
         
 
         #note the sprite of character
@@ -325,7 +327,8 @@ class Oasis_Game:
                         )
 
         self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, 
-                             self.Oasis, self.Wells, self.Cactus, self.Chase, self.Smallcollision_SP)
+                                     self.Oasis, self.Wells, self.Cactus, self.Smallcollision_SP, 
+                                     self.Chase, self.Beast_SP, self.FakeOasis)
         
         self.the_sprites.add(self.player)
 

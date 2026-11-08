@@ -33,11 +33,6 @@ class CollisionSP(pygame.sprite.Sprite):
 
 
 
-
-
-
-
-
 #halloween update
 class SmallcollisionSP(pygame.sprite.Sprite): #super small collisio used for trees (halloweenupd)
     def __init__(self, pos, surf, groups):

@@ -3,7 +3,7 @@ from daplayer import Player
 from sprites import *
 from pytmx.util_pygame import load_pygame
 from random import randint
-from groups import TheSprites, Oasiss, Wellss, Cactuss, Chasee, Beastt, FakeOasiss
+from groups import *
 import time
 
 
@@ -13,8 +13,13 @@ class Halloween_Oasis:
     def __init__(self,currentlevel = 0 ):
         #initilize
         pygame.init()
+        pygame.mixer.init()
         self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.display.set_caption("Oasis_Searcher_Halloween")
+
+        pygame.mixer.music.load(os.path.join(BASE_DIR,'data', 'music', 'halloween.wav'))
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play(-1)
 
         self.clock = pygame.time.Clock()
         self.running = True
@@ -265,7 +270,7 @@ class Halloween_Oasis:
     
                 distance = beastpos.distance_to(target)
 
-                if self.gamerunning : 
+                if self.gamer: 
 
                     if distance > min_d :
                             direction = (target - beastpos)/ distance 
