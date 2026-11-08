@@ -4,8 +4,11 @@
  A world of dessert where you must find oasis before your hydration level turn 0 and die of thirst.
  Traverse through obstacles, use your pathfinding to avoid cacti and use wells cleverly to reflenish and manage your hydration.
 
+ Halloween Update
+ Outside of the main game, find the secrets of the dark forest
+
 # Game Rules 
--You have 60 s to find the oasis
+-You have a limited time to find the oasis
 
 - Avoid obstacle
 - Use W,A,S,D to move
@@ -60,6 +63,27 @@ Minor updates
 - Instruction to pause and sprint now on top 
 - 2 extra Levels
 
+Halloween Update (dont read this unless you want to head in to the game unspoiled)
+Major updates :
+-Halloween special level 
+(Added a gamemode for it)
+-Beast mechanics 
+- Chase sequence 
+- trigger for spawning it
+- beast targeting the player
+- Fake Oasis
+- Music 
+- Changing Ambience
+
+
+Minor updates
+- New assets for Halloween 
+- Beast does not sync with the player speed now, it uses a fix speed 
+- Beast does not move now if paused
+- menu image change to dark mode 
+- Beast spawning warning text
+
+
 
 
 # Coming Soon
@@ -105,7 +129,7 @@ download Oasis_Searcher
 you can run it on your linux or run through commands by using
 
 ```bash
-./Oasis_Searcer
+./Oasis_Searcher
 ```
 dont forget to do 
 
@@ -130,4 +154,4 @@ main.py
 For Windows :
 coming soon (attempting to borrow laptop windows)
 
-# NOTE : I am new in game dev and coding, so please do contact me if there are issues and problems
+# NOTE : I am new in game dev and coding, so please dont judge me for inefficient coding and do contact me if there are issues and problems
