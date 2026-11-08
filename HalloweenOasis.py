@@ -501,6 +501,11 @@ class Halloween_Oasis:
 
             self.display_surface.blit(timer_countdown,(520, 13))
 
+            dark_ambience = self.environment = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
+            self.environment.fill((2,2, 12, 200))
+
+            pygame.draw.ellipse(dark_ambience,(0,5,0,120),(WINDOW_WIDTH // 2, WINDOW_HEIGHT//2), 50)
+
             self.display_surface.blit(self.environment, (0,0))
 
             if self.player.Replenish:

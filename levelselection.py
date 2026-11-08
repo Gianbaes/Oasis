@@ -10,8 +10,6 @@ class Levelselection():
         pygame.display.set_caption("Oasis_Levels")
         self.display_surface.fill ((15, 25, 60))
     
-
-
     def levelmenu(self):
         running = True
 
