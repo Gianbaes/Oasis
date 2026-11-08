@@ -267,7 +267,7 @@ class Halloween_Oasis:
     
                 distance = beastpos.distance_to(target)
 
-                if self.gamer: 
+                if self.gamerunning: 
 
                     if distance > min_d :
                             direction = (target - beastpos)/ distance 
@@ -392,7 +392,7 @@ class Halloween_Oasis:
 
         pygame.mixer.music.load(os.path.join(BASE_DIR,'data', 'music', 'halloween.wav'))
         pygame.mixer.music.set_volume(0.5)
-        pygame.mixer.music.play(loops = -1)
+        pygame.mixer.music.play(-1)
         
                
         
