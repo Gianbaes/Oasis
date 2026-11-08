@@ -345,8 +345,8 @@ class Halloween_Oasis:
                     )
         if self.currentlevel >= 1:
             for x, y, image in tmx_map.get_layer_by_name('Beast Trigger').tiles(): #trigger collisioncheck for beast
-                    self.beast_x = x * scale_tiled
-                    self.beast_y = y * scale_tiled
+                    self.beast_x = (x * scale_tiled) - 300
+                    self.beast_y = (y * scale_tiled) - 300
 
                     image = pygame.transform.scale(image, (scale_tiled, scale_tiled))
                     Chase(

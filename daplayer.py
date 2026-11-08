@@ -1,6 +1,7 @@
 from config import *
 
 
+
 class Player(pygame.sprite.Sprite):
 
     def __init__(self, pos, groups, Collision_SP, BigCollision_SP, oasis ,
@@ -48,6 +49,8 @@ class Player(pygame.sprite.Sprite):
         self.Damaged = False
         self.Toleft = False
         self.lose = False
+
+        
     
 
     def input(self):
@@ -133,14 +136,13 @@ class Player(pygame.sprite.Sprite):
                                 sprite.kill()
 
     def Beastkills(self, direction):
-            for sprite in self.Beast_SP:
-                if sprite.rect.inflate(+10, +10).colliderect(self.hitbox_rect): #hit wall
-                    if direction == 'horizontal':
-                        if self.direction.x > 0: self.lose = True                        
-                        if self.direction.x < 0: self.lose = True
-                    else:
-                        if self.direction.y > 0: self.lose = True
-                        if self.direction.y < 0: self.lose = True
+            if self.chasePlayer :
+                for sprite in self.Beast_SP:
+                    if sprite.rect.inflate(-40, -40).colliderect(self.hitbox_rect): #hit wall
+                       
+                             self.lose = True
+
+                             break
 
     def Oasis_colli(self, direction): #oaisis logic
             for sprite in self.Oasis:
