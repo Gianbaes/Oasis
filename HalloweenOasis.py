@@ -420,11 +420,15 @@ class Halloween_Oasis:
             
             if self.gamerunning == True:
                 self.the_sprites.update(dt) # updt sprite
+                pygame.mixer_music.unpause()
 
                 if self.wintime == False :
                     self.time_left -= dt
                     self.time_left = max(0, self.time_left)
                     self.current_hydrduration = max(0, self.time_left)
+
+            else:
+                pygame.mixer_music.pause()
 
             if not self.pause:
             
@@ -435,6 +439,7 @@ class Halloween_Oasis:
             else:
                 self.stopgame = True
                 self.gamerunning = False
+                pygame.mixer_music.pause()
 
 
 
