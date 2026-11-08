@@ -15,6 +15,9 @@ class Halloween_Oasis:
         pygame.init()
         pygame.mixer.init()
         self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+        self.environment = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
+        self.environment.fill((2,2, 12, 200))
+        
         pygame.display.set_caption("Oasis_Searcher_Halloween")
 
 
@@ -238,7 +241,9 @@ class Halloween_Oasis:
         
                  
         self.beastspeed = self.beasttime[self.currentlevel]
-         
+
+        self.beastmode = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
+        self.beastmode.fill((28,0, 0, 80))
          
 
         if self.beastspawned :
@@ -252,6 +257,7 @@ class Halloween_Oasis:
                         (self.the_sprites, self.Beast_SP)
                         )  
 
+                self.display_surface.blit(self.beastmode, (0,0))
                 font = pygame.font.Font(None, 50)
                 beasttext = font.render("WARNING : Run to the Oasis now !, The beast has SPAWNED", True, "Red")
                 self.display_surface.blit(beasttext,(200,40))
@@ -379,6 +385,7 @@ class Halloween_Oasis:
                         image,
                         (self.the_sprites, self.FakeOasis)
                     )
+
                 
         self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, 
                              self.Oasis, self.Wells, self.Cactus, self.Smallcollision_SP, 
@@ -449,7 +456,8 @@ class Halloween_Oasis:
             self.display_surface.fill('Yellow')
             self.display_surface.blit(bgimg, (0,0)) 
             self.the_sprites.draw(self.player.rect.center) #draw the sprite hehe
-
+            
+            
                 
                 
 
@@ -493,7 +501,7 @@ class Halloween_Oasis:
 
             self.display_surface.blit(timer_countdown,(520, 13))
 
-
+            self.display_surface.blit(self.environment, (0,0))
 
             if self.player.Replenish:
                   
@@ -576,7 +584,7 @@ class Halloween_Oasis:
             if self.pause:
                   self.pausemenu()
  
-           
+            
             
             pygame.display.update()
 
