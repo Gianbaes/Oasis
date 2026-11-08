@@ -241,6 +241,11 @@ class Halloween_Oasis:
                         (self.the_sprites, self.Beast_SP)
                         )  
 
+                font = pygame.font.Font(None, 50)
+                beasttext = font.render("WARNING : Run to the Oasis now !, The beast has SPAWNED", True, "Red")
+                self.display_surface.blit(beasttext,(200,40))
+                        
+
                         
 
                 target = pygame.math.Vector2(self.player.rect.center)
