@@ -226,11 +226,20 @@ class Halloween_Oasis:
                     return "menu"
 
     def chaseSEQ(self): #beast mechanics
-         beastspeed = 5
+
+        self.beasttime =[ 
+                            0,
+                            10,
+                            15
+                                       
+                        ]
+        
+                 
+        self.beastspeed = self.beasttime[self.currentlevel]
          
          
 
-         if self.beastspawned :
+        if self.beastspawned :
 
                 if self.beast == None :
                         
@@ -256,12 +265,12 @@ class Halloween_Oasis:
     
                 distance = beastpos.distance_to(target)
 
-                if not self.pause: 
+                if self.gamerunning : 
 
                     if distance > min_d :
                             direction = (target - beastpos)/ distance 
         
-                            newbeastpos = beastpos + direction * beastspeed
+                            newbeastpos = beastpos + direction * self.beastspeed
 
                             self.beast.rect.center = newbeastpos 
                 else:
@@ -480,10 +489,12 @@ class Halloween_Oasis:
 
                 self.refilled = True
                 self.refilledtimer = .5
+
             if self.refilled:
                     font = pygame.font.Font(None, 75)
                     refilltext = font.render("+5", True, "Blue")
                     self.display_surface.blit(refilltext,(750, 23))
+
             if self.refilled :
                   self.refilledtimer -=  dt
                   if self.refilledtimer <= 0:
@@ -512,8 +523,6 @@ class Halloween_Oasis:
                         self.damages = False
 
 
-
-
             if self.sprint == True :
                   self.player.speed = 700
                   self.time_left -= 2 * dt
@@ -523,6 +532,7 @@ class Halloween_Oasis:
             else :
                   self.player.speed = 350
                   self.sprint = False
+
 
             if self.player.winning:
                 self.gamerunning = False
