@@ -383,15 +383,27 @@ class Oasis_Game:
             self.display_surface.blit(bgimg, (0,0)) 
             self.the_sprites.draw(self.player.rect.center) #draw the sprite hehe
 
-                
-                
-
             font = pygame.font.Font(None, 40)
             colortime = "white"
+
             if self.time_left <= 10 :
                 colortime = "Red"
+                self.ambience_red = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
+
+                pygame_even = pygame.time.get_ticks() // 500 %2 == 0
+
+                if pygame_even :       
+                    self.ambience_red.fill ((50, 2, 0, 120))
+                    self.display_surface.blit(self.ambience_red, (0,0))
+                else:
+                    self.ambience_red.fill ((50, 2, 0, 50))
+                    self.display_surface.blit(self.ambience_red, (0,0))
+
             if self.time_left <= 30 and self.time_left > 10 :
                 colortime = "Yellow"
+                self.ambience_yellow = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
+                self.ambience_yellow.fill ((250, 225, 0, 50))
+                self.display_surface.blit(self.ambience_yellow, (0,0))
 
             timer_countdown = font.render(f"Hydration level: {int(self.time_left)}", True, colortime)
             

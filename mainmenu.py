@@ -8,7 +8,9 @@ class Main_Menu:
         self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.display.set_caption("Oasis_Menu")
         self.display_surface.fill('Yellow')
-       
+        self.overlay = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
+        self.overlay.fill ((250, 225, 0, 50))
+        
                
     def menurun(self):
 
@@ -84,6 +86,8 @@ class Main_Menu:
             self.display_surface.blit (levels_text, levels_rect)
             self.display_surface.blit (quit_text, quit_rect)
             self.display_surface.blit (Hlw_text, Hlw_rect)
+
+            self.display_surface.blit(self.overlay, (0,0))
 
             mouse_alligned_start = start_rect.collidepoint((mouse_X, mouse_Y)) 
             mouse_alligned_levels = levels_rect.collidepoint((mouse_X, mouse_Y)) 
