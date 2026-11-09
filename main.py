@@ -9,6 +9,7 @@ from groups import TheSprites, Oasiss
 import time
 from levelselection import Levelselection
 from HalloweenOasis import Halloween_Oasis
+from gamemodes import GameModeSelection
 
 while True:
     menu = Main_Menu()
@@ -21,10 +22,17 @@ while True:
         game.setup
         game.run()
 
-    elif action == "Hlw" :
-        hwl = Halloween_Oasis()
-        hwl.setup()
-        hwl.run()
+    elif action == "Gamemodes" :
+        gamemodes = GameModeSelection()
+        choosedgm = gamemodes.gamemenu()
+
+        if choosedgm == "Back":
+                    pass
+        
+        elif choosedgm == "Hlw" :
+            Hlw = Halloween_Oasis()
+            Hlw.setup
+            Hlw.run()
 
     elif action == "levels" :
 

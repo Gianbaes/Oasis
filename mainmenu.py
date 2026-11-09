@@ -58,9 +58,9 @@ class Main_Menu:
                         (WINDOW_HEIGHT//2) + 200)
             )
 
-            font = pygame.font.Font(None, 50)
-            Hlw_text = font.render(f"Halloween", True, "Yellow")
-            Hlw_rect = start_text.get_rect(
+            font = pygame.font.Font(None, 40)
+            Gamemodes_text = font.render(f"Gamemodes", True, "Yellow")
+            Gamemodes_rect = start_text.get_rect(
                 center = (WINDOW_WIDTH//2 + 350,
                         (WINDOW_HEIGHT//2) + 350)
             )
@@ -71,7 +71,7 @@ class Main_Menu:
 
             box_rect_quit = quit_rect.inflate(95,20)
 
-            box_rect_Hlw = Hlw_rect.inflate(100,20)
+            box_rect_Gamemodes = Gamemodes_rect.inflate(100,20)
 
             #border
             pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_start, width=3, border_radius=15)
@@ -80,19 +80,19 @@ class Main_Menu:
 
             pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_quit, width=3, border_radius=15)
 
-            pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_Hlw, width=3, border_radius=15)
+            pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_Gamemodes, width=3, border_radius=15)
 
             self.display_surface.blit (start_text, start_rect)
             self.display_surface.blit (levels_text, levels_rect)
             self.display_surface.blit (quit_text, quit_rect)
-            self.display_surface.blit (Hlw_text, Hlw_rect)
+            self.display_surface.blit (Gamemodes_text, Gamemodes_rect)
 
             self.display_surface.blit(self.overlay, (0,0))
 
             mouse_alligned_start = start_rect.collidepoint((mouse_X, mouse_Y)) 
             mouse_alligned_levels = levels_rect.collidepoint((mouse_X, mouse_Y)) 
             mouse_alligned_quit = quit_rect.collidepoint((mouse_X, mouse_Y)) 
-            mouse_alligned_Hlw = Hlw_rect.collidepoint((mouse_X, mouse_Y)) 
+            mouse_alligned_Gamemodes = Gamemodes_rect.collidepoint((mouse_X, mouse_Y)) 
 
             if mouse_alligned_start :
                 pygame.draw.rect( self.display_surface,('white'), box_rect_start, border_radius=15)
@@ -106,10 +106,10 @@ class Main_Menu:
                 pygame.draw.rect( self.display_surface,('white'), box_rect_quit, border_radius=15)
                 pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_quit, width=3, border_radius=15)
                 self.display_surface.blit (quit_text, quit_rect)
-            if mouse_alligned_Hlw :
-                pygame.draw.rect( self.display_surface,('white'), box_rect_Hlw, border_radius=15)
-                pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_Hlw, width=3, border_radius=15)
-                self.display_surface.blit (Hlw_text, Hlw_rect)
+            if mouse_alligned_Gamemodes :
+                pygame.draw.rect( self.display_surface,('white'), box_rect_Gamemodes, border_radius=15)
+                pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_Gamemodes, width=3, border_radius=15)
+                self.display_surface.blit (Gamemodes_text, Gamemodes_rect)
     
 
             if mouse_alligned_start and clicking == True  :
@@ -122,8 +122,8 @@ class Main_Menu:
                 return "quit"
                 endgame =  True
 
-            if mouse_alligned_Hlw and clicking == True  :
-                return "Hlw"
+            if mouse_alligned_Gamemodes and clicking == True  :
+                return "Gamemodes"
 
         
 
