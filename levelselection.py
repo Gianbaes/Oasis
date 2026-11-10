@@ -58,6 +58,16 @@ class Levelselection():
             lvl5_text = font.render(f"LVL 5", True, "White")
             lvl5_rect = lvl5_text.get_rect(
                 center = (1000,100 ))
+
+            font = pygame.font.Font(None, 50)
+            lvl6_text = font.render(f"LVL 6", True, "White")
+            lvl6_rect = lvl6_text.get_rect(
+                center = (200,300 ))
+
+            font = pygame.font.Font(None, 50)
+            lvl7_text = font.render(f"LVL 7", True, "White")
+            lvl7_rect = lvl7_text.get_rect(
+                center = (400,300 ))
             
             font = pygame.font.Font(None, 50)
             Back_text = font.render(f"Back", True, "White")
@@ -76,6 +86,10 @@ class Levelselection():
 
             box_rect_lvl5 = lvl5_rect.inflate(40,20)
 
+            box_rect_lvl6 = lvl6_rect.inflate(40,20)
+            
+            box_rect_lvl7 = lvl7_rect.inflate(40,20)
+
 
             #border
             pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_lvl1, width=3, border_radius=15)
@@ -88,6 +102,10 @@ class Levelselection():
             
             pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_lvl5, width=3, border_radius=15)
 
+            pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_lvl6, width=3, border_radius=15)
+                        
+            pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_lvl7, width=3, border_radius=15)
+
             #display
             self.display_surface.blit (lvl1_text, lvl1_rect)
 
@@ -98,6 +116,10 @@ class Levelselection():
             self.display_surface.blit (lvl4_text, lvl4_rect)
 
             self.display_surface.blit (lvl5_text, lvl5_rect)
+
+            self.display_surface.blit (lvl6_text, lvl6_rect)
+            
+            self.display_surface.blit (lvl7_text, lvl7_rect)
 
             self.display_surface.blit (Back_text, Back_rect)
 
@@ -112,6 +134,10 @@ class Levelselection():
             mouse_alligned_lvl4 = lvl4_rect.collidepoint((mouse_X, mouse_Y)) 
 
             mouse_alligned_lvl5 = lvl5_rect.collidepoint((mouse_X, mouse_Y))
+
+            mouse_alligned_lvl6 = lvl6_rect.collidepoint((mouse_X, mouse_Y)) 
+
+            mouse_alligned_lvl7 = lvl7_rect.collidepoint((mouse_X, mouse_Y))
 
             mouse_alligned_Back = Back_rect.collidepoint((mouse_X, mouse_Y)) 
 
@@ -141,6 +167,16 @@ class Levelselection():
                 pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_lvl5, width=3, border_radius=15)
                 self.display_surface.blit (lvl5_text, lvl5_rect) 
 
+            elif mouse_alligned_lvl6 :
+                pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_lvl6, border_radius=15)
+                pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_lvl6, width=3, border_radius=15)
+                self.display_surface.blit (lvl6_text, lvl6_rect) 
+
+            elif mouse_alligned_lvl7 :
+                pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_lvl7, border_radius=15)
+                pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_lvl7, width=3, border_radius=15)
+                self.display_surface.blit (lvl7_text, lvl7_rect) 
+
             else :
                 self.display_surface.fill ((15, 25, 60))
         
@@ -154,6 +190,10 @@ class Levelselection():
             
             pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_lvl5, width=3, border_radius=15)
 
+            pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_lvl6, width=3, border_radius=15)
+                        
+            pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_lvl7, width=3, border_radius=15)
+
             #display
             self.display_surface.blit (lvl1_text, lvl1_rect)
 
@@ -164,6 +204,10 @@ class Levelselection():
             self.display_surface.blit (lvl4_text, lvl4_rect)
 
             self.display_surface.blit (lvl5_text, lvl5_rect)
+
+            self.display_surface.blit (lvl6_text, lvl6_rect)
+            
+            self.display_surface.blit (lvl7_text, lvl7_rect)
 
             self.display_surface.blit (Back_text, Back_rect)
 
@@ -181,6 +225,10 @@ class Levelselection():
                 return 3
             if mouse_alligned_lvl5 and clicking == True  :
                 return 4
+            if mouse_alligned_lvl6 and clicking == True  :
+                return 5
+            if mouse_alligned_lvl7 and clicking == True  :
+                return 6
             if mouse_alligned_Back and clicking == True  :
                 return "Back"
             pygame.display.update()

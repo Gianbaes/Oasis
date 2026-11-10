@@ -1,5 +1,5 @@
 from config import *
-from daplayer import Player
+from players.daplayer import Player
 from sprites import *
 from pytmx.util_pygame import load_pygame
 from random import randint
@@ -26,9 +26,7 @@ class Oasis_Game:
         self.sprint = False
         self.refilledtimer = 0
         self.currentlevel = currentlevel
-    
-        #self.currentlevel = 0
-        self.lastlevel = 4
+        self.lastlevel = 6
 
         #note to self - the groups
         self.the_sprites = TheSprites()
@@ -38,9 +36,8 @@ class Oasis_Game:
         self.Oasis = Oasiss()
         self.Wells = Wellss()
         self.Cactus = Cactuss()
-        self.Chase = Chasee ()
-        self.Beast_SP = Beastt()
-        self.FakeOasis = FakeOasiss()
+        self.MirageOasis_SP = MirageOasiss()
+   
         
 
         #note the sprite of character
@@ -238,7 +235,9 @@ class Oasis_Game:
                     45,
                     30,
                     25,
-                    30             
+                    30,
+                    40,
+                    60           
                 ]
 
         self.time_left  = self.levelstime[self.currentlevel]
@@ -248,7 +247,9 @@ class Oasis_Game:
               (500,1020),
               (300,1710),
               (2300,80),
-              (100,100)
+              (100,100),
+              (2800, 2800),
+              (80, 80)
         ]
         
 
@@ -260,7 +261,9 @@ class Oasis_Game:
             'level-1.tmx',
             'level-2.tmx',
             'level-3.tmx',
-            'level-4.tmx'            
+            'level-4.tmx',
+            'level-5.tmx',
+            'level-6.tmx'            
         ]
 
         self.max_hydrduration = self.levelstime[self.currentlevel]
@@ -326,9 +329,17 @@ class Oasis_Game:
                                 (self.the_sprites, self.Wells, self.BigCollision_SP )
                         )
 
+        if self.currentlevel >= 5 :
+            for x, y, image in tmx_map.get_layer_by_name('MirageOasis').tiles():
+                        image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
+                        MirageOasis(
+                            (x * TILE_SIZE, y * TILE_SIZE),
+                            image,
+                            (self.the_sprites, self.MirageOasis_SP)
+                        )
+
         self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, 
-                                     self.Oasis, self.Wells, self.Cactus, self.Smallcollision_SP, 
-                                     self.Chase, self.Beast_SP, self.FakeOasis)
+                                     self.Oasis, self.Wells, self.Cactus, self.MirageOasis_SP )
         
         self.the_sprites.add(self.player)
 

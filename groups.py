@@ -18,6 +18,11 @@ class Oasiss(pygame.sprite.Group):
         super().__init__()
         self.display_surface = pygame.display.get_surface()
 
+class MirageOasiss(pygame.sprite.Group):
+    def __init__(self):
+        super().__init__()
+        self.display_surface = pygame.display.get_surface()
+
 class Wellss(pygame.sprite.Group):
     def __init__(self):
         super().__init__()
@@ -28,6 +33,14 @@ class Cactuss(pygame.sprite.Group):
         super().__init__()
         self.display_surface = pygame.display.get_surface()
 
+
+
+
+
+
+
+
+#Halloween Gamemode --------=======-===
 class Chasee(pygame.sprite.Group):
     def __init__(self):
         super().__init__()

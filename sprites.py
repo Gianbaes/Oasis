@@ -12,6 +12,12 @@ class Oasis(pygame.sprite.Sprite):
         self.image = surf
         self.rect = self.image.get_frect(topleft = pos)
 
+class MirageOasis(pygame.sprite.Sprite):
+    def __init__(self, pos, surf, groups):
+        super().__init__(groups)
+        self.image = surf
+        self.rect = self.image.get_frect(topleft = pos)
+
 class Wells(pygame.sprite.Sprite):
     def __init__(self, pos, surf, groups):
         super().__init__(groups)
@@ -33,7 +39,7 @@ class CollisionSP(pygame.sprite.Sprite):
 
 
 
-#halloween update
+#halloween Gamemode---------------------------
 class SmallcollisionSP(pygame.sprite.Sprite): #super small collisio used for trees (halloweenupd)
     def __init__(self, pos, surf, groups):
         super().__init__(groups)

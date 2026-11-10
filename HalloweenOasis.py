@@ -1,5 +1,5 @@
 from config import *
-from daplayer import Player
+from players.daplayer_hlw import Player
 from sprites import *
 from pytmx.util_pygame import load_pygame
 from random import randint
