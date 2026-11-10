@@ -23,8 +23,18 @@ class Oasis_Game:
         self.pause = False
         self.refilled = False
         self.damages = False
+        self.heatstrokes = False
         self.sprint = False
+        self.miragefade = False
+
+
+        self.miragetime = 0
         self.refilledtimer = 0
+
+        self.mirageoasis_x = 0
+        self.mirageoasis_y = 0
+
+
         self.currentlevel = currentlevel
         self.lastlevel = 6
 
@@ -37,6 +47,7 @@ class Oasis_Game:
         self.Wells = Wellss()
         self.Cactus = Cactuss()
         self.MirageOasis_SP = MirageOasiss()
+        self.HeatZones = HeatZoness()
    
         
 
@@ -331,6 +342,9 @@ class Oasis_Game:
 
         if self.currentlevel >= 5 :
             for x, y, image in tmx_map.get_layer_by_name('MirageOasis').tiles():
+                        self.mirageoasis_x = x * TILE_SIZE
+                        self.mirageoasis_y = y * TILE_SIZE
+                        
                         image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
                         MirageOasis(
                             (x * TILE_SIZE, y * TILE_SIZE),
@@ -338,8 +352,16 @@ class Oasis_Game:
                             (self.the_sprites, self.MirageOasis_SP)
                         )
 
+            for x, y, image in tmx_map.get_layer_by_name('Heated Area').tiles():
+                        image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
+                        HeatZones(
+                                (x * TILE_SIZE, y * TILE_SIZE),
+                                image,
+                                (self.the_sprites, self.HeatZones)
+                        )     
+
         self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, 
-                                     self.Oasis, self.Wells, self.Cactus, self.MirageOasis_SP )
+                                     self.Oasis, self.Wells, self.Cactus, self.MirageOasis_SP, self.HeatZones)
         
         self.the_sprites.add(self.player)
 
@@ -450,7 +472,9 @@ class Oasis_Game:
             self.display_surface.blit(timer_countdown,(520, 13))
 
 
+             # if mechanics
 
+            #repleneshing thrst
             if self.player.Replenish:
                   
                 self.time_left = min(self.max_hydrduration , self.time_left + 5)
@@ -458,7 +482,7 @@ class Oasis_Game:
                 self.player.Replenish = False
 
                 self.refilled = True
-                self.refilledtimer = .5
+                self.refilledtimer = .5        
             if self.refilled:
                     font = pygame.font.Font(None, 75)
                     refilltext = font.render("+5", True, "Blue")
@@ -468,8 +492,25 @@ class Oasis_Game:
                   if self.refilledtimer <= 0:
                         self.refilled = False
 
+            #mirages
+            if self.player.SawMirage and not self.miragefade:
+                  self.miragefade = True 
+                  self.miragetime = 1
+            if self.miragetime > 0 :
+                self.miragetime -= dt
 
+    
+                font = pygame.font.Font(None, 75)
+                miragetext = font.render("Mirage", True, "Blue")
+                miragetext_rect = miragetext.get_rect(
+                                center = ( self.mirageoasis_x + TILE_SIZE // 2 + self.the_sprites.offset.x,
+                                           self.mirageoasis_y + TILE_SIZE // 2 + self.the_sprites.offset.y - 90))
 
+                miragetext.set_alpha(int(255 * (self.miragetime/ 2)))
+
+                self.display_surface.blit(miragetext, miragetext_rect)
+
+            #cactus or any damage
             if self.player.Damaged :
 
                 if not self.damages:
@@ -479,7 +520,6 @@ class Oasis_Game:
 
                     self.damages = True
                     self.damagestimer = .5
-
             if self.damages:
 
                 if int(self.damagestimer * 2) % 2 == 0:
@@ -491,9 +531,28 @@ class Oasis_Game:
                 if self.damagestimer <= 0:
                         self.damages = False
 
+            #damage from heat wave
+            if self.player.heatstroked :
+            
+                if not self.heatstrokes:
+                    self.time_left = min(self.max_hydrduration , self.time_left - 1)
 
+                    self.player.heatstroked = False
 
+                    self.heatstrokes = True
+                    self.strokestimer = .5
+            if self.heatstrokes:
 
+                if int(self.strokestimer * 2) % 2 == 0:
+                    font = pygame.font.Font(None, 45)
+                    heatstroketext = font.render("-1 heatwave", True, "Red")
+                    self.display_surface.blit(heatstroketext,(750, 23))
+            
+                self.strokestimer -=  dt
+                if self.strokestimer <= 0:
+                        self.heatstrokes = False
+
+            # sprinting
             if self.sprint == True :
                   self.player.speed = 700
                   self.time_left -= 2 * dt
@@ -504,11 +563,11 @@ class Oasis_Game:
                   self.player.speed = 350
                   self.sprint = False
 
+            #win o lose mechanics
             if self.player.winning:
                 self.gamerunning = False
                 self.wintime = True
                 self.victory()
-
             if self.time_left == 0 :
                 self.gamerunning = False
                 self.wintime = True

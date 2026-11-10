@@ -5,7 +5,7 @@ from config import *
 class Player(pygame.sprite.Sprite):
 
     def __init__(self, pos, groups, Collision_SP, BigCollision_SP, oasis ,
-                  wells, cactus, mirageoasis):
+                  wells, cactus, mirageoasis, heatzones):
         super().__init__(groups)
 
 
@@ -39,6 +39,7 @@ class Player(pygame.sprite.Sprite):
         self.Wells = wells
         self.Cactus = cactus
         self.MirageOasis_SP = mirageoasis
+        self.HeatZones = heatzones
 
         
         self.BigCollision_SP = BigCollision_SP
@@ -48,8 +49,10 @@ class Player(pygame.sprite.Sprite):
         
         self.Replenish = False
         self.Damaged = False
+        self.heatstroked = False
         self.Toleft = False
         self.lose = False
+        self.SawMirage = False
 
         
     
@@ -71,6 +74,7 @@ class Player(pygame.sprite.Sprite):
         self.Well_colli('horizontal')
         self.Cactus_colli('horizontal')
         self.MirageOasis('horizontal')
+        self.Heat_colli('horizontal')
 
         self.hitbox_rect.y += self.direction.y * self.speed * dt
         self.collision('vertical')
@@ -79,6 +83,7 @@ class Player(pygame.sprite.Sprite):
         self.Well_colli('vertical')
         self.Cactus_colli('vertical')
         self.MirageOasis('vertical')
+        self.Heat_colli('vertical')
         
         self.rect.center = self.hitbox_rect.center
 
@@ -137,11 +142,21 @@ class Player(pygame.sprite.Sprite):
 
                    break
 
+    def Heat_colli(self, direction):
+             self.heatstroked = False
+             for sprite in self.HeatZones:
+    
+                  if sprite.rect.inflate(+20,+20).colliderect(self.hitbox_rect):
+                       self.heatstroked = True
+    
+                       break
+
     def MirageOasis(self, direction):
              for sprite in self.MirageOasis_SP:
     
                 if sprite.rect.inflate(+20,+20).colliderect(self.hitbox_rect):
-                        
+
+                    self.SawMirage = True
                         
                     kill_rect = sprite.rect.inflate (TILE_SIZE * 8, TILE_SIZE * 8)
                     
