@@ -73,8 +73,8 @@ class Oasis_Game:
                         clicking = True
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
-                          nextlev = True
-                          print("gg")
+                          nextlev = not nextlev
+                          
 
             WINdow = pygame.image.load(os.path.join(BASE_DIR, 'images', 'WINdow.png')).convert()
             WINdow = pygame.transform.scale(WINdow, (1000, 500))
