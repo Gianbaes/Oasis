@@ -48,6 +48,7 @@ class Oasis_Game:
         self.Cactus = Cactuss()
         self.MirageOasis_SP = MirageOasiss()
         self.HeatZones = HeatZoness()
+        self.quicksand = Quicksandss()
    
         
 
@@ -239,6 +240,9 @@ class Oasis_Game:
         self.Oasis.empty()
         self.Wells.empty ()
         self.Cactus.empty()
+        self.HeatZones.empty()
+        self.MirageOasis_SP.empty()
+        self.quicksand.empty()
         self.Smallcollision_SP.empty()
        
         self.levelstime =[ 
@@ -358,10 +362,18 @@ class Oasis_Game:
                                 (x * TILE_SIZE, y * TILE_SIZE),
                                 image,
                                 (self.the_sprites, self.HeatZones)
-                        )     
+                        )   
 
+            for x, y, image in tmx_map.get_layer_by_name('Quicksand').tiles():
+                        image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
+                        Quicksands(
+                                (x * TILE_SIZE, y * TILE_SIZE),
+                                image,
+                                (self.the_sprites, self.quicksand)
+                        )  
+            
         self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, 
-                                     self.Oasis, self.Wells, self.Cactus, self.MirageOasis_SP, self.HeatZones)
+                                     self.Oasis, self.Wells, self.Cactus, self.MirageOasis_SP, self.HeatZones, self.quicksand)
         
         self.the_sprites.add(self.player)
 
@@ -573,6 +585,11 @@ class Oasis_Game:
                 self.wintime = True
                 self.lose()
 
+            if self.player.quicksandstepped :
+                self.player.speed = 100
+            else :
+                self.player.speed = 350
+                
 
             if self.current_hydrduration <= 0 :
                 self.gamerunning = False

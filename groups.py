@@ -38,6 +38,16 @@ class HeatZoness(pygame.sprite.Group):
         super().__init__()
         self.display_surface = pygame.display.get_surface()
 
+class HeatZoness(pygame.sprite.Group):
+    def __init__(self):
+        super().__init__()
+        self.display_surface = pygame.display.get_surface()
+
+
+class Quicksandss(pygame.sprite.Group):
+    def __init__(self):
+        super().__init__()
+        self.display_surface = pygame.display.get_surface()
 
 
 

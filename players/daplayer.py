@@ -5,7 +5,7 @@ from config import *
 class Player(pygame.sprite.Sprite):
 
     def __init__(self, pos, groups, Collision_SP, BigCollision_SP, oasis ,
-                  wells, cactus, mirageoasis, heatzones):
+                  wells, cactus, mirageoasis, heatzones, quicksand):
         super().__init__(groups)
 
 
@@ -40,6 +40,7 @@ class Player(pygame.sprite.Sprite):
         self.Cactus = cactus
         self.MirageOasis_SP = mirageoasis
         self.HeatZones = heatzones
+        self.quicksand = quicksand
 
         
         self.BigCollision_SP = BigCollision_SP
@@ -53,6 +54,7 @@ class Player(pygame.sprite.Sprite):
         self.Toleft = False
         self.lose = False
         self.SawMirage = False
+        self.quicksandstepped = False
 
         
     
@@ -75,6 +77,7 @@ class Player(pygame.sprite.Sprite):
         self.Cactus_colli('horizontal')
         self.MirageOasis('horizontal')
         self.Heat_colli('horizontal')
+        self.QuickSand_colli('horizontal')
 
         self.hitbox_rect.y += self.direction.y * self.speed * dt
         self.collision('vertical')
@@ -84,6 +87,7 @@ class Player(pygame.sprite.Sprite):
         self.Cactus_colli('vertical')
         self.MirageOasis('vertical')
         self.Heat_colli('vertical')
+        self.QuickSand_colli('vertical')
         
         self.rect.center = self.hitbox_rect.center
 
@@ -163,6 +167,15 @@ class Player(pygame.sprite.Sprite):
                     for sprite in self.MirageOasis_SP:
                         if kill_rect.colliderect(sprite.rect): #note to self : parang ganto yan if killrect radius ay naghit or collide sa colliderect(self.hitbox) then sprite.kill
                             sprite.kill()  
+
+    def QuickSand_colli(self, direction):
+             self.quicksandstepped = False
+             for sprite in self.quicksand:
+    
+                  if sprite.rect.inflate(+20,+20).colliderect(self.hitbox_rect):
+                       self.quicksandstepped = True
+    
+                       break
 
     def animation(self, dt):
 
