@@ -140,11 +140,15 @@ class Oasis_Game:
     def lose(self):
         from mainmenu import Main_Menu        
 
+        retryy = False
         clicking = False
         for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         clicking = True
+                if event.type == pygame.KEYDOWN:
+                      if event.key == pygame.K_RETURN:
+                            retryy = not retryy
 
         LOSEdow = pygame.image.load(os.path.join(BASE_DIR, 'images', 'LOSEdow.png')).convert()
         LOSEdow = pygame.transform.scale(LOSEdow, (1000, 500))
@@ -174,7 +178,7 @@ class Oasis_Game:
                     
         self.wintime = True
 
-        if mouse_alligned_retry and clicking == True  :
+        if mouse_alligned_retry and clicking == True or retryy :
 
             self.wintime = False                 
             self.setup()
