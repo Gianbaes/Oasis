@@ -35,6 +35,8 @@ class Oasis_Game:
         self.mirageoasis_x = 0
         self.mirageoasis_y = 0
 
+        self.bottlecount = 0
+        self.collect = False
 
         self.currentlevel = currentlevel
         self.lastlevel = 6
@@ -50,6 +52,7 @@ class Oasis_Game:
         self.MirageOasis_SP = MirageOasiss()
         self.HeatZones = HeatZoness()
         self.quicksand = Quicksandss()
+        self.waterbottle = WaterBottlee()
    
         
 
@@ -260,6 +263,7 @@ class Oasis_Game:
         self.HeatZones.empty()
         self.MirageOasis_SP.empty()
         self.quicksand.empty()
+        self.waterbottle.empty()
         self.Smallcollision_SP.empty()
        
         self.levelstime =[ 
@@ -387,17 +391,27 @@ class Oasis_Game:
                                 (x * TILE_SIZE, y * TILE_SIZE),
                                 image,
                                 (self.the_sprites, self.quicksand)
+                        ) 
+
+            for x, y, image in tmx_map.get_layer_by_name('Water_Collectablr').tiles():
+                        image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
+                        WaterBottle(
+                                (x * TILE_SIZE, y * TILE_SIZE),
+                                image,
+                                (self.the_sprites, self.BigCollision_SP, self.waterbottle)
                         )  
             
         self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, 
-                                     self.Oasis, self.Wells, self.Cactus, self.MirageOasis_SP, self.HeatZones, self.quicksand)
+                                     self.Oasis, self.Wells, self.Cactus,
+                                       self.MirageOasis_SP, self.HeatZones, self.quicksand,
+                                       self.waterbottle)
         
         self.the_sprites.add(self.player)
 
     def run(self):
 
         self.gamerunning = True
-        
+        self.collect = False
 
         while self.running:
             dt = self.clock.tick() / 1000
@@ -408,6 +422,10 @@ class Oasis_Game:
                 if event.type == pygame.KEYDOWN:
                       if event.key == pygame.K_SPACE:
                             self.pause = not self.pause
+                      if event.key == pygame.K_e:
+                            if not self.restricted_collect:
+                                self.collect = not self.collect
+                     
 
             keyhold = pygame.key.get_pressed()
             if keyhold[pygame.K_LSHIFT]:
@@ -500,6 +518,10 @@ class Oasis_Game:
 
             self.display_surface.blit(timer_countdown,(520, 13))
 
+            if self.currentlevel >= 5 :
+                font = pygame.font.Font(None, 30)
+                waterbottext = font.render(f"Water Bottle: {int(self.bottlecount)}", True, "Blue")
+                self.display_surface.blit(waterbottext,(0,700))
 
              # if mechanics
 
@@ -609,6 +631,22 @@ class Oasis_Game:
                 self.wintime = True
                 self.lose()
 
+            if self.player.collect_bottlequest :
+                    self.restricted_collect = False
+                    font = pygame.font.Font(None, 50)
+                    collecttext = font.render("Collect? (press E)", True, "Blue")
+                    self.display_surface.blit(collecttext,((WINDOW_WIDTH//2) - 100, (WINDOW_HEIGHT//2) + 150 ))
+            else :
+                  self.restricted_collect = True
+                  
+            if self.collect :
+                  self.player.collect_bottle = True
+                  self.bottlecount += 1
+
+                  self.collect = False
+                  
+
+            
 
             if self.current_hydrduration <= 0 :
                 self.gamerunning = False

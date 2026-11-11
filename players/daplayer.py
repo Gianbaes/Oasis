@@ -5,7 +5,7 @@ from config import *
 class Player(pygame.sprite.Sprite):
 
     def __init__(self, pos, groups, Collision_SP, BigCollision_SP, oasis ,
-                  wells, cactus, mirageoasis, heatzones, quicksand):
+                  wells, cactus, mirageoasis, heatzones, quicksand, waterbottle):
         super().__init__(groups)
 
 
@@ -41,7 +41,7 @@ class Player(pygame.sprite.Sprite):
         self.MirageOasis_SP = mirageoasis
         self.HeatZones = heatzones
         self.quicksand = quicksand
-
+        self.waterbottle = waterbottle
         
         self.BigCollision_SP = BigCollision_SP
        
@@ -55,7 +55,9 @@ class Player(pygame.sprite.Sprite):
         self.lose = False
         self.SawMirage = False
         self.quicksandstepped = False
-
+        self.collect_bottle = False
+        self.collect_bottlequest = False
+        
         
     
 
@@ -78,6 +80,7 @@ class Player(pygame.sprite.Sprite):
         self.MirageOasis('horizontal')
         self.Heat_colli('horizontal')
         self.QuickSand_colli('horizontal')
+        self.Waterbottle_colli('horizontal')
 
         self.hitbox_rect.y += self.direction.y * self.speed * dt
         self.collision('vertical')
@@ -88,6 +91,7 @@ class Player(pygame.sprite.Sprite):
         self.MirageOasis('vertical')
         self.Heat_colli('vertical')
         self.QuickSand_colli('vertical')
+        self.Waterbottle_colli('vertical')
         
         self.rect.center = self.hitbox_rect.center
 
@@ -176,6 +180,26 @@ class Player(pygame.sprite.Sprite):
                        self.quicksandstepped = True
     
                        break
+
+    def Waterbottle_colli(self, direction):
+            self.collect_bottlequest = False
+            
+            for sprite in self.waterbottle:
+
+                if sprite.rect.inflate(+50,+50).colliderect(self.hitbox_rect):
+                   
+                        self.collect_bottlequest = True
+
+                        if self.collect_bottle:
+                            kill_rect = sprite.rect.inflate (TILE_SIZE * 4, TILE_SIZE * 4)
+                            
+                            for sprite in self.waterbottle:
+                                if kill_rect.colliderect(sprite.rect): #note to self : parang ganto yan if killrect radius ay naghit or collide sa colliderect(self.hitbox) then sprite.kill
+                                        sprite.kill()
+                                        
+                            self.collect_bottle = False
+                            
+                            break
 
     def animation(self, dt):
 
