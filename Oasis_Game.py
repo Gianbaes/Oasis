@@ -26,6 +26,7 @@ class Oasis_Game:
         self.heatstrokes = False
         self.sprint = False
         self.miragefade = False
+        self.sprintallowed = True
 
 
         self.miragetime = 0
@@ -64,10 +65,16 @@ class Oasis_Game:
 
             clicking = False
             maxlevel = False
+            nextlev = False 
+
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         clicking = True
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                          nextlev = True
+                          print("gg")
 
             WINdow = pygame.image.load(os.path.join(BASE_DIR, 'images', 'WINdow.png')).convert()
             WINdow = pygame.transform.scale(WINdow, (1000, 500))
@@ -98,7 +105,7 @@ class Oasis_Game:
 
                 mouse_alligned_next = next_rect.collidepoint((mouse_X, mouse_Y))
 
-                if mouse_alligned_next and clicking == True  :
+                if mouse_alligned_next and clicking == True or nextlev :
                         self.player.winning = False
                         self.wintime = False
                         self.currentlevel = self.currentlevel + 1
@@ -572,14 +579,21 @@ class Oasis_Game:
 
             # sprinting
             if self.sprint == True :
-                  self.player.speed = 700
-                  self.time_left -= 2 * dt
-                  font = pygame.font.Font(None, 30)
-                  sprinttext = font.render("*sprinting*", True, "Red")
-                  self.display_surface.blit(sprinttext,((WINDOW_WIDTH // 2) - 45,(WINDOW_HEIGHT // 2) + 35))
+
+                  if self.sprintallowed:
+                        self.player.speed = 700
+                        self.time_left -= 2 * dt
+                        font = pygame.font.Font(None, 30)
+                        sprinttext = font.render("*sprinting*", True, "Red")
+                        self.display_surface.blit(sprinttext,((WINDOW_WIDTH // 2) - 45,(WINDOW_HEIGHT // 2) + 35))
+            elif self.player.quicksandstepped :
+                    self.player.speed = 100 
+                    self.sprintallowed =  False          
             else :
                   self.player.speed = 350
                   self.sprint = False
+                  self.player.quicksandstepped = False
+                  self.sprintallowed = True
 
             #win o lose mechanics
             if self.player.winning:
@@ -591,12 +605,6 @@ class Oasis_Game:
                 self.wintime = True
                 self.lose()
 
-
-            if self.player.quicksandstepped :
-                self.player.speed = 100
-            else :
-                self.player.speed = 350
-                
 
             if self.current_hydrduration <= 0 :
                 self.gamerunning = False
