@@ -188,10 +188,14 @@ class Oasis_Game:
                 from mainmenu import Main_Menu
                 
                 clicking = False
+                returning = False 
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if event.button == 1:
                             clicking = True
+                    if event.type == pygame.KEYDOWN:
+                            if event.key == pygame.K_SPACE :
+                                  returning = True
     
                 menupause = pygame.Rect(0, 0, 400, 550)
                 menupause.center = (
@@ -222,8 +226,10 @@ class Oasis_Game:
                 mouse_alligned_return = return_rect.collidepoint((mouse_X, mouse_Y))
 
                 if mouse_alligned_resume and clicking == True :
-                      self.pause = False
+                    self.pause = False
 
+                if returning:
+                    self.pause = False
 
                 if mouse_alligned_return and clicking == True  :
                     self.running = False
@@ -584,6 +590,7 @@ class Oasis_Game:
                 self.gamerunning = False
                 self.wintime = True
                 self.lose()
+
 
             if self.player.quicksandstepped :
                 self.player.speed = 100
