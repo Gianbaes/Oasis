@@ -26,17 +26,24 @@ class Oasis_Game:
         self.heatstrokes = False
         self.sprint = False
         self.miragefade = False
+        self.waterdrink = False
         self.sprintallowed = True
 
 
         self.miragetime = 0
         self.refilledtimer = 0
+        self.waterfadetime = 0
 
         self.mirageoasis_x = 0
         self.mirageoasis_y = 0
 
+        self.waterbottle_x = 0
+        self.waterbottle_y = 0
+
         self.bottlecount = 0
         self.collect = False
+
+        self.wateruse = False
 
         self.currentlevel = currentlevel
         self.lastlevel = 6
@@ -394,6 +401,9 @@ class Oasis_Game:
                         ) 
 
             for x, y, image in tmx_map.get_layer_by_name('Water_Collectablr').tiles():
+                        self.waterbottle_x = x * TILE_SIZE
+                        self.waterbottle_y = y * TILE_SIZE
+
                         image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
                         WaterBottle(
                                 (x * TILE_SIZE, y * TILE_SIZE),
@@ -412,6 +422,7 @@ class Oasis_Game:
 
         self.gamerunning = True
         self.collect = False
+        self.wateruse = False
 
         while self.running:
             dt = self.clock.tick() / 1000
@@ -425,7 +436,9 @@ class Oasis_Game:
                       if event.key == pygame.K_e:
                             if not self.restricted_collect:
                                 self.collect = not self.collect
-                     
+                      if event.key == pygame.K_1:
+                                if self.bottlecount > 0 :
+                                    self.wateruse = True
 
             keyhold = pygame.key.get_pressed()
             if keyhold[pygame.K_LSHIFT]:
@@ -520,13 +533,13 @@ class Oasis_Game:
 
             if self.currentlevel >= 5 :
                 font = pygame.font.Font(None, 30)
-                waterbottext = font.render(f"Water Bottle: {int(self.bottlecount)}", True, "Blue")
+                waterbottext = font.render(f"Water Bottle: {int(self.bottlecount)} (press 1 to use)", True, "Blue")
                 self.display_surface.blit(waterbottext,(0,700))
 
              # if mechanics
 
             #repleneshing thrst
-            if self.player.Replenish:
+            if self.player.Replenish :
                   
                 self.time_left = min(self.max_hydrduration , self.time_left + 5)
 
@@ -637,15 +650,48 @@ class Oasis_Game:
                     collecttext = font.render("Collect? (press E)", True, "Blue")
                     self.display_surface.blit(collecttext,((WINDOW_WIDTH//2) - 100, (WINDOW_HEIGHT//2) + 150 ))
             else :
-                  self.restricted_collect = True
-                  
+                  self.restricted_collect = True      
             if self.collect :
-                  self.player.collect_bottle = True
-                  self.bottlecount += 1
+                    self.player.collect_bottle = True
+                    self.bottlecount += 1
+                    self.waterfade = True 
+                    self.waterfadetime = 1
+                    self.collect = False
+            if self.waterfadetime > 0 :
+                    self.waterfadetime -= dt
 
-                  self.collect = False
+
+                    font = pygame.font.Font(None, 25)
+                    waterfadetext = font.render("Collected", True, "Blue")
+                    waterfadetext_rect = waterfadetext.get_rect(
+                                    center = ( self.waterbottle_x + TILE_SIZE // 2 + self.the_sprites.offset.x,
+                                                self.waterbottle_y + TILE_SIZE // 2 + self.the_sprites.offset.y))
+
+                    waterfadetext.set_alpha(int(255 * (self.waterfadetime/ 2)))
+
+                    self.display_surface.blit(waterfadetext, waterfadetext_rect)
+
+
+
+
                   
 
+                  
+            if self.wateruse:
+                    self.time_left = min(self.max_hydrduration , self.time_left + 3)
+                    self.bottlecount -= 1
+                    self.wateruse = False
+
+                    self.waterdrink = True
+                    self.waterdrinktimer = .5 
+            if self.waterdrink:
+                    font = pygame.font.Font(None, 75)
+                    waterdrinktext = font.render("+3", True, "Blue")
+                    self.display_surface.blit(waterdrinktext,(750, 23))
+            if self.waterdrink:
+                    self.waterdrinktimer -=  dt
+                    if self.waterdrinktimer <= 0:
+                        self.waterdrink = False
             
 
             if self.current_hydrduration <= 0 :
