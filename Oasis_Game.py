@@ -598,7 +598,12 @@ class Oasis_Game:
 
             #damage from heat wave
             if self.player.heatstroked :
-            
+               
+                self.ambience_heat = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.SRCALPHA)
+                self.ambience_heat.fill ((250, 0, 0, 200))
+                self.display_surface.blit(self.ambience_heat, (0,0))
+
+
                 if not self.heatstrokes:
                     self.time_left = min(self.max_hydrduration , self.time_left - 1)
 
@@ -675,10 +680,7 @@ class Oasis_Game:
 
                     self.display_surface.blit(waterfadetext, waterfadetext_rect)
 
-                    
-                    
-
-                
+         
             if self.wateruse:
                     self.time_left = min(self.max_hydrduration , self.time_left + 3)
                     self.bottlecount -= 1
