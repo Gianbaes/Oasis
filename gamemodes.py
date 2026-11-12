@@ -11,6 +11,9 @@ class GameModeSelection():
         self.display_surface.fill ((15, 25, 60))
         self.menudow1 = False
         self.menudow2 = False
+
+        self.buttonpos = 0
+        self.maxbuttonpos = 2
     
     def gamemenu(self):
         running = True
@@ -19,7 +22,7 @@ class GameModeSelection():
         
         while running:
             clicking = False
-         
+            self.enter = False
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -30,6 +33,21 @@ class GameModeSelection():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         clicking = True
+
+                if event.type == pygame.KEYDOWN:
+
+                    if event.key == pygame.K_UP:
+                        if self.buttonpos <= self.maxbuttonpos:
+                            if not self.buttonpos == 1:
+                                self.buttonpos -= 1
+                    if event.key == pygame.K_DOWN:
+                        if self.buttonpos >= 0:
+                            if not self.buttonpos == self.maxbuttonpos:
+                                self.buttonpos += 1
+                    if event.key == pygame.K_RETURN:
+                        if self.buttonpos is not 0 :
+                            self.enter = True
+                    
 
 
             mouse_X, mouse_Y = pygame.mouse.get_pos()
@@ -104,17 +122,21 @@ class GameModeSelection():
 
             mouse_alligned_BACKbutton = BACKbutton_rect.collidepoint((mouse_X, mouse_Y)) 
 
-            
+            mouse_alligned_any =(
+                mouse_alligned_Halloween or
+                mouse_alligned_BACKbutton
+
+            )
            
             
-            if mouse_alligned_Halloween :
+            if mouse_alligned_Halloween or ( not mouse_alligned_any and self.buttonpos == 1) :
                 pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_Halloween, border_radius=15)
                 pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_Halloween, width=3, border_radius=15)
                 self.display_surface.blit (Halloween_text, Halloween_rect)
                 self.menudow1 = False
                 self.menudow2 = True
 
-            elif mouse_alligned_BACKbutton :
+            elif mouse_alligned_BACKbutton or ( not mouse_alligned_any and self.buttonpos == 2) :
                 pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_BACKbutton, border_radius=15)
                 pygame.draw.rect( self.display_surface,(255, 255, 255), box_rect_BACKbutton, width=3, border_radius=15)
                 self.display_surface.blit (BACKbutton_text, BACKbutton_rect)
@@ -143,9 +165,9 @@ class GameModeSelection():
 
            
            #ifs
-            if mouse_alligned_Halloween and clicking == True  :
+            if mouse_alligned_Halloween and clicking == True or self.buttonpos == 1 and self.enter :
                 return "Hlw"
-            if mouse_alligned_BACKbutton and clicking == True  :
+            if mouse_alligned_BACKbutton and clicking == True or self.buttonpos == 2 and self.enter :
                 return "Back"
            
             pygame.display.update()
