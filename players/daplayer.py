@@ -190,6 +190,9 @@ class Player(pygame.sprite.Sprite):
                    
                         self.collect_bottlequest = True
 
+                        self.waterbottle_x = sprite.rect.centerx
+                        self.waterbottle_y = sprite.rect.centery
+
                         if self.collect_bottle:
                             kill_rect = sprite.rect.inflate (TILE_SIZE * 4, TILE_SIZE * 4)
                             

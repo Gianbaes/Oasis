@@ -401,8 +401,7 @@ class Oasis_Game:
                         ) 
 
             for x, y, image in tmx_map.get_layer_by_name('Water_Collectablr').tiles():
-                        self.waterbottle_x = x * TILE_SIZE
-                        self.waterbottle_y = y * TILE_SIZE
+
 
                         image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
                         WaterBottle(
@@ -410,11 +409,13 @@ class Oasis_Game:
                                 image,
                                 (self.the_sprites, self.BigCollision_SP, self.waterbottle)
                         )  
+
+                        
             
         self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, 
-                                     self.Oasis, self.Wells, self.Cactus,
-                                       self.MirageOasis_SP, self.HeatZones, self.quicksand,
-                                       self.waterbottle)
+                                    self.Oasis, self.Wells, self.Cactus,
+                                    self.MirageOasis_SP, self.HeatZones, self.quicksand,
+                                    self.waterbottle)
         
         self.the_sprites.add(self.player)
 
@@ -654,7 +655,7 @@ class Oasis_Game:
             if self.collect :
                     self.player.collect_bottle = True
                     self.bottlecount += 1
-                    self.waterfade = True 
+                    
                     self.waterfadetime = 1
                     self.collect = False
             if self.waterfadetime > 0 :
@@ -663,20 +664,21 @@ class Oasis_Game:
 
                     font = pygame.font.Font(None, 25)
                     waterfadetext = font.render("Collected", True, "Blue")
-                    waterfadetext_rect = waterfadetext.get_rect(
-                                    center = ( self.waterbottle_x + TILE_SIZE // 2 + self.the_sprites.offset.x,
-                                                self.waterbottle_y + TILE_SIZE // 2 + self.the_sprites.offset.y))
-
                     waterfadetext.set_alpha(int(255 * (self.waterfadetime/ 2)))
+                    
+                    
+                    waterfadetext_rect = waterfadetext.get_rect(
+                                    center = ( self.player.waterbottle_x +  self.the_sprites.offset.x,
+                                                self.player.waterbottle_y + self.the_sprites.offset.y))
+
+                    
 
                     self.display_surface.blit(waterfadetext, waterfadetext_rect)
 
+                    
+                    
 
-
-
-                  
-
-                  
+                
             if self.wateruse:
                     self.time_left = min(self.max_hydrduration , self.time_left + 3)
                     self.bottlecount -= 1
