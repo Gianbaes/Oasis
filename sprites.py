@@ -54,6 +54,12 @@ class WaterBottle(pygame.sprite.Sprite):
         self.image = surf
         self.rect = self.image.get_frect(topleft=pos)
 
+class Traps(pygame.sprite.Sprite):
+    def __init__(self, pos, surf, groups):
+        super().__init__(groups)
+        self.image = surf
+        self.rect = self.image.get_frect(topleft=pos)
+
 
 #halloween Gamemode---------------------------
 class SmallcollisionSP(pygame.sprite.Sprite): #super small collisio used for trees (halloweenupd)

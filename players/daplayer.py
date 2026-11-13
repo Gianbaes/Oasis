@@ -5,7 +5,7 @@ from config import *
 class Player(pygame.sprite.Sprite):
 
     def __init__(self, pos, groups, Collision_SP, BigCollision_SP, oasis ,
-                  wells, cactus, mirageoasis, heatzones, quicksand, waterbottle):
+                  wells, cactus, mirageoasis, heatzones, quicksand, waterbottle, traps):
         super().__init__(groups)
 
         self.choosenskin = 0
@@ -51,6 +51,7 @@ class Player(pygame.sprite.Sprite):
         self.HeatZones = heatzones
         self.quicksand = quicksand
         self.waterbottle = waterbottle
+        self.Traps = traps
         
         self.BigCollision_SP = BigCollision_SP
        
@@ -66,6 +67,7 @@ class Player(pygame.sprite.Sprite):
         self.quicksandstepped = False
         self.collect_bottle = False
         self.collect_bottlequest = False
+        self.Trapped = False
         
         
     
@@ -90,6 +92,8 @@ class Player(pygame.sprite.Sprite):
         self.Heat_colli('horizontal')
         self.QuickSand_colli('horizontal')
         self.Waterbottle_colli('horizontal')
+        self.Trap_colli('horizontal')
+        
 
         self.hitbox_rect.y += self.direction.y * self.speed * dt
         self.collision('vertical')
@@ -101,6 +105,7 @@ class Player(pygame.sprite.Sprite):
         self.Heat_colli('vertical')
         self.QuickSand_colli('vertical')
         self.Waterbottle_colli('vertical')
+        self.Trap_colli('vertical')
         
         self.rect.center = self.hitbox_rect.center
 
@@ -212,6 +217,24 @@ class Player(pygame.sprite.Sprite):
                             self.collect_bottle = False
                             
                             break
+
+    def Trap_colli(self, direction): #wells logic
+                self.TrapFinish = False
+                for sprite in self.Traps:
+                    if sprite.rect.inflate(+10, +10).colliderect(self.hitbox_rect): #hit wall
+                        if direction == 'horizontal':
+                            if self.direction.x > 0: self.Trapped = True                        
+                            if self.direction.x < 0: self.Trapped = True
+                        else:
+                            if self.direction.y > 0: self.Trapped = True
+                            if self.direction.y < 0: self.Trapped = True
+
+                        if self.TrapFinish:
+                            kill_rect = sprite.rect.inflate (TILE_SIZE * 8, TILE_SIZE * 8)
+        
+                            for sprite in self.Traps:
+                                if kill_rect.colliderect(sprite.rect): #note to self : parang ganto yan if killrect radius ay naghit or collide sa colliderect(self.hitbox) then sprite.kill
+                                    sprite.kill()
 
     def animation(self, dt):
 

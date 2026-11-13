@@ -61,6 +61,7 @@ class Oasis_Game:
         self.HeatZones = HeatZoness()
         self.quicksand = Quicksandss()
         self.waterbottle = WaterBottlee()
+        self.Traps = Trapss()
    
         
 
@@ -286,6 +287,7 @@ class Oasis_Game:
         self.quicksand.empty()
         self.waterbottle.empty()
         self.Smallcollision_SP.empty()
+        self.Traps.empty()
        
         self.levelstime =[ 
                     60,
@@ -309,7 +311,7 @@ class Oasis_Game:
               (100,100),
               (2800, 2800),
               (80, 80),
-              (2800, 2900)
+              (3000, 2600)
         ]
         
 
@@ -430,12 +432,21 @@ class Oasis_Game:
                                 (self.the_sprites, self.BigCollision_SP, self.waterbottle)
                         )  
 
+        if self.currentlevel >= 7 :
+        
+                    for x, y, image in tmx_map.get_layer_by_name('Trap').tiles():
+                                image = pygame.transform.scale(image, (TILE_SIZE ,  TILE_SIZE ))
+                                Traps(
+                                        (x * TILE_SIZE , y * TILE_SIZE),
+                                        image,
+                                        (self.the_sprites, self.Traps)
+                                )
                         
             
         self.player = Player(playerlevel, self.the_sprites, self.Collision_SP, self.BigCollision_SP, 
                                     self.Oasis, self.Wells, self.Cactus,
                                     self.MirageOasis_SP, self.HeatZones, self.quicksand,
-                                    self.waterbottle)
+                                    self.waterbottle, self.Traps)
         
         self.the_sprites.add(self.player)
 
@@ -653,7 +664,14 @@ class Oasis_Game:
                         self.display_surface.blit(sprinttext,((WINDOW_WIDTH // 2) - 45,(WINDOW_HEIGHT // 2) + 35))
             elif self.player.quicksandstepped :
                     self.player.speed = 100 
-                    self.sprintallowed =  False          
+                    self.sprintallowed =  False    
+            elif self.player.Trapped :
+                    self.player.speed = 0
+                    self.sprintallowed = False
+                   
+                    self.TrapFinish = True 
+
+
             else :
                   self.player.speed = 350
                   self.sprint = False
