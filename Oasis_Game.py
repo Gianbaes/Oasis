@@ -28,6 +28,7 @@ class Oasis_Game:
         self.miragefade = False
         self.waterdrink = False
         self.sprintallowed = True
+        
 
 
         self.miragetime = 0
@@ -46,7 +47,7 @@ class Oasis_Game:
         self.wateruse = False
 
         self.currentlevel = currentlevel
-        self.lastlevel = 6
+        self.lastlevel = 7
 
         #note to self - the groups
         self.the_sprites = TheSprites()
@@ -293,8 +294,10 @@ class Oasis_Game:
                     25,
                     30,
                     40,
-                    60           
+                    60,
+                    50           
                 ]
+
 
         self.time_left  = self.levelstime[self.currentlevel]
 
@@ -305,7 +308,8 @@ class Oasis_Game:
               (2300,80),
               (100,100),
               (2800, 2800),
-              (80, 80)
+              (80, 80),
+              (2800, 2900)
         ]
         
 
@@ -319,8 +323,11 @@ class Oasis_Game:
             'level-3.tmx',
             'level-4.tmx',
             'level-5.tmx',
-            'level-6.tmx'            
+            'level-6.tmx',
+            'level-7.tmx'           
         ]
+
+        
 
         self.max_hydrduration = self.levelstime[self.currentlevel]
         self.hydration_drainrate = 2
