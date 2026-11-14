@@ -1,6 +1,7 @@
 from config import *
 from os.path import join
 from Oasis_Game import Oasis_Game
+from players.daplayer import Player
 
 
 
@@ -150,6 +151,12 @@ class SkinSelection():
             
 
 
+            if Player.choosenskin == 0 :
+                pygame.draw.rect(self.display_surface,(255, 215, 0), skin_1, width = 3, border_radius = 18)
+                pygame.draw.rect(self.display_surface,(255, 255, 255), skin_2, width = 3, border_radius = 18)
+            if Player.choosenskin == 1 :
+                pygame.draw.rect(self.display_surface,(255, 215, 0), skin_2, width = 3, border_radius = 18)
+                pygame.draw.rect(self.display_surface,(255, 255, 255), skin_1, width = 3, border_radius = 18)
 
 
             if mouse_alligned_UseSkin1 and clicking == True  :

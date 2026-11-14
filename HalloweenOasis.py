@@ -187,17 +187,22 @@ class Halloween_Oasis:
 
     def pausemenu(self):
                 from mainmenu import Main_Menu
-                
+                                
                 clicking = False
+                returning = False 
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if event.button == 1:
                             clicking = True
+                    if event.type == pygame.KEYDOWN:
+                            if event.key == pygame.K_SPACE :
+                                    returning = True
+
     
                 menupause = pygame.Rect(0, 0, 400, 550)
                 menupause.center = (
-                      WINDOW_WIDTH // 2,
-                      WINDOW_HEIGHT // 2
+                        WINDOW_WIDTH // 2,
+                        WINDOW_HEIGHT // 2
                 )
 
                 pygame.draw.rect(self.display_surface,(15, 25, 60), menupause, border_radius = 20)
@@ -207,6 +212,12 @@ class Halloween_Oasis:
                 font = pygame.font.Font(None, 100)
                 return_text = font.render(f"Return", True, "white")
                 return_rect = return_text.get_rect(center =
+                                                    (600,430)
+                                            )
+
+                font = pygame.font.Font(None, 100)
+                reset_text = font.render(f"Reset", True, "white")
+                reset_rect = reset_text.get_rect(center =
                                                     (600,330)
                                             )
 
@@ -218,13 +229,21 @@ class Halloween_Oasis:
 
                 self.display_surface.blit(resume_text, resume_rect)
                 self.display_surface.blit(return_text, return_rect)
+                self.display_surface.blit(reset_text, reset_rect)
     
                 mouse_alligned_resume = resume_rect.collidepoint((mouse_X, mouse_Y))
                 mouse_alligned_return = return_rect.collidepoint((mouse_X, mouse_Y))
+                mouse_alligned_reset = reset_rect.collidepoint((mouse_X, mouse_Y))
 
                 if mouse_alligned_resume and clicking == True :
-                      self.pause = False
+                    self.pause = False
 
+                if mouse_alligned_reset and clicking == True :
+                    self.setup()
+                    self.pause = False
+
+                if returning:
+                    self.pause = False
 
                 if mouse_alligned_return and clicking == True  :
                     self.running = False

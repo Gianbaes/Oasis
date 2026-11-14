@@ -7,10 +7,16 @@ from pytmx.util_pygame import load_pygame
 from random import randint
 from groups import TheSprites, Oasiss
 import time
+import json
 from levelselection import Levelselection
 from HalloweenOasis import Halloween_Oasis
 from gamemodes import GameModeSelection
 from skinselection import SkinSelection
+
+
+with open("skin.json", "r") as skinsavedata :
+        Player.choosenskin = json.load(skinsavedata)["choosenskin"]
+
 
 while True:
     menu = Main_Menu()
@@ -43,6 +49,9 @@ while True:
                         pass
             elif choosedskin is not None :
                         Player.choosenskin = int(choosedskin)
+                        with open("skin.json", "w") as skinsavedata :
+                            json.dump({"choosenskin": Player.choosenskin}, skinsavedata )
+                         
 
     elif action == "levels" :
 

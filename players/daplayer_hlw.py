@@ -3,22 +3,28 @@ from config import *
 
 
 class Player(pygame.sprite.Sprite):
-
+    choosenskin = 0
     def __init__(self, pos, groups, Collision_SP, BigCollision_SP, oasis ,
                   wells, cactus, Smallcollision_SP, Chase, beast, fakeoasis):
         super().__init__(groups)
 
+        self.playerskinfile =[ 
+                        'PlayerSkin_1',
+                        'PlayerSkin_2'        
+                    ]
+                    
+        self.playerskin = self.playerskinfile[Player.choosenskin]
 
         self.frames_left = [
-            pygame.image.load (os.path.join(BASE_DIR,'images', 'animations', 'Leftperson0.png')).convert_alpha(),
-            pygame.image.load (os.path.join(BASE_DIR,'images', 'animations', 'Leftperson1.png')).convert_alpha(),
-            pygame.image.load (os.path.join(BASE_DIR,'images', 'animations', 'Leftperson2.png')).convert_alpha()
-            ]
+                   pygame.image.load (os.path.join(BASE_DIR,'images', 'animations', self.playerskin, 'Leftperson0.png')).convert_alpha(),
+                   pygame.image.load (os.path.join(BASE_DIR,'images', 'animations', self.playerskin, 'Leftperson1.png')).convert_alpha(),
+                   pygame.image.load (os.path.join(BASE_DIR,'images', 'animations', self.playerskin, 'Leftperson2.png')).convert_alpha()
+                   ]
         self.frames_right = [
-            pygame.image.load (os.path.join(BASE_DIR,'images', 'animations', 'Rightperson0.png')).convert_alpha(),
-            pygame.image.load (os.path.join(BASE_DIR,'images', 'animations', 'Rightperson1.png')).convert_alpha(),
-            pygame.image.load (os.path.join(BASE_DIR,'images', 'animations', 'Rightperson2.png')).convert_alpha()
-            ]
+                   pygame.image.load (os.path.join(BASE_DIR,'images', 'animations', self.playerskin, 'Rightperson0.png')).convert_alpha(),
+                   pygame.image.load (os.path.join(BASE_DIR,'images', 'animations', self.playerskin, 'Rightperson1.png')).convert_alpha(),
+                   pygame.image.load (os.path.join(BASE_DIR,'images', 'animations', self.playerskin, 'Rightperson2.png')).convert_alpha()
+                   ]
 
 
         self.frame_index = 0
