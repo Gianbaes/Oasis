@@ -68,6 +68,7 @@ class Player(pygame.sprite.Sprite):
         self.collect_bottle = False
         self.collect_bottlequest = False
         self.Trapped = False
+        self.TrapFinish = False
         
         
     
@@ -219,7 +220,7 @@ class Player(pygame.sprite.Sprite):
                             break
 
     def Trap_colli(self, direction): #wells logic
-                self.TrapFinish = False
+                
                 for sprite in self.Traps:
                     if sprite.rect.inflate(+10, +10).colliderect(self.hitbox_rect): #hit wall
                         if direction == 'horizontal':
@@ -229,12 +230,21 @@ class Player(pygame.sprite.Sprite):
                             if self.direction.y > 0: self.Trapped = True
                             if self.direction.y < 0: self.Trapped = True
 
-                        if self.TrapFinish:
+                        
                             kill_rect = sprite.rect.inflate (TILE_SIZE * 8, TILE_SIZE * 8)
-        
-                            for sprite in self.Traps:
-                                if kill_rect.colliderect(sprite.rect): #note to self : parang ganto yan if killrect radius ay naghit or collide sa colliderect(self.hitbox) then sprite.kill
-                                    sprite.kill()
+
+                            if self.TrapFinish:
+                                
+                                for sprite in self.Traps:
+
+                                    
+                                        if kill_rect.colliderect(sprite.rect): #note to self : parang ganto yan if killrect radius ay naghit or collide sa colliderect(self.hitbox) then sprite.kill
+                                            sprite.kill()
+                                            break
+
+                                self.TrapFinish = False
+
+                           
 
     def animation(self, dt):
 

@@ -27,6 +27,7 @@ class Oasis_Game:
         self.sprint = False
         self.miragefade = False
         self.waterdrink = False
+        self.trapstate = False
         self.sprintallowed = True
         
 
@@ -34,6 +35,7 @@ class Oasis_Game:
         self.miragetime = 0
         self.refilledtimer = 0
         self.waterfadetime = 0
+        self.traptimer = 0
 
         self.mirageoasis_x = 0
         self.mirageoasis_y = 0
@@ -664,18 +666,34 @@ class Oasis_Game:
                         self.display_surface.blit(sprinttext,((WINDOW_WIDTH // 2) - 45,(WINDOW_HEIGHT // 2) + 35))
             elif self.player.quicksandstepped :
                     self.player.speed = 100 
-                    self.sprintallowed =  False    
-            elif self.player.Trapped :
+                    self.sprintallowed =  False  
+
+            elif self.player.Trapped and not self.trapstate:
                     self.player.speed = 0
                     self.sprintallowed = False
-                   
-                    self.TrapFinish = True 
+                    self.traptimer = 2
 
+                    self.trapstate = True
+            elif self.trapstate :
+                         
+                self.traptimer -= dt * 2    
+                
 
+                if self.traptimer <= 0 :
+                        
+                        self.player.TrapFinish = True
+                        
+                        self.sprintallowed = True
+                        self.player.Trapped = False
+                        self.trapstate = False 
+                        
+                        
             else :
                   self.player.speed = 350
                   self.sprint = False
                   self.player.quicksandstepped = False
+                  self.player.Trapped = False
+                  self.trapstate = False
                   self.sprintallowed = True
 
             #win o lose mechanics
