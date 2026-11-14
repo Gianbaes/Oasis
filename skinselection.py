@@ -38,7 +38,7 @@ class SkinSelection():
             mouse_X, mouse_Y = pygame.mouse.get_pos()
 
             font = pygame.font.Font(None, 50)
-            Back_text = font.render(f"Back", True, "White")
+            Back_text = font.render("Back", True, "White")
             Back_rect = Back_text.get_rect(
                 center = (50,10 ))
             
@@ -46,10 +46,19 @@ class SkinSelection():
             
             mouse_alligned_Back = Back_rect.collidepoint((mouse_X, mouse_Y)) 
             
-            self.display_surface.blit (Back_text, Back_rect)
+            
+
+            font = pygame.font.Font(None, 100)
+            Title_text = font.render("Choose Your Skin", True, "Yellow")
+            Title_rect = Title_text.get_rect(
+                center = (500,30 ))
+            
+            self.display_surface.blit (Title_text, Title_rect)
+            
+            
           
            
-
+            # the boxes w/ rounded corners ============================================================================================
             skin_1 = pygame.Rect(0, 0, 300, 550)
             skin_1.center = (
                     (WINDOW_WIDTH // 2) - 400,
@@ -79,6 +88,8 @@ class SkinSelection():
             
 
 
+            #character skins img ============================================================================================
+
             skin_1_image = pygame.image.load (os.path.join(BASE_DIR,'images', 'animations', 'PlayerSkin_1' , 'Leftperson0.png')).convert_alpha()
             skin_1_image = pygame.transform.scale(skin_1_image, (skin_1.center[0] - 20, skin_1.center[1] - 60)) 
             self.display_surface.blit(skin_1_image, (
@@ -93,7 +104,7 @@ class SkinSelection():
             ))
 
 
-
+            #Name ============================================================================================
             font = pygame.font.Font(None, 65)
             Jack_text = font.render(f"Jack Sterling", True, "White")
             Jack_rect = (skin_1_head.center[0] - 130, skin_1_head.center[1] - 30)
@@ -105,7 +116,7 @@ class SkinSelection():
             
 
 
-
+            #select button ============================================================================================
             font = pygame.font.Font(None, 75)
             UseSkin1_text = font.render(f"Select", True, "White")
             UseSkin1_rect = UseSkin1_text.get_rect(
@@ -150,7 +161,7 @@ class SkinSelection():
                 self.display_surface.blit (UseSkin2_text, UseSkin2_rect)
             
 
-
+            # if conditions ============================================================================================
             if Player.choosenskin == 0 :
                 pygame.draw.rect(self.display_surface,(255, 215, 0), skin_1, width = 3, border_radius = 18)
                 pygame.draw.rect(self.display_surface,(255, 255, 255), skin_2, width = 3, border_radius = 18)

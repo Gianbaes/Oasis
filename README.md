@@ -1,5 +1,5 @@
 # Oasis Searcher
-![alt text](images/menudow.png)
+![alt text](images/overview.png)
 # Goal of the game :
  A world of dessert where you must find oasis before your hydration level turn 0 and die of thirst.
  Traverse through obstacles, use your pathfinding to avoid cacti and use wells cleverly to reflenish and manage your hydration.
@@ -85,6 +85,62 @@ Minor updates
 - menu image change to dark mode 
 - Beast spawning warning text
 
+
+WEEK 4 update:
+
+Major Features
+
+-  Gamemode Selection
+  
+  - Has preview of selecting the gamemode
+  - Halloween gamemode for now
+
+-  Character Skin System
+  
+  - Skin of character interchangeable
+  - Save system for characterskin
+  - Skin save data synced with Halloween gamemode
+
+-  Desert Traps and Hazards
+  
+  - Quick sand (slow walking)
+    - Can't Sprint if stuck on quicksand
+  - Sand trap
+    - Trapped text and countdown
+  - Mirage oasis
+    - Fading mirage text
+  - Heat wave (effects)
+    - Heat damages
+    - Heat effects (super transparent red overlay)
+
+-  Water Bottles
+  
+  - Water bottles (collectibles) HUD, "1" to use
+
+Minor Improvements
+
+-  Hydration Ambiance
+  
+  - 60s no effect
+  - 30s yellow effect
+  - 10s Blinking red
+
+-  Menu and Controls
+  
+  - Menu being able to be selected by enter, up down keys
+  - Enter key click next in victory and retry in lose
+  - Unpaused using space
+
+-  Audio
+  
+  - Sound effects and theme
+  - Desert walk
+
+-  Fading water bottle effect to indicate collection
+
+-  Reset button to reset level
+
+-  In Skin selection, Created a Title head("Choose your Skins")
 
 
 

@@ -279,7 +279,7 @@ class Oasis_Game:
         
         #currentlevel = self.currentlevel
 
-#clearing every after level
+    #clearing every after level
         self.the_sprites.empty()
         self.BigCollision_SP.empty()
         self.Collision_SP.empty()
@@ -699,13 +699,15 @@ class Oasis_Game:
 
                 if self.traptimer <= 0 :
  
-                        self.sprintallowed = True
                         self.player.Trapped = False
-
+                        
                         self.player.TrapFinish = True
+
                         self.trapstate = False 
-                        
-                        
+
+                        self.sprintallowed = True
+
+                               
             else :
                   self.player.speed = 350
                   self.sprint = False
@@ -726,6 +728,7 @@ class Oasis_Game:
                 
                 self.lose()
 
+            #collect waterbottle
             if self.player.collect_bottlequest :
                     self.restricted_collect = False
                     font = pygame.font.Font(None, 50)
@@ -756,7 +759,7 @@ class Oasis_Game:
 
                     self.display_surface.blit(waterfadetext, waterfadetext_rect)
 
-         
+            #using water bottle func
             if self.wateruse:
                     self.time_left = min(self.max_hydrduration , self.time_left + 3)
                     self.bottlecount -= 1

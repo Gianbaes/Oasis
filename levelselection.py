@@ -233,9 +233,7 @@ class Levelselection():
 
             self.display_surface.blit (Back_text, Back_rect)
 
-
-
-           
+ 
            #ifs
             if mouse_alligned_lvl1 and clicking == True  :
                 return 0

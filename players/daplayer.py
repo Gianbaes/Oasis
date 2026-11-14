@@ -235,7 +235,8 @@ class Player(pygame.sprite.Sprite):
                         
                             kill_rect = sprite.rect.inflate (TILE_SIZE * 8, TILE_SIZE * 8)
 
-                            if self.TrapFinish:
+                if self.TrapFinish:
+                                kill_rect = sprite.rect.inflate (TILE_SIZE * 8, TILE_SIZE * 8)
                                 
                                 for sprite in self.Traps:
 
