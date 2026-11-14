@@ -1,9 +1,9 @@
 from config import *
-
+import json
 
 
 class Player(pygame.sprite.Sprite):
-    choosenskin = 0
+    
     def __init__(self, pos, groups, Collision_SP, BigCollision_SP, oasis ,
                   wells, cactus, Smallcollision_SP, Chase, beast, fakeoasis):
         super().__init__(groups)
@@ -12,6 +12,9 @@ class Player(pygame.sprite.Sprite):
                         'PlayerSkin_1',
                         'PlayerSkin_2'        
                     ]
+        
+        with open("skin.json", "r") as skinsavedata :
+            Player.choosenskin = json.load(skinsavedata)["choosenskin"]
                     
         self.playerskin = self.playerskinfile[Player.choosenskin]
 
