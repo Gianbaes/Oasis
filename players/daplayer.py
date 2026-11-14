@@ -230,6 +230,9 @@ class Player(pygame.sprite.Sprite):
                             if self.direction.y > 0: self.Trapped = True
                             if self.direction.y < 0: self.Trapped = True
 
+                            self.trap_x = sprite.rect.centerx
+                            self.trap_y = sprite.rect.centery
+
                         
                             kill_rect = sprite.rect.inflate (TILE_SIZE * 8, TILE_SIZE * 8)
 

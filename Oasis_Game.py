@@ -671,20 +671,28 @@ class Oasis_Game:
             elif self.player.Trapped and not self.trapstate:
                     self.player.speed = 0
                     self.sprintallowed = False
-                    self.traptimer = 2
+                    self.traptimer = 5
 
                     self.trapstate = True
             elif self.trapstate :
                          
                 self.traptimer -= dt * 2    
-                
+                font = pygame.font.Font(None, 30)
+                trappedtext = font.render(f"Trapped: {int(self.traptimer)}", True, "Red")
+                trappedtext_rect = trappedtext.get_rect(
+                center = ( self.player.trap_x +  self.the_sprites.offset.x,
+                            self.player.trap_y + self.the_sprites.offset.y))
+
+                self.display_surface.blit(trappedtext, trappedtext_rect)
 
                 if self.traptimer <= 0 :
                         
-                        self.player.TrapFinish = True
+                        
                         
                         self.sprintallowed = True
                         self.player.Trapped = False
+                        
+                        self.player.TrapFinish = True
                         self.trapstate = False 
                         
                         
