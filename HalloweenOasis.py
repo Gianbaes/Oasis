@@ -288,7 +288,7 @@ class Halloween_Oasis:
         
         #currentlevel = self.currentlevel
 
-#clearing every after level
+        #clearing every after level
         self.the_sprites.empty()
         self.BigCollision_SP.empty()
         self.Collision_SP.empty()

@@ -13,6 +13,7 @@ class Oasis_Game:
     def __init__(self,currentlevel = 0 ):
         #initilize
         pygame.init()
+        pygame.mixer.init()
         self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.display.set_caption("Oasis_Searcher")
 
@@ -458,6 +459,10 @@ class Oasis_Game:
         self.collect = False
         self.wateruse = False
 
+        pygame.mixer.music.load(os.path.join(BASE_DIR,'data', 'music', 'bgwind.wav'))
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play(-1)
+
         while self.running:
             dt = self.clock.tick() / 1000
 
@@ -486,20 +491,26 @@ class Oasis_Game:
             
             if self.gamerunning == True:
                 self.the_sprites.update(dt) # updt sprite
+                pygame.mixer_music.unpause()
 
                 if self.wintime == False :
                     self.time_left -= dt
                     self.time_left = max(0, self.time_left)
                     self.current_hydrduration = max(0, self.time_left)
 
+            else :
+                pygame.mixer_music.pause()
+
             if not self.pause:
             
                 self.stopgame = False
                 self.gamerunning = True
+                
 
             else:
                 self.stopgame = True
                 self.gamerunning = False
+                pygame.mixer_music.pause()
 
 
 
@@ -686,12 +697,10 @@ class Oasis_Game:
                 self.display_surface.blit(trappedtext, trappedtext_rect)
 
                 if self.traptimer <= 0 :
-                        
-                        
-                        
+ 
                         self.sprintallowed = True
                         self.player.Trapped = False
-                        
+
                         self.player.TrapFinish = True
                         self.trapstate = False 
                         
@@ -708,10 +717,12 @@ class Oasis_Game:
             if self.player.winning:
                 self.gamerunning = False
                 self.wintime = True
+                
                 self.victory()
             if self.time_left == 0 :
                 self.gamerunning = False
                 self.wintime = True
+                
                 self.lose()
 
             if self.player.collect_bottlequest :

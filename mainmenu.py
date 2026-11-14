@@ -5,6 +5,7 @@ from levelselection import Levelselection
 class Main_Menu:
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
         self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.display.set_caption("Oasis_Menu")
         self.display_surface.fill('Yellow')
@@ -16,6 +17,10 @@ class Main_Menu:
         
                
     def menurun(self):
+
+        pygame.mixer.music.load(os.path.join(BASE_DIR,'data', 'music', 'Menubg.wav'))
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play(-1)
 
         running = True
         self.enter = False
@@ -42,7 +47,7 @@ class Main_Menu:
                             if not self.buttonpos == self.maxbuttonpos:
                                 self.buttonpos += 1
                     if event.key == pygame.K_RETURN:
-                        if self.buttonpos is not 0 :
+                        if self.buttonpos != 0 :
                             self.enter = True
                     
                                 
@@ -139,9 +144,13 @@ class Main_Menu:
     
 
             if mouse_alligned_start and clicking == True or self.buttonpos == 1 and self.enter:
+                
+                pygame.mixer.music.stop()
                 return "start"
-
+            
             if mouse_alligned_levels and clicking == True or self.buttonpos == 2 and self.enter:
+                
+                pygame.mixer.music.stop()
                 return "levels"
 
             if mouse_alligned_quit and clicking == True  or self.buttonpos == 3 and self.enter:
@@ -149,7 +158,10 @@ class Main_Menu:
                 endgame =  True
 
             if mouse_alligned_Gamemodes and clicking == True or self.buttonpos == 4 and self.enter:
+
+                pygame.mixer.music.stop()
                 return "Gamemodes"
+            
 
         
 
