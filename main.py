@@ -13,9 +13,9 @@ from HalloweenOasis import Halloween_Oasis
 from gamemodes import GameModeSelection
 from skinselection import SkinSelection
 
-
-with open("skin.json", "r") as skinsavedata :
-        Player.choosenskin = json.load(skinsavedata)["choosenskin"]
+if os.path.exists("skin.json"):
+    with open("skin.json", "r") as skinsavedata :
+            Player.choosenskin = json.load(skinsavedata)["choosenskin"]
 
 
 while True:
