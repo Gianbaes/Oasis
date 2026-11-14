@@ -13,7 +13,7 @@ class Main_Menu:
         self.overlay.fill ((250, 225, 0, 50))
 
         self.buttonpos = 0
-        self.maxbuttonpos = 4
+        self.maxbuttonpos = 5
         
                
     def menurun(self):
@@ -65,14 +65,25 @@ class Main_Menu:
             start_text = font.render(f"Start", True, "Yellow")
             start_rect = start_text.get_rect(
                 center = (WINDOW_WIDTH//2 + 350,
-                        WINDOW_HEIGHT//2)
+                        WINDOW_HEIGHT//2 - 100)
             )
 
             font = pygame.font.Font(None, 100)
             levels_text = font.render(f"Levels", True, "Yellow")
             levels_rect = levels_text.get_rect(
                 center = (WINDOW_WIDTH//2 + 350,
-                        (WINDOW_HEIGHT//2) + 100 )
+                        (WINDOW_HEIGHT//2) )
+            )
+
+            font = pygame.font.Font(None, 58)
+            Gamemodes_text = font.render(f"Gamemodes", True, "Yellow")
+            Gamemodes_rect = start_text.get_rect(
+                center = (WINDOW_WIDTH//2 + 305,
+                        (WINDOW_HEIGHT//2) + 115)
+            )
+            Gamemodes_boxrect = start_text.get_rect(
+                center = (WINDOW_WIDTH//2 + 350,
+                        (WINDOW_HEIGHT//2) + 100)
             )
 
             font = pygame.font.Font(None, 100)
@@ -82,25 +93,31 @@ class Main_Menu:
                         (WINDOW_HEIGHT//2) + 200)
             )
 
-            font = pygame.font.Font(None, 40)
-            Gamemodes_text = font.render(f"Gamemodes", True, "Yellow")
-            Gamemodes_rect = start_text.get_rect(
+            font = pygame.font.Font(None, 75)
+            Skins_text = font.render(f"Skins", True, "Yellow")
+            Skins_rect = start_text.get_rect(
                 center = (WINDOW_WIDTH//2 + 350,
                         (WINDOW_HEIGHT//2) + 350)
             )
+            
+            
 
             box_rect_start = start_rect.inflate(95,20)
             
             box_rect_levels = levels_rect.inflate(40,20)
 
+            box_rect_Skins = Skins_rect.inflate(40,20)
+
             box_rect_quit = quit_rect.inflate(95,20)
 
-            box_rect_Gamemodes = Gamemodes_rect.inflate(100,20)
+            box_rect_Gamemodes = Gamemodes_boxrect.inflate(90,20)
 
             #border
             pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_start, width=3, border_radius=15)
 
             pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_levels, width=3, border_radius=15)
+
+            pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_Skins, width=3, border_radius=15)
 
             pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_quit, width=3, border_radius=15)
 
@@ -108,6 +125,7 @@ class Main_Menu:
 
             self.display_surface.blit (start_text, start_rect)
             self.display_surface.blit (levels_text, levels_rect)
+            self.display_surface.blit (Skins_text, Skins_rect)
             self.display_surface.blit (quit_text, quit_rect)
             self.display_surface.blit (Gamemodes_text, Gamemodes_rect)
 
@@ -115,6 +133,7 @@ class Main_Menu:
 
             mouse_alligned_start = start_rect.collidepoint((mouse_X, mouse_Y)) 
             mouse_alligned_levels = levels_rect.collidepoint((mouse_X, mouse_Y)) 
+            mouse_alligned_Skins = Skins_rect.collidepoint((mouse_X, mouse_Y)) 
             mouse_alligned_quit = quit_rect.collidepoint((mouse_X, mouse_Y)) 
             mouse_alligned_Gamemodes = Gamemodes_rect.collidepoint((mouse_X, mouse_Y)) 
 
@@ -123,6 +142,7 @@ class Main_Menu:
                         or mouse_alligned_levels 
                         or mouse_alligned_quit  
                         or mouse_alligned_Gamemodes 
+                        or mouse_alligned_Skins
                         )
 
             if mouse_alligned_start or ( not mouse_alligned_any and self.buttonpos == 1) :
@@ -133,11 +153,15 @@ class Main_Menu:
                 pygame.draw.rect( self.display_surface,('white'), box_rect_levels, border_radius=15)
                 pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_levels, width=3, border_radius=15)
                 self.display_surface.blit (levels_text, levels_rect)
-            if mouse_alligned_quit or ( not mouse_alligned_any and self.buttonpos == 3) :
+            if mouse_alligned_Skins or ( not mouse_alligned_any and self.buttonpos == 5) :
+                pygame.draw.rect( self.display_surface,('white'), box_rect_Skins, border_radius=15)
+                pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_Skins, width=3, border_radius=15)
+                self.display_surface.blit (Skins_text, Skins_rect)
+            if mouse_alligned_quit or ( not mouse_alligned_any and self.buttonpos == 4) :
                 pygame.draw.rect( self.display_surface,('white'), box_rect_quit, border_radius=15)
                 pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_quit, width=3, border_radius=15)
                 self.display_surface.blit (quit_text, quit_rect)
-            if mouse_alligned_Gamemodes or ( not mouse_alligned_any and self.buttonpos == 4) :
+            if mouse_alligned_Gamemodes or ( not mouse_alligned_any and self.buttonpos == 3) :
                 pygame.draw.rect( self.display_surface,('white'), box_rect_Gamemodes, border_radius=15)
                 pygame.draw.rect( self.display_surface,(255, 215, 0), box_rect_Gamemodes, width=3, border_radius=15)
                 self.display_surface.blit (Gamemodes_text, Gamemodes_rect)
@@ -153,11 +177,16 @@ class Main_Menu:
                 pygame.mixer.music.stop()
                 return "levels"
 
-            if mouse_alligned_quit and clicking == True  or self.buttonpos == 3 and self.enter:
+            if mouse_alligned_Skins and clicking == True or self.buttonpos == 5 and self.enter:
+                            
+                pygame.mixer.music.stop()
+                return "Skins"
+
+            if mouse_alligned_quit and clicking == True  or self.buttonpos == 4 and self.enter:
                 return "quit"
                 endgame =  True
 
-            if mouse_alligned_Gamemodes and clicking == True or self.buttonpos == 4 and self.enter:
+            if mouse_alligned_Gamemodes and clicking == True or self.buttonpos == 3 and self.enter:
 
                 pygame.mixer.music.stop()
                 return "Gamemodes"

@@ -10,6 +10,7 @@ import time
 from levelselection import Levelselection
 from HalloweenOasis import Halloween_Oasis
 from gamemodes import GameModeSelection
+from skinselection import SkinSelection
 
 while True:
     menu = Main_Menu()
@@ -33,6 +34,10 @@ while True:
             Hlw = Halloween_Oasis()
             Hlw.setup
             Hlw.run()
+
+    elif action == "Skins" :
+            Skinsmenu = SkinSelection()
+            Skinsmenu.skinmenu()
 
     elif action == "levels" :
 
