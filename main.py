@@ -37,7 +37,12 @@ while True:
 
     elif action == "Skins" :
             Skinsmenu = SkinSelection()
-            Skinsmenu.skinmenu()
+            choosedskin = Skinsmenu.skinmenu()
+
+            if choosedskin == "Back":
+                        pass
+            elif choosedskin is not None :
+                        Player.choosenskin(choosedskin)
 
     elif action == "levels" :
 

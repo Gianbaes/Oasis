@@ -3,6 +3,7 @@ from os.path import join
 from Oasis_Game import Oasis_Game
 
 
+
 class Levelselection():
     def __init__(self):
         pygame.init()
@@ -71,7 +72,7 @@ class Levelselection():
 
             font = pygame.font.Font(None, 50)
             lvl8_text = font.render(f"LVL 8", True, "White")
-            lvl8_rect = lvl7_text.get_rect(
+            lvl8_rect = lvl8_text.get_rect(
                 center = (600,300 ))
             
             font = pygame.font.Font(None, 50)

@@ -460,7 +460,7 @@ class Oasis_Game:
         self.wateruse = False
 
         pygame.mixer.music.load(os.path.join(BASE_DIR,'data', 'music', 'bgwind.wav'))
-        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.set_volume(0.8)
         pygame.mixer.music.play(-1)
 
         while self.running:
