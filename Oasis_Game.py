@@ -31,6 +31,7 @@ class Oasis_Game:
         self.trapstate = False
         self.sprintallowed = True
         
+        
 
 
         self.miragetime = 0

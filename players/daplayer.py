@@ -3,19 +3,20 @@ from config import *
 
 
 class Player(pygame.sprite.Sprite):
+    choosenskin = 0
 
     def __init__(self, pos, groups, Collision_SP, BigCollision_SP, oasis ,
                   wells, cactus, mirageoasis, heatzones, quicksand, waterbottle, traps):
         super().__init__(groups)
 
-        self.choosenskin = 0
+        print("Player.choosenskin:", Player.choosenskin)
 
         self.playerskinfile =[ 
                             'PlayerSkin_1',
                             'PlayerSkin_2'        
                         ]
                 
-        self.playerskin = self.playerskinfile[self.choosenskin]
+        self.playerskin = self.playerskinfile[Player.choosenskin]
 
 
         self.frames_left = [

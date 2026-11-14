@@ -42,7 +42,7 @@ while True:
             if choosedskin == "Back":
                         pass
             elif choosedskin is not None :
-                        Player.choosenskin(choosedskin)
+                        Player.choosenskin = int(choosedskin)
 
     elif action == "levels" :
 
