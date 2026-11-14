@@ -65,10 +65,16 @@ class Halloween_Oasis:
 
             clicking = False
             maxlevel = False
+            nextlev = False 
+
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         clicking = True
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_RETURN:
+                                nextlev = not nextlev
+                        
 
             WINdow = pygame.image.load(os.path.join(BASE_DIR, 'data', 'maps', 'haloween', 'WINdowH.png')).convert()
             WINdow = pygame.transform.scale(WINdow, (1000, 500))
@@ -99,7 +105,7 @@ class Halloween_Oasis:
 
                 mouse_alligned_next = next_rect.collidepoint((mouse_X, mouse_Y))
 
-                if mouse_alligned_next and clicking == True  :
+                if mouse_alligned_next and clicking == True or nextlev  :
                         self.player.winning = False
                         self.wintime = False
                         self.currentlevel = self.currentlevel + 1
@@ -134,11 +140,16 @@ class Halloween_Oasis:
     def lose(self):
         from mainmenu import Main_Menu        
 
+        retryy = False
         clicking = False
         for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         clicking = True
+                if event.type == pygame.KEYDOWN:
+                     if event.key == pygame.K_RETURN:
+                          retryy = not retryy
+
 
         LOSEdow = pygame.image.load(os.path.join(BASE_DIR, 'data', 'maps', 'haloween', 'LOSEdowH.png' )).convert()
         LOSEdow = pygame.transform.scale(LOSEdow, (1000, 500))
@@ -168,7 +179,7 @@ class Halloween_Oasis:
                     
         self.wintime = True
 
-        if mouse_alligned_retry and clicking == True  :
+        if mouse_alligned_retry and clicking == True  or retryy :
 
             self.wintime = False                 
             self.setup()
