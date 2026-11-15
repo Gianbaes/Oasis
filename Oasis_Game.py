@@ -699,13 +699,18 @@ class Oasis_Game:
 
                 if self.traptimer <= 0 :
  
-                        self.player.Trapped = False
-                        
                         self.player.TrapFinish = True
 
-                        self.trapstate = False 
+                if self.player.TrapFinish:
+                        self.player.TrapActive.kill()
+                        self.player.TrapAcive = None
 
+                        self.trapstate = False 
+                        self.player.Trapped = False
+                        self.player.TrapFinish = False
                         self.sprintallowed = True
+                        
+                        
 
                                
             else :

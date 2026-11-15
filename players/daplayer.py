@@ -68,6 +68,8 @@ class Player(pygame.sprite.Sprite):
         self.collect_bottlequest = False
         self.Trapped = False
         self.TrapFinish = False
+        self.TrapActive = False
+        self.kill_rect = None
         
         
     
@@ -222,26 +224,23 @@ class Player(pygame.sprite.Sprite):
                 
                 for sprite in self.Traps:
                     if sprite.rect.inflate(+10, +10).colliderect(self.hitbox_rect): #hit wall
-                        if direction == 'horizontal':
-                            if self.direction.x > 0: self.Trapped = True                        
-                            if self.direction.x < 0: self.Trapped = True
-                        else:
-                            if self.direction.y > 0: self.Trapped = True
-                            if self.direction.y < 0: self.Trapped = True
-
+                            
+                            self.TrapActive = sprite
+                            self.Trapped = True
+                            
                             self.trap_x = sprite.rect.centerx
                             self.trap_y = sprite.rect.centery
 
                         
-                            kill_rect = sprite.rect.inflate (TILE_SIZE * 8, TILE_SIZE * 8)
+                            self.kill_rect = sprite.rect.inflate (TILE_SIZE * 8, TILE_SIZE * 8)
 
                 if self.TrapFinish:
-                                kill_rect = sprite.rect.inflate (TILE_SIZE * 8, TILE_SIZE * 8)
+                                
                                 
                                 for sprite in self.Traps:
 
                                     
-                                        if kill_rect.colliderect(sprite.rect): #note to self : parang ganto yan if killrect radius ay naghit or collide sa colliderect(self.hitbox) then sprite.kill
+                                        if self.kill_rect.colliderect(sprite.rect): #note to self : parang ganto yan if killrect radius ay naghit or collide sa colliderect(self.hitbox) then sprite.kill
                                             sprite.kill()
                                             break
 
