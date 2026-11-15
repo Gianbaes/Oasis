@@ -146,9 +146,6 @@ Minor Improvements
 
 # Coming Soon
 
--  improved level selection ui
-- Save system
-- Player Upgrade
 - End of level rating
 -  time taken
 - gamemodes
@@ -158,15 +155,12 @@ Minor Improvements
 -  enemies
 - drops
 - highest
-- damage cactus
 - More obstacles
 - Different backgrounds 
-- Water bottles
 
-- Heat wave
-- Mirage
 - Insane level or similar to blue abd red ball game where they can replay the level at higher difficulty 
-- Updated hud
+- currency
+- achievements 
 
 
 # Gameplay
